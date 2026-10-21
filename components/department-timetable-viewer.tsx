@@ -312,7 +312,7 @@ export function DepartmentTimetableViewer({
                   Option 2 • Day View
                 </span>
               </h2>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="mt-0.5 break-words text-xs text-slate-400">
                 Browse day-wise scheduled classes with quick department & semester filters.
               </p>
             </div>
@@ -448,7 +448,7 @@ export function DepartmentTimetableViewer({
       </div>
 
       {/* ── 3. HORIZONTAL FILTER PILLS (Departments, Semesters, Sections, Search) ── */}
-      <div className="space-y-3 rounded-2xl border border-slate-800/80 bg-[#161f2e]/80 p-4 shadow-xl backdrop-blur-md">
+      <div className="space-y-3 rounded-2xl border border-slate-800/80 bg-[#161f2e]/80 p-3 shadow-xl backdrop-blur-md sm:p-4">
         {/* Department Pills */}
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mr-2 flex items-center gap-1">
@@ -577,7 +577,7 @@ export function DepartmentTimetableViewer({
       </div>
 
       {/* ── 4. SUMMARY STRIP FOR ACTIVE DAY ── */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-800/80 bg-[#111824]/90 px-5 py-3 shadow-md">
+      <div className="flex flex-col items-start justify-between gap-3 rounded-xl border border-slate-800/80 bg-[#111824]/90 px-4 py-3 shadow-md sm:flex-row sm:items-center sm:px-5">
         <div className="flex items-center gap-3">
           <div className="flex h-3 w-3 items-center justify-center">
             <span className="relative flex h-2.5 w-2.5">
@@ -600,7 +600,7 @@ export function DepartmentTimetableViewer({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-xs">
+        <div className="flex w-full flex-wrap items-center gap-2 text-xs sm:w-auto">
           <span className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 font-semibold text-emerald-400">
             📚 {dayStats.theory} Theory
           </span>
@@ -662,14 +662,14 @@ export function DepartmentTimetableViewer({
               return (
                 <div
                   key={slot.id}
-                  className={`group relative overflow-hidden rounded-2xl border border-slate-800/80 border-l-4 ${theme.borderAccent} bg-gradient-to-r ${theme.bgGradient} p-5 shadow-xl transition-all duration-200 hover:-translate-y-0.5 ${theme.glowBorder}`}
+                  className={`group relative min-w-0 overflow-hidden rounded-2xl border border-slate-800/80 border-l-4 ${theme.borderAccent} bg-gradient-to-r ${theme.bgGradient} p-4 shadow-xl transition-all duration-200 hover:-translate-y-0.5 sm:p-5 ${theme.glowBorder}`}
                 >
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                     {/* LEFT COLUMN: Time badge & Status */}
-                    <div className="flex items-start lg:items-center gap-3 min-w-[200px]">
+                    <div className="flex min-w-0 items-start gap-3 lg:min-w-[200px] lg:items-center">
                       <div className="flex flex-col">
                         <div className="flex items-center gap-2">
-                          <span className={`text-base font-extrabold tracking-tight tabular-nums ${theme.timeBadge}`}>
+                          <span className={`break-words text-sm font-extrabold tracking-tight tabular-nums sm:text-base ${theme.timeBadge}`}>
                             {slot.startTime} – {slot.endTime}
                           </span>
                         </div>
@@ -734,7 +734,7 @@ export function DepartmentTimetableViewer({
                         >
                           {initials || "👨‍🏫"}
                         </div>
-                        <span className="text-xs font-semibold text-slate-300">
+                        <span className="min-w-0 break-words text-xs font-semibold text-slate-300">
                           {slot.teacherName}
                         </span>
                         <span className="text-[11px] text-slate-500">• Course Instructor</span>
@@ -742,8 +742,8 @@ export function DepartmentTimetableViewer({
                     </div>
 
                     {/* RIGHT COLUMN: Location & Room details */}
-                    <div className="flex lg:flex-col items-center lg:items-end justify-between lg:justify-center border-t border-slate-800/60 pt-3 lg:border-t-0 lg:pt-0">
-                      <div className="flex items-center gap-1.5 rounded-xl border border-slate-700/80 bg-[#0e141f] px-3 py-1.5 text-xs font-bold text-white shadow-inner">
+                    <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-800/60 pt-3 lg:flex-col lg:items-end lg:justify-center lg:border-t-0 lg:pt-0">
+                      <div className="flex max-w-full items-center gap-1.5 break-words rounded-xl border border-slate-700/80 bg-[#0e141f] px-3 py-1.5 text-xs font-bold text-white shadow-inner">
                         <span className="text-cyan-400">📍</span>
                         <span>{slot.roomName}</span>
                       </div>

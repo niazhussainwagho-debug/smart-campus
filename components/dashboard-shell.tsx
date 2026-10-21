@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import type { UserRole } from "@/generated/prisma/enums";
 import { LogoutButton } from "@/components/logout-button";
 
@@ -110,6 +110,36 @@ export function DashboardShell({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
+    }
+
+    function closeOnDesktop() {
+      if (window.matchMedia("(min-width: 1024px)").matches) {
+        setMobileMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("resize", closeOnDesktop);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("resize", closeOnDesktop);
+    };
+  }, [mobileMenuOpen]);
+
   const roleMeta = {
     ADMIN: { portalName: "Admin Portal", statusColor: "text-[#00D37F]" },
     TEACHER: { portalName: "Faculty Portal", statusColor: "text-[#00D37F]" },
@@ -165,21 +195,24 @@ export function DashboardShell({
 
   return (
     <div
-      className="flex min-h-screen max-w-full overflow-x-clip text-slate-100"
+      className="flex min-h-screen max-w-full text-slate-100"
       style={{ background: "#161b27" }}
     >
       {/* ── Mobile Backdrop ── */}
       {mobileMenuOpen && (
-        <div
+        <button
           aria-hidden="true"
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-40 cursor-default bg-black/60 backdrop-blur-sm lg:hidden"
           onClick={() => setMobileMenuOpen(false)}
+          tabIndex={-1}
+          type="button"
         />
       )}
 
       {/* ══════════════════ SIDEBAR ══════════════════ */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-[min(84vw,280px)] shrink-0 flex-col transition-transform duration-300 lg:static lg:w-[220px] lg:translate-x-0 ${
+        aria-label="Main navigation"
+        className={`fixed inset-y-0 left-0 z-50 flex w-[min(84vw,280px)] shrink-0 flex-col transition-transform duration-300 ease-in-out lg:static lg:w-[220px] lg:translate-x-0 ${
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{ background: "#1a2030", borderRight: "1px solid rgba(255,255,255,0.06)" }}
@@ -199,6 +232,17 @@ export function DashboardShell({
             </p>
             <p className="text-[10px] text-slate-500 -mt-0.5">v2.6</p>
           </div>
+          <button
+            aria-label="Close navigation menu"
+            className="ml-auto flex h-10 w-10 items-center justify-center rounded-lg text-slate-400 transition hover:text-white lg:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+            type="button"
+          >
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <line x1="18" x2="6" y1="6" y2="18" />
+              <line x1="6" x2="18" y1="6" y2="18" />
+            </svg>
+          </button>
         </div>
 
         {/* Nav */}
@@ -282,7 +326,7 @@ export function DashboardShell({
       </aside>
 
       {/* ══════════════════ MAIN ══════════════════ */}
-      <div className="relative flex flex-1 flex-col overflow-y-auto">
+      <div className="relative flex min-w-0 flex-1 flex-col overflow-x-clip">
 
         {/* ── Top Header ── */}
         <header
@@ -376,7 +420,7 @@ export function DashboardShell({
         </header>
 
         {/* ── Page Content ── */}
-        <main className="w-full min-w-0 flex-1 p-3 sm:p-5 lg:p-6">
+        <main className="w-full min-w-0 flex-1 overflow-x-clip p-3 sm:p-5 lg:p-6">
           <div className="mx-auto w-full max-w-7xl min-w-0 space-y-4 sm:space-y-6">
             {children}
           </div>

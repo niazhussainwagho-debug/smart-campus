@@ -550,7 +550,7 @@ export function AdminTimetableManager({
               📅
             </div>
             <div>
-              <h2 className="flex items-center gap-3 text-2xl font-extrabold tracking-tight text-white">
+              <h2 className="flex min-w-0 flex-wrap items-center gap-2 text-xl font-extrabold tracking-tight text-white sm:gap-3 sm:text-2xl">
                 Scheduled Classes
                 <span className="rounded-full border border-[#1fdbb1]/30 bg-[#1fdbb1]/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[#4de5bd]">
                   {slots.length} Total
@@ -559,13 +559,13 @@ export function AdminTimetableManager({
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative w-full sm:w-auto">
             <input
               type="text"
               placeholder="Search classes..."
               value={adminSlotSearch}
               onChange={(e) => setAdminSlotSearch(e.target.value)}
-              className="w-48 sm:w-56 rounded-xl border border-[#2b3c4b] bg-[#0d1727] pl-8 pr-9 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-[#4ed0d8]"
+              className="w-full rounded-xl border border-[#2b3c4b] bg-[#0d1727] py-2 pl-8 pr-9 text-xs text-white placeholder:text-slate-500 outline-none focus:border-[#4ed0d8] sm:w-56"
             />
             <span className="absolute left-2.5 top-2.5 text-slate-500 text-xs">🔍</span>
             {adminSlotSearch && (
@@ -662,16 +662,16 @@ export function AdminTimetableManager({
                   key={slot.id}
                   className="flex flex-col gap-4 rounded-2xl border border-[#233246] bg-[#111b2a] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] lg:flex-row lg:items-center"
                 >
-                  <div className={`flex h-14 w-28 items-center justify-center rounded-full px-3 text-sm font-extrabold tracking-wide ${accentClasses[index % accentClasses.length]}`}>
+                  <div className={`flex h-12 w-fit min-w-28 shrink-0 items-center justify-center rounded-full px-3 text-sm font-extrabold tracking-wide ${accentClasses[index % accentClasses.length]} sm:h-14`}>
                     {slot.startTime}–{slot.endTime}
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-2xl font-extrabold text-white">{slot.courseLabel.split(" · ")[1] || slot.courseLabel}</h3>
+                    <h3 className="break-words text-xl font-extrabold text-white sm:text-2xl">{slot.courseLabel.split(" · ")[1] || slot.courseLabel}</h3>
                   </div>
 
                   <div className="flex min-w-0 flex-wrap items-center gap-2 text-sm text-slate-300 lg:gap-3">
-                      <span className="max-w-full break-words rounded-lg border border-[#2b3c4b] bg-[#0d1727] px-3 py-1.5 text-xs font-semibold text-slate-200">
+                    <span className="max-w-full break-words rounded-lg border border-[#2b3c4b] bg-[#0d1727] px-3 py-1.5 text-xs font-semibold text-slate-200">
                       {slot.roomName}
                     </span>
                     <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#c7b198] text-xs font-bold text-[#0d1727]">

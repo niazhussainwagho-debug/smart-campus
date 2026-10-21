@@ -120,27 +120,27 @@ export function TeacherAppointmentManager({
               className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl backdrop-blur-md sm:p-6"
               key={appointment.id}
             >
-              <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4">
-                <div>
-                  <h2 className="text-base font-bold text-white">
+              <div className="flex flex-col items-start justify-between gap-3 min-[420px]:flex-row sm:gap-4">
+                <div className="min-w-0">
+                  <h2 className="break-words text-base font-bold text-white">
                     {appointment.studentName}
                   </h2>
                   {appointment.studentEmail ? (
-                    <p className="text-xs text-slate-400">
+                    <p className="break-all text-xs text-slate-400">
                       {appointment.studentEmail}
                     </p>
                   ) : null}
-                  <p className="mt-2 text-xs text-slate-300">
+                  <p className="mt-2 break-words text-xs text-slate-300">
                     <span className="font-semibold text-slate-400">Scheduled:</span> {formatDate(appointment.date)} ·{" "}
                     <span className="font-bold text-cyan-400">{appointment.startTime} – {appointment.endTime}</span>
                   </p>
                   {appointment.note ? (
-                    <p className="mt-3 rounded-xl border border-slate-800 bg-slate-900/60 p-3 text-xs text-slate-300">
+                    <p className="mt-3 break-words rounded-xl border border-slate-800 bg-slate-900/60 p-3 text-xs text-slate-300">
                       <span className="font-semibold text-slate-400">Student Note:</span> {appointment.note}
                     </p>
                   ) : null}
                 </div>
-                <span className={`rounded-full border px-3 py-1 text-[11px] font-bold ${statusColors}`}>
+                <span className={`shrink-0 rounded-full border px-3 py-1 text-[11px] font-bold ${statusColors}`}>
                   {statusLabels[appointment.status]}
                 </span>
               </div>

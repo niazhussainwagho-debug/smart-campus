@@ -69,12 +69,12 @@ export function AvailabilityManager({
     <div className="space-y-8">
       {/* Add Slot Card */}
       <section className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
-        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-800/80 pb-4">
-          <div>
-            <h2 className="text-lg font-bold text-white">
+        <div className="flex flex-col items-start justify-between gap-3 border-b border-slate-800/80 pb-4 min-[420px]:flex-row">
+          <div className="min-w-0">
+            <h2 className="break-words text-lg font-bold text-white">
               Add New Availability Slot
             </h2>
-            <p className="mt-1 text-xs text-slate-400">
+            <p className="mt-1 break-words text-xs text-slate-400">
               Define the recurring hours you are available for student appointments. Overlapping slots on the same day are disallowed.
             </p>
           </div>
@@ -146,10 +146,10 @@ export function AvailabilityManager({
 
       {/* Slots List Card */}
       <section className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
-        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-800/80 pb-4">
-          <div>
-            <h2 className="text-lg font-bold text-white">My Weekly Office Hours</h2>
-            <p className="mt-1 text-xs text-slate-400">
+        <div className="flex flex-col items-start justify-between gap-3 border-b border-slate-800/80 pb-4 min-[420px]:flex-row">
+          <div className="min-w-0">
+            <h2 className="break-words text-lg font-bold text-white">My Weekly Office Hours</h2>
+            <p className="mt-1 break-words text-xs text-slate-400">
               Active slots visible to students when booking consultations.
             </p>
           </div>

@@ -144,13 +144,13 @@ export function StudentAppointmentBooking({
   return (
     <div className="space-y-8">
       {/* Booking Form Card */}
-      <section className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
+      <section className="relative min-w-0 overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-3 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
         <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-800/80 pb-4">
-          <div>
-            <h2 className="text-lg font-bold text-white">
+          <div className="min-w-0">
+            <h2 className="break-words text-lg font-bold text-white">
               Book Faculty Consultation
             </h2>
-            <p className="mt-1 text-xs text-slate-400">
+            <p className="mt-1 break-words text-xs text-slate-400">
               Select a professor, pick an upcoming date, and choose from their confirmed office hours.
             </p>
           </div>
@@ -316,10 +316,10 @@ export function StudentAppointmentBooking({
       </section>
 
       {/* Appointment History Card */}
-      <section className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
-        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-800/80 pb-4">
-          <div>
-            <h2 className="text-lg font-bold text-white">
+      <section className="relative min-w-0 overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-3 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
+        <div className="flex flex-col items-start justify-between gap-3 border-b border-slate-800/80 pb-4 min-[420px]:flex-row">
+          <div className="min-w-0">
+            <h2 className="break-words text-lg font-bold text-white">
               My Appointment Requests
             </h2>
             <p className="mt-1 text-xs text-slate-400">
@@ -346,9 +346,9 @@ export function StudentAppointmentBooking({
                   className="flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between"
                   key={appointment.id}
                 >
-                  <div>
+                  <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-bold text-white">
+                      <p className="break-words text-sm font-bold text-white">
                         {appointment.teacherName}
                       </p>
                     </div>
@@ -356,13 +356,13 @@ export function StudentAppointmentBooking({
                       {formatDate(appointment.date)} · <span className="font-semibold text-slate-200">{appointment.startTime} – {appointment.endTime}</span>
                     </p>
                     {appointment.note ? (
-                      <p className="mt-2 rounded-lg border border-slate-800 bg-slate-900/60 p-2.5 text-xs text-slate-400">
+                      <p className="mt-2 break-words rounded-lg border border-slate-800 bg-slate-900/60 p-2.5 text-xs text-slate-400">
                         <span className="font-semibold text-slate-300">Note:</span> {appointment.note}
                       </p>
                     ) : null}
                   </div>
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className={`rounded-full border px-3 py-1 text-[11px] font-bold ${statusColors}`}>
+                    <span className={`shrink-0 rounded-full border px-3 py-1 text-[11px] font-bold ${statusColors}`}>
                       {statusLabels[appointment.status]}
                     </span>
                     {appointment.status === "PENDING" ? (
