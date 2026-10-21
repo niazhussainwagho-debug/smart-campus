@@ -1,5 +1,96 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Prisma database
+
+The app uses Prisma ORM with PostgreSQL on Neon. Set `DATABASE_URL` in the local
+`.env` file. For Neon, use the pooled URL at runtime; if migrations need a
+direct connection, add the direct URL separately as `DIRECT_URL`. Do not commit
+either value.
+
+Useful commands:
+
+```bash
+npm run db:generate
+npm run db:migrate -- --name init
+npm run db:seed
+npm run db:studio
+```
+
+Before seeding, set `SEED_ADMIN_PASSWORD`, `SEED_TEACHER_PASSWORD`, and
+`SEED_STUDENT_PASSWORD` in `.env`. Seed passwords are stored as bcrypt hashes.
+Seed accounts use `admin@smartcampus.test`, `teacher@smartcampus.test`, and
+`student@smartcampus.test`.
+
+## Login and roles
+
+Auth.js uses JWT sessions, and `.env` must contain `AUTH_SECRET`. The login page
+is `/login`; there is no public sign-up page. Sign in with one of the seed
+emails above and the matching password you set in `.env`:
+
+- `admin@smartcampus.test` opens `/admin`.
+- `teacher@smartcampus.test` opens `/teacher`.
+- `student@smartcampus.test` opens `/student`.
+
+The login page links to `/forgot-password`. Password reset uses SMTP; configure
+`APP_URL`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, and
+`SMTP_FROM` in `.env`. Use an application-specific SMTP password and do not
+commit these values. `APP_URL` must be the public base URL of the app, such as
+`http://localhost:3000` for local development. Reset links expire after 30
+minutes and can only be used once.
+
+After adding the reset-token migration, apply it to the database with
+`npx prisma migrate deploy`, then regenerate the Prisma client with
+`npm run db:generate`.
+
+Protected routes redirect signed-out visitors to `/login` and send users who
+try another role's dashboard back to their own dashboard.
+
+## Timetable
+
+The admin timetable page is `/admin/timetable`. An admin can add courses,
+sections, rooms, and timetable slots, and can edit or delete timetable slots.
+Each server action checks the admin role and checks room, teacher, and section
+time conflicts before saving.
+
+Students can see classes for sections they are enrolled in at
+`/student/timetable`; teachers can see their own classes at
+`/teacher/timetable`. The seed script adds the `SC101` demo course, enrolls the
+demo student in the demo section, and adds three non-overlapping weekly slots.
+
+Run the clash tests with:
+
+```bash
+npm test
+```
+
+## Teacher appointments
+
+Teachers can manage weekly free times at `/teacher/availability` and review,
+approve, reject, or reschedule requests at `/teacher/appointments`. Students
+can request a meeting and manage their own requests at `/student/appointments`.
+Every mutation checks the signed-in role and record ownership on the server.
+Bookings must be in a teacher's matching weekday free slot, cannot be in the
+past, and cannot overlap an active appointment for the same teacher or student.
+Back-to-back appointments are allowed. A timetable-class overlap is shown as a
+warning, but does not block a request.
+
+The repeatable seed adds Tuesday and Thursday 13:00–15:00 free slots for the
+demo teacher only when they do not already exist or overlap an existing free
+slot. Run `npm run db:seed` to apply the demo data.
+
+The same seed also adds the 2026 morning timetables from the supplied PDF for
+BSIT, BSSW, and BSDS sections P-I through P-IV. Each occupied 45-minute period
+is stored separately, with its room and instructor assignments. When the PDF
+does not list an instructor or room for a project period, clearly named
+“Unassigned” records are used instead of inventing an assignment. PDF-listed
+instructors receive teacher accounts with generated, undisclosed passwords;
+set a usable password before those accounts can sign in. The demo student is
+enrolled in BSIT P-I so this schedule is visible at `/student/timetable`.
+
+Apply the additive co-teacher relation migration before seeding an existing
+database with `npx prisma migrate deploy`. The seed does not delete timetable
+data and skips an already occupied section/day/start-time period.
+
 ## Getting Started
 
 First, run the development server:
