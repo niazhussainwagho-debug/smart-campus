@@ -71,7 +71,7 @@ export function LoginForm() {
           </span>
           <input
             autoComplete="email"
-            className="w-full rounded-xl border border-slate-700/80 bg-slate-900/80 py-3 pl-10 pr-4 text-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-cyan-400 focus:bg-slate-900 focus:ring-4 focus:ring-cyan-500/15"
+            className="min-h-11 w-full max-w-full rounded-xl border border-slate-700/80 bg-slate-900/80 py-3 pl-10 pr-4 text-base text-white outline-none transition-all placeholder:text-slate-500 focus:border-cyan-400 focus:bg-slate-900 focus:ring-4 focus:ring-cyan-500/15 sm:text-sm"
             id="email"
             name="email"
             onChange={(e) => setEmail(e.target.value)}
@@ -101,7 +101,7 @@ export function LoginForm() {
           </span>
           <input
             autoComplete="current-password"
-            className="w-full rounded-xl border border-slate-700/80 bg-slate-900/80 py-3 pl-10 pr-11 text-sm text-white outline-none transition-all placeholder:text-slate-500 focus:border-cyan-400 focus:bg-slate-900 focus:ring-4 focus:ring-cyan-500/15"
+            className="min-h-11 w-full max-w-full rounded-xl border border-slate-700/80 bg-slate-900/80 py-3 pl-10 pr-11 text-base text-white outline-none transition-all placeholder:text-slate-500 focus:border-cyan-400 focus:bg-slate-900 focus:ring-4 focus:ring-cyan-500/15 sm:text-sm"
             id="password"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
@@ -160,7 +160,7 @@ export function LoginForm() {
 
       {/* Submit button */}
       <button
-        className="relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-500 py-3.5 text-sm font-bold text-slate-950 shadow-lg shadow-cyan-500/25 transition-all duration-200 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70"
+        className="relative flex min-h-12 w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-500 py-3.5 text-sm font-bold text-slate-950 shadow-lg shadow-cyan-500/25 transition-all duration-200 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70"
         disabled={isLoading}
         type="submit"
       >

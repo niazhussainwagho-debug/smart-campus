@@ -112,7 +112,7 @@ export function WeeklyTimetable({
   return (
     <div className="space-y-6">
       {/* View Toggle Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-800 bg-[#111827]/90 px-6 py-4 shadow-xl backdrop-blur-md">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-[#111827]/90 px-4 py-4 shadow-xl backdrop-blur-md sm:gap-4 sm:px-6">
         <div>
           <h2 className="text-lg font-bold text-white">Weekly Academic Timetable</h2>
           <p className="text-xs text-slate-400">
@@ -120,7 +120,7 @@ export function WeeklyTimetable({
           </p>
         </div>
 
-        <div className="flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/80 p-1">
+        <div className="flex w-full items-center gap-1 rounded-xl border border-slate-800 bg-slate-900/80 p-1 sm:w-auto sm:gap-2">
           <button
             className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
               viewMode === "grid"

@@ -16,20 +16,20 @@ export default async function LoginPage() {
   }
 
   return (
-    <main className="relative flex min-h-screen bg-[#0B0F19] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
+    <main className="relative flex min-h-screen max-w-full overflow-x-clip bg-[#0B0F19] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
       {/* ── Background Cyber Glow Blobs ── */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
         <div className="bg-dot-grid absolute inset-0 opacity-40" />
         <div
-          className="absolute -top-32 left-1/4 h-[32rem] w-[32rem] rounded-full blur-[150px]"
+          className="absolute -top-32 left-1/4 h-[min(32rem,85vw)] w-[min(32rem,85vw)] rounded-full blur-[150px]"
           style={{ background: "rgba(6, 182, 212, 0.14)" }}
         />
         <div
-          className="absolute -bottom-20 right-10 h-[28rem] w-[28rem] rounded-full blur-[140px]"
+          className="absolute -bottom-20 right-10 h-[min(28rem,75vw)] w-[min(28rem,75vw)] rounded-full blur-[140px]"
           style={{ background: "rgba(16, 185, 129, 0.1)" }}
         />
         <div
-          className="absolute top-1/2 left-1/3 h-80 w-80 -translate-y-1/2 rounded-full blur-[160px]"
+          className="absolute top-1/2 left-1/3 h-[min(20rem,65vw)] w-[min(20rem,65vw)] -translate-y-1/2 rounded-full blur-[160px]"
           style={{ background: "rgba(99, 102, 241, 0.08)" }}
         />
       </div>
@@ -124,7 +124,7 @@ export default async function LoginPage() {
       </section>
 
       {/* ── RIGHT FORM PANEL ── */}
-      <section className="relative z-10 flex flex-1 items-center justify-center p-6 sm:p-12 lg:p-16">
+      <section className="relative z-10 flex min-w-0 flex-1 items-center justify-center p-4 py-8 sm:p-8 lg:p-12 xl:p-16">
         <div className="w-full max-w-md">
           {/* Mobile Logo Header */}
           <div className="mb-8 flex items-center gap-3 lg:hidden">
@@ -144,7 +144,7 @@ export default async function LoginPage() {
           </div>
 
           {/* Form Glass Card */}
-          <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-[#111827]/90 p-8 shadow-2xl shadow-cyan-950/20 backdrop-blur-xl sm:p-10">
+          <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-5 shadow-2xl shadow-cyan-950/20 backdrop-blur-xl sm:rounded-3xl sm:p-8 lg:p-10">
             {/* Top decorative cyan line */}
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
 
@@ -157,7 +157,7 @@ export default async function LoginPage() {
             </div>
 
             <div className="mb-8">
-              <h2 className="text-3xl font-extrabold tracking-tight text-white">
+              <h2 className="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
                 Sign In
               </h2>
               <p className="mt-2 text-sm text-slate-400">
@@ -172,7 +172,7 @@ export default async function LoginPage() {
               <p className="text-center text-xs font-semibold uppercase tracking-wider text-slate-500">
                 Supported Roles
               </p>
-              <div className="mt-3 flex gap-2">
+              <div className="mt-3 flex flex-wrap justify-center gap-2">
                 {[
                   { role: "Student", icon: "🎓" },
                   { role: "Teacher", icon: "📋" },

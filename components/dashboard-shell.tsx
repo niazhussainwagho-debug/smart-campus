@@ -165,7 +165,7 @@ export function DashboardShell({
 
   return (
     <div
-      className="flex min-h-screen text-slate-100"
+      className="flex min-h-screen max-w-full overflow-x-clip text-slate-100"
       style={{ background: "#161b27" }}
     >
       {/* ── Mobile Backdrop ── */}
@@ -179,7 +179,7 @@ export function DashboardShell({
 
       {/* ══════════════════ SIDEBAR ══════════════════ */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex w-[220px] flex-col transition-transform duration-300 lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-[min(84vw,280px)] shrink-0 flex-col transition-transform duration-300 lg:static lg:w-[220px] lg:translate-x-0 ${
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{ background: "#1a2030", borderRight: "1px solid rgba(255,255,255,0.06)" }}
@@ -286,7 +286,7 @@ export function DashboardShell({
 
         {/* ── Top Header ── */}
         <header
-          className="sticky top-0 z-30 flex h-[70px] items-center justify-between px-6"
+          className="sticky top-0 z-30 flex min-h-[64px] items-center justify-between gap-2 px-3 sm:min-h-[70px] sm:px-5 lg:px-6"
           style={{
             background: "rgba(22,27,39,0.95)",
             borderBottom: "1px solid rgba(255,255,255,0.06)",
@@ -295,7 +295,9 @@ export function DashboardShell({
         >
           {/* Hamburger (mobile) */}
           <button
-            className="mr-4 flex h-9 w-9 items-center justify-center rounded-lg border border-slate-800 text-slate-400 hover:text-white lg:hidden"
+            aria-label="Open navigation menu"
+            aria-expanded={mobileMenuOpen}
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-slate-800 text-slate-400 hover:text-white lg:hidden"
             onClick={() => setMobileMenuOpen(true)}
             type="button"
           >
@@ -331,12 +333,12 @@ export function DashboardShell({
           </div>
 
           {/* Right: action + bell + avatar */}
-          <div className="ml-auto flex items-center gap-3">
+          <div className="ml-auto flex min-w-0 items-center gap-2 sm:gap-3">
             {action}
 
             {/* Bell */}
             <button
-              className="relative flex h-9 w-9 items-center justify-center rounded-xl text-slate-400 transition hover:text-white"
+              className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-slate-400 transition hover:text-white"
               style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
               title="Notifications"
               type="button"
@@ -349,7 +351,7 @@ export function DashboardShell({
             </button>
 
             {/* Avatar + name */}
-            <div className="flex items-center gap-2 cursor-pointer">
+            <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
               <div
                 className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold text-white relative"
                 style={{ background: "linear-gradient(135deg,#06b6d4,#6366f1)" }}
@@ -374,8 +376,8 @@ export function DashboardShell({
         </header>
 
         {/* ── Page Content ── */}
-        <main className="flex-1 p-6">
-          <div className="mx-auto max-w-7xl space-y-6">
+        <main className="w-full min-w-0 flex-1 p-3 sm:p-5 lg:p-6">
+          <div className="mx-auto w-full max-w-7xl min-w-0 space-y-4 sm:space-y-6">
             {children}
           </div>
         </main>

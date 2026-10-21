@@ -68,8 +68,8 @@ export function AvailabilityManager({
   return (
     <div className="space-y-8">
       {/* Add Slot Card */}
-      <section className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-6 shadow-xl backdrop-blur-md sm:p-8">
-        <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
+      <section className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
+        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-800/80 pb-4">
           <div>
             <h2 className="text-lg font-bold text-white">
               Add New Availability Slot
@@ -85,7 +85,7 @@ export function AvailabilityManager({
         </div>
 
         <form
-          className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
           onSubmit={addSlot}
         >
           <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
@@ -145,8 +145,8 @@ export function AvailabilityManager({
       </section>
 
       {/* Slots List Card */}
-      <section className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-6 shadow-xl backdrop-blur-md sm:p-8">
-        <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
+      <section className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
+        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-800/80 pb-4">
           <div>
             <h2 className="text-lg font-bold text-white">My Weekly Office Hours</h2>
             <p className="mt-1 text-xs text-slate-400">
@@ -179,7 +179,7 @@ export function AvailabilityManager({
                 <ul className="mt-3 divide-y divide-slate-800/60">
                   {dailySlots.map((slot) => (
                     <li
-                      className="flex items-center justify-between gap-3 py-2.5 text-xs"
+                      className="flex flex-wrap items-center justify-between gap-3 py-2.5 text-xs"
                       key={slot.id}
                     >
                       <div className="flex items-center gap-2">
@@ -204,7 +204,7 @@ export function AvailabilityManager({
           })}
           {slots.length === 0 ? (
             <div className="rounded-xl border border-dashed border-slate-800 bg-slate-900/40 px-5 py-12 text-center text-xs text-slate-500">
-              You haven't defined any office hours yet. Add a slot above to get started.
+              You haven&apos;t defined any office hours yet. Add a slot above to get started.
             </div>
           ) : null}
         </div>

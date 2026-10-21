@@ -238,15 +238,15 @@ export function AdminTimetableManager({
 
   return (
     <div className="space-y-8">
-      <section className="overflow-hidden rounded-[26px] border border-[#243244] bg-[#101b2a]/95 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.45)] backdrop-blur-md sm:p-8">
-        <h2 className="text-3xl font-extrabold tracking-tight text-white">
+      <section className="overflow-hidden rounded-2xl border border-[#243244] bg-[#101b2a]/95 p-4 shadow-[0_20px_60px_rgba(15,23,42,0.45)] backdrop-blur-md sm:rounded-[26px] sm:p-6 lg:p-8">
+        <h2 className="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
           Courses, Sections &amp; Rooms
         </h2>
         <p className="mt-1 text-sm text-slate-400">
           Add the required academic records before scheduling classes.
         </p>
 
-        <div className="mt-6 grid gap-6 xl:grid-cols-3">
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
           <form
             className="rounded-[22px] border border-[#2b3c4b] bg-[#101b2a] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
             onSubmit={(event) =>
@@ -340,7 +340,7 @@ export function AdminTimetableManager({
           </form>
         </div>
 
-        <div className="mt-8 grid gap-4 border-t border-[#233246] pt-6 md:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-4 border-t border-[#233246] pt-6 sm:grid-cols-2 xl:grid-cols-3">
           <div className="rounded-xl border border-[#233246] bg-[#0d1727]/80 p-4">
             <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-[#3acbd4]">Existing Courses</h3>
             {courses.length ? (
@@ -389,7 +389,7 @@ export function AdminTimetableManager({
         </div>
       </section>
 
-      <section className="overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-6 shadow-xl backdrop-blur-md sm:p-8">
+      <section className="overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
         <h2 className="text-xl font-bold text-white">
           {editingSlot ? "Edit Scheduled Class" : "Schedule a New Class"}
         </h2>
@@ -516,7 +516,7 @@ export function AdminTimetableManager({
               type="time"
             />
           </label>
-          <div className="flex items-end gap-2">
+          <div className="flex flex-wrap items-end gap-2 sm:flex-nowrap">
             <button
               className={buttonClass}
               disabled={
@@ -543,7 +543,7 @@ export function AdminTimetableManager({
         <Notice notice={slotNotice} />
       </section>
 
-      <section className="overflow-hidden rounded-[26px] border border-[#233246] bg-[#111c2d]/95 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.5)] backdrop-blur-md sm:p-8">
+      <section className="min-w-0 overflow-hidden rounded-2xl border border-[#233246] bg-[#111c2d]/95 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.5)] backdrop-blur-md sm:rounded-[26px] sm:p-6 lg:p-8">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#1f2d3d] text-sm text-[#41e0be] shadow-inner shadow-[#41e0be]/20">
@@ -670,8 +670,8 @@ export function AdminTimetableManager({
                     <h3 className="text-2xl font-extrabold text-white">{slot.courseLabel.split(" · ")[1] || slot.courseLabel}</h3>
                   </div>
 
-                  <div className="flex items-center gap-3 text-sm text-slate-300">
-                    <span className="rounded-lg border border-[#2b3c4b] bg-[#0d1727] px-3 py-1.5 text-xs font-semibold text-slate-200">
+                  <div className="flex min-w-0 flex-wrap items-center gap-2 text-sm text-slate-300 lg:gap-3">
+                      <span className="max-w-full break-words rounded-lg border border-[#2b3c4b] bg-[#0d1727] px-3 py-1.5 text-xs font-semibold text-slate-200">
                       {slot.roomName}
                     </span>
                     <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#c7b198] text-xs font-bold text-[#0d1727]">
@@ -682,7 +682,7 @@ export function AdminTimetableManager({
                         .map((part) => part[0].toUpperCase())
                         .join("") || "T"}
                     </span>
-                    <span className="rounded-lg border border-[#2b3c4b] bg-[#0d1727] px-3 py-1.5 text-xs font-semibold text-slate-200">
+                    <span className="max-w-full break-words rounded-lg border border-[#2b3c4b] bg-[#0d1727] px-3 py-1.5 text-xs font-semibold text-slate-200">
                       {slot.sectionLabel}
                     </span>
                     <span className={`inline-flex items-center gap-2 rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] ${status === "ongoing" ? "bg-[#1b3e35] text-[#69f5ce]" : "bg-[#253246] text-[#b8c7d9]"}`}>
@@ -691,7 +691,7 @@ export function AdminTimetableManager({
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2 lg:justify-end">
+                  <div className="flex flex-wrap items-center gap-2 lg:justify-end">
                     <button
                       className="rounded-xl border border-slate-700/80 bg-slate-800/80 px-3 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-cyan-500/50 hover:bg-cyan-950/30 hover:text-cyan-300"
                       onClick={() => {

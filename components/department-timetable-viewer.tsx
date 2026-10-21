@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import type { DayOfWeek } from "@/generated/prisma/enums";
 
 export type DepartmentSectionInfo = {
@@ -297,16 +297,16 @@ export function DepartmentTimetableViewer({
   }, [activeDaySlots]);
 
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-4 sm:space-y-6">
       {/* ── 1. TOP HEADER & VIEW CONTROLS ── */}
-      <div className="flex flex-col gap-4 rounded-2xl border border-slate-800/80 bg-[#161f2e]/90 p-5 shadow-2xl backdrop-blur-md md:flex-row md:items-center md:justify-between">
+      <div className="flex min-w-0 flex-col gap-4 rounded-2xl border border-slate-800/80 bg-[#161f2e]/90 p-4 shadow-2xl backdrop-blur-md sm:p-5 md:flex-row md:items-center md:justify-between">
         <div>
-          <div className="flex items-center gap-2.5">
+          <div className="flex min-w-0 items-start gap-2.5">
             <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#00D37F]/15 text-base text-[#00D37F] border border-[#00D37F]/30 shadow-[0_0_12px_rgba(0,211,127,0.2)]">
               📅
             </span>
             <div>
-              <h2 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+              <h2 className="flex flex-wrap items-center gap-2 text-lg font-bold tracking-tight text-white sm:text-xl">
                 Academic Timetable
                 <span className="rounded-full bg-[#00D37F]/10 px-2.5 py-0.5 text-[11px] font-bold text-[#00D37F] border border-[#00D37F]/20">
                   Option 2 • Day View
@@ -320,9 +320,9 @@ export function DepartmentTimetableViewer({
         </div>
 
         {/* View toggle & Mode buttons */}
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
           {(userRole === "STUDENT" || userRole === "TEACHER") && (
-            <div className="flex items-center rounded-xl border border-slate-800 bg-[#0e141f] p-1">
+            <div className="flex max-w-full flex-wrap items-center rounded-xl border border-slate-800 bg-[#0e141f] p-1">
               <button
                 type="button"
                 onClick={() => setFilterMode("personal")}
@@ -349,7 +349,7 @@ export function DepartmentTimetableViewer({
           )}
 
           {/* Day List vs Weekly Grid Toggle */}
-          <div className="flex items-center rounded-xl border border-slate-800 bg-[#0e141f] p-1">
+          <div className="flex max-w-full flex-wrap items-center rounded-xl border border-slate-800 bg-[#0e141f] p-1">
             <button
               type="button"
               onClick={() => setViewType("dayList")}
@@ -392,7 +392,7 @@ export function DepartmentTimetableViewer({
 
       {/* ── 2. DAY NAVIGATION TABS (Option 2 Signature Feature) ── */}
       <div className="rounded-2xl border border-slate-800/80 bg-[#161f2e]/90 p-2 shadow-xl backdrop-blur-md">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-1.5">
+        <div className="grid grid-cols-2 gap-1.5 min-[420px]:grid-cols-3 md:grid-cols-6">
           {dayOrder.slice(0, 6).map((day) => {
             const meta = dayMeta[day];
             const isSelected = activeDay === day;

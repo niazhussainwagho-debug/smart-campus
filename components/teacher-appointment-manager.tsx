@@ -117,10 +117,10 @@ export function TeacherAppointmentManager({
 
           return (
             <article
-              className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-6 shadow-xl backdrop-blur-md"
+              className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl backdrop-blur-md sm:p-6"
               key={appointment.id}
             >
-              <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4">
                 <div>
                   <h2 className="text-base font-bold text-white">
                     {appointment.studentName}
@@ -175,7 +175,7 @@ export function TeacherAppointmentManager({
                     Propose Alternative Time (Reschedule)
                   </summary>
                   <form
-                    className="mt-4 grid gap-4 sm:grid-cols-3"
+                    className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
                     onSubmit={submitReschedule}
                   >
                     <input name="id" type="hidden" value={appointment.id} />
@@ -209,7 +209,7 @@ export function TeacherAppointmentManager({
                       />
                     </label>
                     <button
-                      className="inline-flex items-center justify-center gap-2 rounded-xl border border-cyan-500/30 bg-cyan-500/10 px-4 py-2.5 text-xs font-bold text-cyan-300 transition hover:bg-cyan-500/20 disabled:opacity-50 sm:col-span-3 sm:w-auto"
+                      className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-cyan-500/30 bg-cyan-500/10 px-4 py-2.5 text-xs font-bold text-cyan-300 transition hover:bg-cyan-500/20 disabled:opacity-50 sm:col-span-2 sm:w-auto xl:col-span-3"
                       disabled={isPending}
                     >
                       {isPending ? "Validating & Rescheduling..." : "Confirm Rescheduled Slot"}

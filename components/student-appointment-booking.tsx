@@ -144,8 +144,8 @@ export function StudentAppointmentBooking({
   return (
     <div className="space-y-8">
       {/* Booking Form Card */}
-      <section className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-6 shadow-xl backdrop-blur-md sm:p-8">
-        <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
+      <section className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
+        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-800/80 pb-4">
           <div>
             <h2 className="text-lg font-bold text-white">
               Book Faculty Consultation
@@ -165,7 +165,7 @@ export function StudentAppointmentBooking({
             No faculty members have posted available office hours yet.
           </div>
         ) : (
-          <form className="mt-6 grid gap-5 sm:grid-cols-2" onSubmit={submitRequest}>
+          <form className="mt-6 grid gap-4 sm:grid-cols-2 sm:gap-5" onSubmit={submitRequest}>
             <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
               Select Professor
               <select
@@ -316,8 +316,8 @@ export function StudentAppointmentBooking({
       </section>
 
       {/* Appointment History Card */}
-      <section className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-6 shadow-xl backdrop-blur-md sm:p-8">
-        <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
+      <section className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
+        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-800/80 pb-4">
           <div>
             <h2 className="text-lg font-bold text-white">
               My Appointment Requests
@@ -361,7 +361,7 @@ export function StudentAppointmentBooking({
                       </p>
                     ) : null}
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-3">
                     <span className={`rounded-full border px-3 py-1 text-[11px] font-bold ${statusColors}`}>
                       {statusLabels[appointment.status]}
                     </span>

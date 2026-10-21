@@ -31,7 +31,7 @@ function StatCard({
 }) {
   return (
     <div
-      className="relative flex flex-col gap-3 rounded-2xl p-5 transition hover:scale-[1.02]"
+      className="relative flex min-w-0 flex-col gap-3 rounded-2xl p-4 transition hover:scale-[1.02] sm:p-5"
       style={{
         background: "#1e2535",
         border: "1px solid rgba(255,255,255,0.07)",
@@ -175,14 +175,14 @@ export async function RoleDashboard({ role }: { role: UserRole }) {
     <DashboardShell role={role} user={user}>
 
       {/* ── 4 Stat Cards ── */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 sm:gap-4 xl:grid-cols-4">
         {stats.map((s) => (
           <StatCard key={s.label} {...s} />
         ))}
       </div>
 
       {/* ── Main Grid: Chart + Upcoming ── */}
-      <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
+      <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(280px,340px)]">
 
         {/* Analytics Panel */}
         <div
@@ -253,7 +253,7 @@ export async function RoleDashboard({ role }: { role: UserRole }) {
           </div>
 
           {/* Legend */}
-          <div className="mt-4 flex gap-5">
+          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
             <div className="flex items-center gap-2 text-[11px] text-slate-400">
               <MiniSparkline color="#00D37F" points="0,25 15,15 30,5 45,10 60,2" />
               Attendance
@@ -289,7 +289,7 @@ export async function RoleDashboard({ role }: { role: UserRole }) {
             ))}
           </div>
 
-          <div className="mt-4 flex gap-2 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+          <div className="mt-4 flex flex-wrap gap-2 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
             <Link
               href={timetablePaths[role]}
               className="flex-1 rounded-xl py-2 text-center text-xs font-semibold text-slate-300 transition hover:text-white"
@@ -334,7 +334,7 @@ export async function RoleDashboard({ role }: { role: UserRole }) {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <Link
               href={timetablePaths[role]}
               className="flex items-center gap-3 rounded-xl p-4 transition hover:scale-[1.02]"
