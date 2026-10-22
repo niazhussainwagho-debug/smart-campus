@@ -109,10 +109,16 @@ function Notice({ notice }: { notice: ActionNotice | null }) {
 }
 
 const inputClass =
-  "mt-1 w-full rounded-xl border border-[#2e4258] bg-[#0d1727] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-[#4ed0d8] focus:bg-[#0d1727]";
-const labelClass = "mt-3 block text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400";
+  "mt-1 min-w-0 w-full rounded-xl border border-[#2e4258] bg-[#0d1727] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-[#4ed0d8] focus:bg-[#0d1727]";
+const labelClass = "mt-3 block min-w-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400";
 const buttonClass =
   "rounded-xl bg-gradient-to-r from-[#49d5d8] via-[#6af0cc] to-[#47d9c7] px-4 py-2.5 text-sm font-bold text-[#06141d] shadow-lg shadow-cyan-500/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50";
+const timetableInputClass =
+  "mt-1 min-w-0 w-full rounded-lg border border-[#2e4258] bg-[#0d1727] px-2.5 py-2 text-xs text-white placeholder:text-slate-500 outline-none transition focus:border-[#4ed0d8]";
+const timetableLabelClass =
+  "block min-w-0 text-[10px] font-semibold text-slate-400";
+const timetableButtonClass =
+  "rounded-lg bg-gradient-to-r from-[#49d5d8] via-[#6af0cc] to-[#47d9c7] px-3 py-2 text-xs font-bold text-[#06141d] shadow-md shadow-cyan-500/15 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50";
 
 export function AdminTimetableManager({
   courses,
@@ -236,24 +242,40 @@ export function AdminTimetableManager({
     return targetDay > currentDay ? "upcoming" : "upcoming";
   }
 
-  return (
-    <div className="space-y-8">
-      <section className="overflow-hidden rounded-2xl border border-[#243244] bg-[#101b2a]/95 p-4 shadow-[0_20px_60px_rgba(15,23,42,0.45)] backdrop-blur-md sm:rounded-[26px] sm:p-6 lg:p-8">
-        <h2 className="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
-          Courses, Sections &amp; Rooms
-        </h2>
-        <p className="mt-1 text-sm text-slate-400">
-          Add the required academic records before scheduling classes.
-        </p>
+  const todayValue: DayOfWeek =
+    (["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"] as DayOfWeek[])[
+      new Date().getDay()
+    ] ?? "MON";
 
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
+  return (
+    <div className="min-w-0 space-y-3">
+      <details className="group min-w-0 overflow-hidden rounded-xl border border-[#243244] bg-[#101b2a]/95 shadow-[0_12px_32px_rgba(15,23,42,0.25)]">
+        <summary className="flex min-w-0 cursor-pointer list-none flex-wrap items-center justify-between gap-3 px-4 py-3 [&::-webkit-details-marker]:hidden">
+          <span className="min-w-0 flex-1">
+            <span className="block text-sm font-bold text-white">
+              Courses, Sections &amp; Rooms
+            </span>
+            <span className="mt-1 block text-xs text-slate-400">
+              Add or review the records used by the timetable.
+            </span>
+          </span>
+          <span className="shrink-0 rounded-lg border border-[#2b3c4b] bg-[#0d1727] px-3 py-1.5 text-xs font-semibold text-[#77ddd8] group-open:hidden">
+            Manage +
+          </span>
+          <span className="hidden shrink-0 rounded-lg border border-[#2b3c4b] bg-[#0d1727] px-3 py-1.5 text-xs font-semibold text-slate-300 group-open:inline">
+            Close −
+          </span>
+        </summary>
+
+        <div className="border-t border-[#233246] p-4 sm:p-5">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           <form
-            className="rounded-[22px] border border-[#2b3c4b] bg-[#101b2a] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
+            className="min-w-0 rounded-[22px] border border-[#2b3c4b] bg-[#101b2a] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] sm:p-5"
             onSubmit={(event) =>
               submitAction(event, createCourseAction, setCourseNotice, true)
             }
           >
-            <h3 className="text-2xl font-bold text-white">Add Course</h3>
+            <h3 className="break-words text-xl font-bold text-white sm:text-2xl">Add Course</h3>
             <label className={labelClass}>
               Course code
               <input className={inputClass} name="code" placeholder="e.g. CS-301" required />
@@ -280,12 +302,12 @@ export function AdminTimetableManager({
           </form>
 
           <form
-            className="rounded-[22px] border border-[#2b3c4b] bg-[#101b2a] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
+            className="min-w-0 rounded-[22px] border border-[#2b3c4b] bg-[#101b2a] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] sm:p-5"
             onSubmit={(event) =>
               submitAction(event, createSectionAction, setSectionNotice, true)
             }
           >
-            <h3 className="text-2xl font-bold text-white">Add Section</h3>
+            <h3 className="break-words text-xl font-bold text-white sm:text-2xl">Add Section</h3>
             <label className={labelClass}>
               Section name
               <input className={inputClass} name="name" placeholder="e.g. BSCS-3A" required />
@@ -312,12 +334,12 @@ export function AdminTimetableManager({
           </form>
 
           <form
-            className="rounded-[22px] border border-[#2b3c4b] bg-[#101b2a] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
+            className="min-w-0 rounded-[22px] border border-[#2b3c4b] bg-[#101b2a] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] sm:p-5"
             onSubmit={(event) =>
               submitAction(event, createRoomAction, setRoomNotice, true)
             }
           >
-            <h3 className="text-2xl font-bold text-white">Add Room</h3>
+            <h3 className="break-words text-xl font-bold text-white sm:text-2xl">Add Room</h3>
             <label className={labelClass}>
               Room name
               <input className={inputClass} name="name" placeholder="e.g. Lab 3 / Hall A" required />
@@ -340,7 +362,7 @@ export function AdminTimetableManager({
           </form>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-4 border-t border-[#233246] pt-6 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-6 grid grid-cols-1 gap-4 border-t border-[#233246] pt-5 sm:grid-cols-2 xl:grid-cols-3">
           <div className="rounded-xl border border-[#233246] bg-[#0d1727]/80 p-4">
             <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-[#3acbd4]">Existing Courses</h3>
             {courses.length ? (
@@ -387,27 +409,74 @@ export function AdminTimetableManager({
             )}
           </div>
         </div>
+        </div>
+      </details>
+
+      <section className="grid grid-cols-1 gap-2 min-[420px]:grid-cols-2 sm:grid-cols-3" aria-label="Timetable summary">
+        <article className="flex min-w-0 items-center gap-2 rounded-lg border border-[#243244] bg-[#101b2a]/90 px-3 py-2">
+          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md border border-[#42c5c755] bg-[#37c5c71d] text-xs text-[#40d2d1]">
+            ▦
+          </span>
+          <span className="min-w-0">
+            <span className="block truncate text-[9px] text-slate-400">Scheduled classes</span>
+            <strong className="block text-sm leading-tight text-white">{slots.length}</strong>
+          </span>
+        </article>
+        <article className="flex min-w-0 items-center gap-2 rounded-lg border border-[#243244] bg-[#101b2a]/90 px-3 py-2">
+          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md border border-[#65a9ed55] bg-[#65a9ed1d] text-xs text-[#75b7f1]">
+            ◷
+          </span>
+          <span className="min-w-0">
+            <span className="block truncate text-[9px] text-slate-400">
+              {days.find((day) => day.value === todayValue)?.label ?? "Today"}
+            </span>
+            <strong className="block text-sm leading-tight text-white">
+              {slots.filter((slot) => slot.dayOfWeek === todayValue).length}
+            </strong>
+          </span>
+        </article>
+        <article className="flex min-w-0 items-center gap-2 rounded-lg border border-[#243244] bg-[#101b2a]/90 px-3 py-2">
+          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md border border-[#aa75dc55] bg-[#aa75dc1d] text-xs text-[#c19aef]">
+            ⌂
+          </span>
+          <span className="min-w-0">
+            <span className="block truncate text-[9px] text-slate-400">Rooms in use</span>
+            <strong className="block text-sm leading-tight text-white">
+              {new Set(slots.map((slot) => slot.roomName)).size}
+            </strong>
+          </span>
+        </article>
       </section>
 
-      <section className="overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
-        <h2 className="text-xl font-bold text-white">
+      <section
+        className="overflow-hidden rounded-xl border border-[#243244] bg-[#101b2a]/95 p-4 shadow-[0_12px_32px_rgba(15,23,42,0.25)] sm:p-5"
+        id="schedule-form"
+      >
+        <div className="flex flex-wrap items-start justify-between gap-2">
+          <div>
+        <h2 className="text-base font-bold text-white">
           {editingSlot ? "Edit Scheduled Class" : "Schedule a New Class"}
         </h2>
-        <p className="mt-1 text-sm text-slate-400">
+        <p className="mt-1 text-xs text-slate-400">
           Room, teacher, and section time conflicts are automatically checked on save.
         </p>
+          </div>
+          <span className="rounded-md border border-[#4bc9c42e] px-2 py-1 text-[9px] font-bold tracking-wide text-[#75d8d3]">
+            {editingSlot ? "EDITING" : "NEW CLASS"}
+          </span>
+        </div>
 
         {!courses.length ||
         !sections.length ||
         !rooms.length ||
         !teachers.length ? (
-          <p className="mt-4 rounded-xl border border-amber-500/30 bg-amber-950/40 p-4 text-sm text-amber-300">
+          <p className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/40 p-3 text-xs text-amber-300">
             At least one course, section, room, and teacher must be added first.
           </p>
         ) : null}
 
         <form
-          className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
+          className="mt-4 grid grid-cols-1 gap-x-3 gap-y-2 min-[360px]:grid-cols-2 sm:grid-cols-4 xl:grid-cols-8"
           key={editingSlot?.id ?? "new-slot"}
           onSubmit={(event) =>
             submitAction(event, saveTimetableSlotAction, setSlotNotice, true)
@@ -416,10 +485,10 @@ export function AdminTimetableManager({
           {editingSlot ? (
             <input name="id" type="hidden" value={editingSlot.id} />
           ) : null}
-          <label className={labelClass}>
+          <label className={timetableLabelClass}>
             Course
             <select
-              className={inputClass}
+              className={timetableInputClass}
               defaultValue={editingSlot?.courseId ?? ""}
               name="courseId"
               required
@@ -432,10 +501,10 @@ export function AdminTimetableManager({
               ))}
             </select>
           </label>
-          <label className={labelClass}>
+          <label className={timetableLabelClass}>
             Section
             <select
-              className={inputClass}
+              className={timetableInputClass}
               defaultValue={editingSlot?.sectionId ?? ""}
               name="sectionId"
               required
@@ -448,10 +517,10 @@ export function AdminTimetableManager({
               ))}
             </select>
           </label>
-          <label className={labelClass}>
+          <label className={timetableLabelClass}>
             Room
             <select
-              className={inputClass}
+              className={timetableInputClass}
               defaultValue={editingSlot?.roomId ?? ""}
               name="roomId"
               required
@@ -464,10 +533,10 @@ export function AdminTimetableManager({
               ))}
             </select>
           </label>
-          <label className={labelClass}>
+          <label className={timetableLabelClass}>
             Teacher
             <select
-              className={inputClass}
+              className={timetableInputClass}
               defaultValue={editingSlot?.teacherId ?? ""}
               name="teacherId"
               required
@@ -480,10 +549,10 @@ export function AdminTimetableManager({
               ))}
             </select>
           </label>
-          <label className={labelClass}>
+          <label className={timetableLabelClass}>
             Day
             <select
-              className={inputClass}
+              className={timetableInputClass}
               defaultValue={editingSlot?.dayOfWeek ?? ""}
               name="dayOfWeek"
               required
@@ -496,29 +565,29 @@ export function AdminTimetableManager({
               ))}
             </select>
           </label>
-          <label className={labelClass}>
+          <label className={timetableLabelClass}>
             Start Time
             <input
-              className={inputClass}
+              className={timetableInputClass}
               defaultValue={editingSlot?.startTime ?? ""}
               name="startTime"
               required
               type="time"
             />
           </label>
-          <label className={labelClass}>
+          <label className={timetableLabelClass}>
             End Time
             <input
-              className={inputClass}
+              className={timetableInputClass}
               defaultValue={editingSlot?.endTime ?? ""}
               name="endTime"
               required
               type="time"
             />
           </label>
-          <div className="flex flex-wrap items-end gap-2 sm:flex-nowrap">
+          <div className="col-span-1 flex flex-wrap items-end gap-2 min-[360px]:col-span-2 sm:col-span-4 xl:col-span-1">
             <button
-              className={buttonClass}
+              className={timetableButtonClass}
               disabled={
                 isPending ||
                 !courses.length ||
@@ -531,7 +600,7 @@ export function AdminTimetableManager({
             </button>
             {editingSlot ? (
               <button
-                className="rounded-xl border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-semibold text-slate-300 transition hover:bg-slate-700 hover:text-white"
+                className="rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:bg-slate-700 hover:text-white"
                 onClick={() => setEditingSlot(null)}
                 type="button"
               >
@@ -543,29 +612,28 @@ export function AdminTimetableManager({
         <Notice notice={slotNotice} />
       </section>
 
-      <section className="min-w-0 overflow-hidden rounded-2xl border border-[#233246] bg-[#111c2d]/95 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.5)] backdrop-blur-md sm:rounded-[26px] sm:p-6 lg:p-8">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#1f2d3d] text-sm text-[#41e0be] shadow-inner shadow-[#41e0be]/20">
-              📅
-            </div>
-            <div>
-              <h2 className="flex min-w-0 flex-wrap items-center gap-2 text-xl font-extrabold tracking-tight text-white sm:gap-3 sm:text-2xl">
-                Scheduled Classes
-                <span className="rounded-full border border-[#1fdbb1]/30 bg-[#1fdbb1]/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[#4de5bd]">
-                  {slots.length} Total
-                </span>
-              </h2>
-            </div>
+      <section className="min-w-0 overflow-hidden rounded-xl border border-[#233246] bg-[#111c2d]/95 p-4 shadow-[0_12px_32px_rgba(15,23,42,0.25)] sm:p-5">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="flex flex-wrap items-center gap-2 text-base font-bold text-white">
+              Scheduled Classes
+              <span className="rounded-full border border-[#1fdbb1]/30 bg-[#1fdbb1]/10 px-2 py-0.5 text-[10px] font-bold text-[#4de5bd]">
+                {slots.length}
+              </span>
+            </h2>
+            <p className="mt-1 text-xs text-slate-400">
+              Search and filter the full class schedule.
+            </p>
           </div>
 
-          <div className="relative w-full sm:w-auto">
+          <div className="relative w-full sm:max-w-xs">
             <input
               type="text"
               placeholder="Search classes..."
               value={adminSlotSearch}
               onChange={(e) => setAdminSlotSearch(e.target.value)}
-              className="w-full rounded-xl border border-[#2b3c4b] bg-[#0d1727] py-2 pl-8 pr-9 text-xs text-white placeholder:text-slate-500 outline-none focus:border-[#4ed0d8] sm:w-56"
+              aria-label="Search classes"
+              className="w-full rounded-lg border border-[#2b3c4b] bg-[#0d1727] py-2 pl-8 pr-9 text-xs text-white placeholder:text-slate-500 outline-none focus:border-[#4ed0d8]"
             />
             <span className="absolute left-2.5 top-2.5 text-slate-500 text-xs">🔍</span>
             {adminSlotSearch && (
@@ -580,73 +648,57 @@ export function AdminTimetableManager({
           </div>
         </div>
 
-        <div className="mt-5 overflow-hidden rounded-2xl border border-[#243244] bg-[#101b2a] p-2">
-          <div className="flex flex-wrap gap-2">
-            {days.slice(0, 5).map((day) => {
-              const isActive = adminSelectedDay === day.value;
-              return (
-                <button
-                  key={day.value}
-                  type="button"
-                  onClick={() => setAdminSelectedDay(isActive ? "ALL" : day.value)}
-                  className={`flex-1 min-w-[110px] rounded-xl px-4 py-2.5 text-sm font-semibold transition ${
-                    isActive
-                      ? "border border-[#2fe3a6] bg-[#1d3c37] text-[#57f0c8]"
-                      : "border border-transparent bg-transparent text-slate-400 hover:text-white"
-                  }`}
-                >
-                  {day.label.slice(0, 3)}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="mt-5 grid gap-3 md:grid-cols-3">
-          <div className="rounded-xl border border-[#243244] bg-[#0d1727]/80 p-4 text-center">
-            <div className="text-xs uppercase tracking-[0.2em] text-slate-400">Total Classes</div>
-            <div className="mt-2 text-4xl font-black text-white">{slots.length}</div>
-          </div>
-          <div className="rounded-xl border border-[#243244] bg-[#0d1727]/80 p-4 text-center">
-            <div className="text-xs uppercase tracking-[0.2em] text-slate-400">Today</div>
-            <div className="mt-2 text-4xl font-black text-white">{slots.filter((s) => s.dayOfWeek === "MON").length}</div>
-          </div>
-          <div className="rounded-xl border border-[#243244] bg-[#0d1727]/80 p-4 text-center">
-            <div className="text-xs uppercase tracking-[0.2em] text-slate-400">Rooms</div>
-            <div className="mt-2 text-4xl font-black text-white">{new Set(slots.map((s) => s.roomName)).size}</div>
-          </div>
-        </div>
-
-        <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-[#223246] pt-4">
+        <div className="mt-3 flex items-center gap-1.5 overflow-x-auto border-b border-[#223246] pb-2">
           <button
             type="button"
-            onClick={() => setAdminSelectedDept("ALL")}
-            className={`rounded-xl px-3 py-1.5 text-xs font-bold transition ${
-              adminSelectedDept === "ALL"
-                ? "bg-[#18d0b0]/15 text-[#64f0cc] border border-[#31d9b7]/30"
-                : "border border-[#203047] bg-[#0d1727] text-slate-400 hover:text-white"
+            aria-pressed={adminSelectedDay === "ALL"}
+            onClick={() => setAdminSelectedDay("ALL")}
+            className={`shrink-0 rounded-md px-2.5 py-1.5 text-[11px] font-semibold transition ${
+              adminSelectedDay === "ALL"
+                ? "border border-[#31d9b7]/30 bg-[#18d0b0]/15 text-[#64f0cc]"
+                : "text-slate-400 hover:text-white"
             }`}
           >
-            All Departments
+            All days
           </button>
-          {adminDepartments.map((dept) => (
+          {days.map((day) => (
             <button
-              key={dept}
+              key={day.value}
               type="button"
-              onClick={() => setAdminSelectedDept(dept)}
-              className={`rounded-xl px-3 py-1.5 text-xs font-bold transition ${
-                adminSelectedDept === dept
-                  ? "bg-[#18d0b0]/15 text-[#64f0cc] border border-[#31d9b7]/30"
-                  : "border border-[#203047] bg-[#0d1727] text-slate-300 hover:text-white"
+              aria-pressed={adminSelectedDay === day.value}
+              onClick={() => setAdminSelectedDay(day.value)}
+              className={`shrink-0 rounded-md px-2.5 py-1.5 text-[11px] font-semibold transition ${
+                adminSelectedDay === day.value
+                  ? "border border-[#31d9b7]/30 bg-[#18d0b0]/15 text-[#64f0cc]"
+                  : "text-slate-400 hover:text-white"
               }`}
             >
-              {dept}
+              {day.label.slice(0, 3)}
             </button>
           ))}
+          <label className="ml-auto shrink-0">
+            <span className="sr-only">Filter by department</span>
+            <select
+              aria-label="Filter by department"
+              className="max-w-40 rounded-md border border-[#2b3c4b] bg-[#0d1727] px-2 py-1.5 text-[11px] text-slate-300 outline-none focus:border-[#4ed0d8]"
+              onChange={(event) => setAdminSelectedDept(event.target.value)}
+              value={adminSelectedDept}
+            >
+              <option value="ALL">All departments</option>
+              {adminDepartments.map((dept) => (
+                <option key={dept} value={dept}>
+                  {dept}
+                </option>
+              ))}
+            </select>
+          </label>
+          <span className="shrink-0 pl-1 text-[10px] text-slate-500">
+            {filteredAdminSlots.length} shown
+          </span>
         </div>
 
         {filteredAdminSlots.length ? (
-          <div className="mt-5 space-y-3">
+          <div className="mt-1">
             {filteredAdminSlots.map((slot, index) => {
               const status = getSlotStatus(slot);
               const accentClasses = [
@@ -658,66 +710,79 @@ export function AdminTimetableManager({
               ];
 
               return (
-                <div
+                <article
                   key={slot.id}
-                  className="flex flex-col gap-4 rounded-2xl border border-[#233246] bg-[#111b2a] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] lg:flex-row lg:items-center"
+                  className="grid grid-cols-[3px_58px_minmax(0,1fr)_auto] items-center gap-x-2 gap-y-1.5 border-b border-[#233246]/70 py-3 last:border-b-0 sm:grid-cols-[3px_68px_minmax(0,1fr)_minmax(100px,.65fr)_auto_auto] sm:gap-x-3"
                 >
-                  <div className={`flex h-12 w-fit min-w-28 shrink-0 items-center justify-center rounded-full px-3 text-sm font-extrabold tracking-wide ${accentClasses[index % accentClasses.length]} sm:h-14`}>
-                    {slot.startTime}–{slot.endTime}
+                  <span
+                    aria-hidden="true"
+                    className={`h-8 w-[3px] rounded-full ${accentClasses[index % accentClasses.length].split(" ")[0]}`}
+                  />
+                  <div className="grid gap-1">
+                    <strong className="text-[11px] font-bold tabular-nums text-slate-100">
+                      {slot.startTime}
+                    </strong>
+                    <span className="text-[10px] tabular-nums text-slate-500">
+                      {slot.endTime}
+                    </span>
                   </div>
 
-                  <div className="flex-1 min-w-0">
-                    <h3 className="break-words text-xl font-extrabold text-white sm:text-2xl">{slot.courseLabel.split(" · ")[1] || slot.courseLabel}</h3>
-                  </div>
-
-                  <div className="flex min-w-0 flex-wrap items-center gap-2 text-sm text-slate-300 lg:gap-3">
-                    <span className="max-w-full break-words rounded-lg border border-[#2b3c4b] bg-[#0d1727] px-3 py-1.5 text-xs font-semibold text-slate-200">
-                      {slot.roomName}
-                    </span>
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#c7b198] text-xs font-bold text-[#0d1727]">
-                      {slot.teacherName
-                        .split(" ")
-                        .filter(Boolean)
-                        .slice(0, 2)
-                        .map((part) => part[0].toUpperCase())
-                        .join("") || "T"}
-                    </span>
-                    <span className="max-w-full break-words rounded-lg border border-[#2b3c4b] bg-[#0d1727] px-3 py-1.5 text-xs font-semibold text-slate-200">
+                  <div className="min-w-0">
+                    <h3 className="truncate text-xs font-semibold text-white">
+                      {slot.courseLabel.split(" · ")[1] || slot.courseLabel}
+                    </h3>
+                    <p className="mt-1 truncate text-[10px] text-slate-400">
+                      {slot.courseLabel.split(" · ")[0]} <span className="text-[#4fc8c5]">·</span>{" "}
                       {slot.sectionLabel}
-                    </span>
-                    <span className={`inline-flex items-center gap-2 rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] ${status === "ongoing" ? "bg-[#1b3e35] text-[#69f5ce]" : "bg-[#253246] text-[#b8c7d9]"}`}>
-                      <span className={`h-2.5 w-2.5 rounded-full ${status === "ongoing" ? "bg-[#34d399]" : "bg-[#7dd3fc]"}`} />
-                      {status}
-                    </span>
+                    </p>
+                    <p className="mt-1 truncate text-[10px] text-slate-500 sm:hidden">
+                      {slot.roomName} <span className="text-[#4fc8c5]">·</span> {slot.teacherName}
+                    </p>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-2 lg:justify-end">
+                  <div className="hidden min-w-0 sm:grid sm:gap-1">
+                    <span className="truncate text-[10px] text-slate-300">{slot.roomName}</span>
+                    <span className="truncate text-[10px] text-slate-500">{slot.teacherName}</span>
+                  </div>
+
+                  <span className={`inline-flex items-center gap-1.5 justify-self-end rounded-full border px-2 py-1 text-[9px] font-semibold capitalize ${
+                    status === "ongoing"
+                      ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
+                      : "border-slate-400/15 bg-slate-400/5 text-slate-400"
+                  }`}>
+                    <span className={`h-1.5 w-1.5 rounded-full ${status === "ongoing" ? "bg-emerald-300" : "bg-slate-500"}`} />
+                    {status}
+                  </span>
+
+                  <div className="col-span-2 col-start-3 flex items-center gap-1 sm:col-span-1 sm:col-start-auto sm:justify-end">
                     <button
-                      className="rounded-xl border border-slate-700/80 bg-slate-800/80 px-3 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-cyan-500/50 hover:bg-cyan-950/30 hover:text-cyan-300"
+                      className="rounded-md border border-slate-700/80 bg-slate-800/80 px-2 py-1 text-[10px] font-semibold text-slate-200 transition hover:border-cyan-500/50 hover:bg-cyan-950/30 hover:text-cyan-300"
                       onClick={() => {
                         setEditingSlot(slot);
                         setSlotNotice(null);
-                        window.scrollTo({ top: 300, behavior: "smooth" });
+                        document
+                          .getElementById("schedule-form")
+                          ?.scrollIntoView({ behavior: "smooth", block: "start" });
                       }}
                       type="button"
                     >
-                      ✏️ Edit
+                      Edit
                     </button>
                     <button
-                      className="rounded-xl border border-rose-500/30 bg-rose-950/30 px-3 py-1.5 text-xs font-semibold text-rose-300 transition hover:bg-rose-900/50 disabled:opacity-60"
+                      className="rounded-md border border-rose-500/30 bg-rose-950/30 px-2 py-1 text-[10px] font-semibold text-rose-300 transition hover:bg-rose-900/50 disabled:opacity-60"
                       disabled={isPending}
                       onClick={() => deleteSlot(slot.id)}
                       type="button"
                     >
-                      🗑️ Delete
+                      Delete
                     </button>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>
         ) : (
-          <div className="mt-4 rounded-xl border border-dashed border-slate-800 bg-slate-900/30 p-8 text-center text-sm text-slate-500">
+          <div className="mt-3 rounded-lg border border-dashed border-slate-800 bg-slate-900/30 p-6 text-center text-xs text-slate-500">
             No classes match your active filters.
           </div>
         )}

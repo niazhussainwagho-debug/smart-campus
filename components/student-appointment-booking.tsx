@@ -142,15 +142,15 @@ export function StudentAppointmentBooking({
   }
 
   return (
-    <div className="space-y-8">
+    <div className="min-w-0 space-y-4 sm:space-y-6">
       {/* Booking Form Card */}
       <section className="relative min-w-0 overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-3 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
         <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-800/80 pb-4">
-          <div className="min-w-0">
-            <h2 className="break-words text-lg font-bold text-white">
+          <div className="min-w-0 flex-1">
+            <h2 className="break-words text-base font-bold text-white sm:text-lg">
               Book Faculty Consultation
             </h2>
-            <p className="mt-1 break-words text-xs text-slate-400">
+            <p className="mt-1 break-words text-xs leading-relaxed text-slate-400">
               Select a professor, pick an upcoming date, and choose from their confirmed office hours.
             </p>
           </div>
@@ -165,7 +165,7 @@ export function StudentAppointmentBooking({
             No faculty members have posted available office hours yet.
           </div>
         ) : (
-          <form className="mt-6 grid gap-4 sm:grid-cols-2 sm:gap-5" onSubmit={submitRequest}>
+          <form className="mt-4 grid min-w-0 gap-4 sm:mt-6 sm:grid-cols-2 sm:gap-5" onSubmit={submitRequest}>
             <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
               Select Professor
               <select
@@ -205,7 +205,7 @@ export function StudentAppointmentBooking({
               />
             </label>
 
-            <div className="sm:col-span-2">
+            <div className="min-w-0 sm:col-span-2">
               {teacherId && date ? (
                 freeSlots.length ? (
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
@@ -317,7 +317,7 @@ export function StudentAppointmentBooking({
 
       {/* Appointment History Card */}
       <section className="relative min-w-0 overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-3 shadow-xl backdrop-blur-md sm:p-6 lg:p-8">
-        <div className="flex flex-col items-start justify-between gap-3 border-b border-slate-800/80 pb-4 min-[420px]:flex-row">
+        <div className="flex min-w-0 flex-col items-start justify-between gap-3 border-b border-slate-800/80 pb-4 sm:flex-row">
           <div className="min-w-0">
             <h2 className="break-words text-lg font-bold text-white">
               My Appointment Requests

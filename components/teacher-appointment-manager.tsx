@@ -120,7 +120,7 @@ export function TeacherAppointmentManager({
               className="relative overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl backdrop-blur-md sm:p-6"
               key={appointment.id}
             >
-              <div className="flex flex-col items-start justify-between gap-3 min-[420px]:flex-row sm:gap-4">
+              <div className="flex min-w-0 flex-col items-start justify-between gap-3 sm:flex-row sm:gap-4">
                 <div className="min-w-0">
                   <h2 className="break-words text-base font-bold text-white">
                     {appointment.studentName}

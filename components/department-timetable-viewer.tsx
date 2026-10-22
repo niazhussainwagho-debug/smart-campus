@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { DayOfWeek } from "@/generated/prisma/enums";
 
 export type DepartmentSectionInfo = {
@@ -195,6 +195,16 @@ export function DepartmentTimetableViewer({
   );
   const [viewType, setViewType] = useState<"dayList" | "weeklyGrid">("dayList");
 
+  useEffect(() => {
+    const mobileLayout = window.matchMedia("(max-width: 639px)");
+    const showDayCards = () => {
+      if (mobileLayout.matches) setViewType("dayList");
+    };
+    showDayCards();
+    mobileLayout.addEventListener("change", showDayCards);
+    return () => mobileLayout.removeEventListener("change", showDayCards);
+  }, []);
+
   // Filter sections belonging to selected department
   const filteredSections = useMemo(() => {
     if (selectedDept === "ALL") return sections;
@@ -297,22 +307,22 @@ export function DepartmentTimetableViewer({
   }, [activeDaySlots]);
 
   return (
-    <div className="min-w-0 space-y-4 sm:space-y-6">
+    <div className="min-w-0 space-y-3 sm:space-y-6">
       {/* ── 1. TOP HEADER & VIEW CONTROLS ── */}
-      <div className="flex min-w-0 flex-col gap-4 rounded-2xl border border-slate-800/80 bg-[#161f2e]/90 p-4 shadow-2xl backdrop-blur-md sm:p-5 md:flex-row md:items-center md:justify-between">
+      <div className="flex min-w-0 flex-col gap-3 rounded-2xl border border-slate-800/80 bg-[#161f2e]/90 p-3 shadow-2xl backdrop-blur-md sm:gap-4 sm:p-5 md:flex-row md:items-center md:justify-between">
         <div>
           <div className="flex min-w-0 items-start gap-2.5">
             <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#00D37F]/15 text-base text-[#00D37F] border border-[#00D37F]/30 shadow-[0_0_12px_rgba(0,211,127,0.2)]">
               📅
             </span>
-            <div>
-              <h2 className="flex flex-wrap items-center gap-2 text-lg font-bold tracking-tight text-white sm:text-xl">
+            <div className="min-w-0">
+              <h2 className="flex min-w-0 flex-wrap items-center gap-2 text-base font-bold tracking-tight text-white sm:text-xl">
                 Academic Timetable
-                <span className="rounded-full bg-[#00D37F]/10 px-2.5 py-0.5 text-[11px] font-bold text-[#00D37F] border border-[#00D37F]/20">
+                <span className="max-w-full break-words rounded-full bg-[#00D37F]/10 px-2.5 py-0.5 text-[10px] font-bold text-[#00D37F] border border-[#00D37F]/20 sm:text-[11px]">
                   Option 2 • Day View
                 </span>
               </h2>
-              <p className="mt-0.5 break-words text-xs text-slate-400">
+              <p className="mt-0.5 break-words text-[11px] leading-relaxed text-slate-400 sm:text-xs">
                 Browse day-wise scheduled classes with quick department & semester filters.
               </p>
             </div>
@@ -372,7 +382,7 @@ export function DepartmentTimetableViewer({
             <button
               type="button"
               onClick={() => setViewType("weeklyGrid")}
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+              className={`hidden items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition sm:flex ${
                 viewType === "weeklyGrid"
                   ? "bg-[#00D37F]/20 text-[#00D37F] border border-[#00D37F]/30 shadow-sm"
                   : "text-slate-400 hover:text-white"
@@ -403,7 +413,7 @@ export function DepartmentTimetableViewer({
                 key={day}
                 type="button"
                 onClick={() => setActiveDay(day)}
-                className={`relative flex flex-col items-center justify-center rounded-xl py-3 px-2 text-center transition-all duration-200 ${
+                className={`relative flex min-w-0 flex-col items-center justify-center rounded-xl px-1.5 py-2.5 text-center transition-all duration-200 sm:px-2 sm:py-3 ${
                   isSelected
                     ? "bg-[#111824] border border-[#00D37F]/40 shadow-[0_0_15px_rgba(0,211,127,0.18)]"
                     : "border border-transparent bg-transparent hover:bg-slate-800/40 hover:border-slate-700/60"
@@ -430,7 +440,7 @@ export function DepartmentTimetableViewer({
                   </span>
                 </div>
                 <span
-                  className={`text-sm font-semibold mt-0.5 ${
+                  className={`mt-0.5 text-xs font-semibold sm:text-sm ${
                     isSelected ? "text-white" : "text-slate-300"
                   }`}
                 >
@@ -448,7 +458,7 @@ export function DepartmentTimetableViewer({
       </div>
 
       {/* ── 3. HORIZONTAL FILTER PILLS (Departments, Semesters, Sections, Search) ── */}
-      <div className="space-y-3 rounded-2xl border border-slate-800/80 bg-[#161f2e]/80 p-3 shadow-xl backdrop-blur-md sm:p-4">
+      <div className="min-w-0 space-y-3 rounded-2xl border border-slate-800/80 bg-[#161f2e]/80 p-3 shadow-xl backdrop-blur-md sm:p-4">
         {/* Department Pills */}
         <div className="flex flex-wrap items-center gap-1.5">
           <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mr-2 flex items-center gap-1">
@@ -498,7 +508,7 @@ export function DepartmentTimetableViewer({
         </div>
 
         {/* Sub-Filters: Semester, Section & Search */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-800/80 pt-3">
+        <div className="flex min-w-0 flex-col items-stretch justify-between gap-3 border-t border-slate-800/80 pt-3 sm:flex-row sm:flex-wrap sm:items-center">
           <div className="flex flex-wrap items-center gap-2">
             {/* Semester Filter */}
             {availableSemesters.length > 0 && (
@@ -536,7 +546,7 @@ export function DepartmentTimetableViewer({
               <select
                 value={selectedSectionId}
                 onChange={(e) => setSelectedSectionId(e.target.value)}
-                className="rounded-xl border border-slate-800 bg-[#0e141f] px-3 py-1.5 text-xs font-semibold text-slate-200 outline-none focus:border-[#00D37F]"
+                className="max-w-full rounded-xl border border-slate-800 bg-[#0e141f] px-3 py-1.5 text-xs font-semibold text-slate-200 outline-none focus:border-[#00D37F]"
               >
                 <option value="ALL">All Sections ({filteredSections.length})</option>
                 {filteredSections
@@ -554,13 +564,13 @@ export function DepartmentTimetableViewer({
           </div>
 
           {/* Search Box */}
-          <div className="relative">
+          <div className="relative w-full min-w-0 sm:w-auto sm:flex-1 sm:max-w-64">
             <input
               type="text"
               placeholder="Search course, teacher, room..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-48 sm:w-64 rounded-xl border border-slate-800 bg-[#0e141f] pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 outline-none focus:border-[#00D37F] transition"
+              className="w-full rounded-xl border border-slate-800 bg-[#0e141f] py-2 pl-8 pr-8 text-xs text-white placeholder-slate-500 outline-none transition focus:border-[#00D37F]"
             />
             <span className="absolute left-2.5 top-2 text-slate-500 text-xs">🔍</span>
             {searchQuery && (
@@ -577,30 +587,30 @@ export function DepartmentTimetableViewer({
       </div>
 
       {/* ── 4. SUMMARY STRIP FOR ACTIVE DAY ── */}
-      <div className="flex flex-col items-start justify-between gap-3 rounded-xl border border-slate-800/80 bg-[#111824]/90 px-4 py-3 shadow-md sm:flex-row sm:items-center sm:px-5">
-        <div className="flex items-center gap-3">
+      <div className="flex min-w-0 flex-col items-start justify-between gap-3 rounded-xl border border-slate-800/80 bg-[#111824]/90 px-3 py-3 shadow-md sm:flex-row sm:items-center sm:px-5">
+        <div className="flex min-w-0 items-start gap-3">
           <div className="flex h-3 w-3 items-center justify-center">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00D37F] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00D37F]"></span>
             </span>
           </div>
-          <div>
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
+          <div className="min-w-0">
+            <h3 className="flex flex-wrap items-center gap-2 text-sm font-bold text-white">
               <span>{dayMeta[activeDay].label} Schedule</span>
               {selectedDept !== "ALL" && (
-                <span className="rounded-md bg-slate-800 px-2 py-0.5 text-xs text-cyan-300">
+                <span className="max-w-full break-words rounded-md bg-slate-800 px-2 py-0.5 text-[10px] text-cyan-300 sm:text-xs">
                   {selectedDept} Department
                 </span>
               )}
             </h3>
-            <p className="text-[11px] text-slate-400">
+            <p className="break-words text-[10px] leading-relaxed text-slate-400 sm:text-[11px]">
               Total: {dayStats.total} {dayStats.total === 1 ? "lecture" : "lectures"} • Timing: {dayStats.timeSpan}
             </p>
           </div>
         </div>
 
-        <div className="flex w-full flex-wrap items-center gap-2 text-xs sm:w-auto">
+        <div className="flex w-full flex-wrap items-center gap-2 text-[10px] sm:w-auto sm:text-xs">
           <span className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 font-semibold text-emerald-400">
             📚 {dayStats.theory} Theory
           </span>
@@ -613,7 +623,7 @@ export function DepartmentTimetableViewer({
       {/* ── 5. OPTION 2 CLASS CARDS (Day List View) ── */}
       {viewType === "dayList" ? (
         activeDaySlots.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-800 bg-[#161f2e]/50 p-12 text-center backdrop-blur-md">
+          <div className="rounded-2xl border border-dashed border-slate-800 bg-[#161f2e]/50 p-6 text-center backdrop-blur-md sm:p-12">
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-800/80 text-2xl">
               ☕
             </div>
@@ -662,7 +672,7 @@ export function DepartmentTimetableViewer({
               return (
                 <div
                   key={slot.id}
-                  className={`group relative min-w-0 overflow-hidden rounded-2xl border border-slate-800/80 border-l-4 ${theme.borderAccent} bg-gradient-to-r ${theme.bgGradient} p-4 shadow-xl transition-all duration-200 hover:-translate-y-0.5 sm:p-5 ${theme.glowBorder}`}
+                  className={`group relative min-w-0 overflow-hidden rounded-2xl border border-slate-800/80 border-l-4 ${theme.borderAccent} bg-gradient-to-r ${theme.bgGradient} p-3 shadow-xl transition-all duration-200 hover:-translate-y-0.5 sm:p-5 ${theme.glowBorder}`}
                 >
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                     {/* LEFT COLUMN: Time badge & Status */}
@@ -673,7 +683,7 @@ export function DepartmentTimetableViewer({
                             {slot.startTime} – {slot.endTime}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 mt-1">
+                        <div className="mt-1 flex flex-wrap items-center gap-2">
                           <span className="text-[11px] font-semibold text-slate-400">
                             ⏱️ {duration}
                           </span>
@@ -702,7 +712,7 @@ export function DepartmentTimetableViewer({
                         <span className={`rounded-md px-2 py-0.5 text-[11px] font-extrabold tracking-wide uppercase ${theme.tagBg}`}>
                           {slot.courseCode}
                         </span>
-                        <span className="rounded-md bg-slate-800/80 px-2 py-0.5 text-[11px] font-bold text-slate-300 border border-slate-700/60">
+                        <span className="break-words rounded-md bg-slate-800/80 px-2 py-0.5 text-[10px] font-bold text-slate-300 border border-slate-700/60 sm:text-[11px]">
                           {slot.department} · {slot.sectionName}
                         </span>
                         {slot.semester && (
@@ -723,21 +733,21 @@ export function DepartmentTimetableViewer({
                       </div>
 
                       {/* Course Title */}
-                      <h4 className="mt-2 text-base font-bold text-white group-hover:text-cyan-300 transition">
+                      <h4 className="mt-2 break-words text-sm font-bold text-white transition group-hover:text-cyan-300 sm:text-base">
                         {slot.courseName}
                       </h4>
 
                       {/* Teacher info with avatar */}
-                      <div className="mt-2.5 flex items-center gap-2.5">
+                      <div className="mt-2.5 flex min-w-0 flex-wrap items-center gap-2.5">
                         <div
-                          className={`flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-extrabold ${theme.avatarBg}`}
+                          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px] font-extrabold ${theme.avatarBg}`}
                         >
                           {initials || "👨‍🏫"}
                         </div>
                         <span className="min-w-0 break-words text-xs font-semibold text-slate-300">
                           {slot.teacherName}
                         </span>
-                        <span className="text-[11px] text-slate-500">• Course Instructor</span>
+                        <span className="text-[10px] text-slate-500 sm:text-[11px]">• Course Instructor</span>
                       </div>
                     </div>
 

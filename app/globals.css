@@ -20,6 +20,30 @@ canvas {
   max-width: 100%;
 }
 
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #62d9d4;
+  outline-offset: 3px;
+}
+
 /* Custom modern scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

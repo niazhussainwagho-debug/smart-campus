@@ -1,0 +1,387 @@
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.statCard {
+  display: flex;
+  min-width: 0;
+  min-height: 76px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(171, 206, 219, .16);
+  border-radius: 9px;
+  background: linear-gradient(145deg, rgba(25, 46, 61, .96), rgba(14, 31, 45, .96));
+  box-shadow: inset 0 0 15px rgba(128, 184, 201, .025);
+  transition: border-color .16s ease, transform .16s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-1px);
+  border-color: rgba(79, 203, 204, .34);
+}
+
+.statIcon {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.rose { border-color: #ef778255; background: #ef77821b; color: #f08a93; }
+.orange { border-color: #f2ae4f55; background: #f2ae4f1b; color: #f2b75e; }
+.teal { border-color: #42c6c555; background: #42c6c51b; color: #55d3cf; }
+.blue { border-color: #69a9e955; background: #69a9e91b; color: #7cb9ed; }
+
+.statCopy {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.statCopy > span {
+  overflow: hidden;
+  color: #c1d0d6;
+  font-size: 8px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statCopy > strong {
+  color: #f2f7f8;
+  font-size: 21px;
+  line-height: 1;
+}
+
+.statCopy > small {
+  overflow: hidden;
+  color: #8eabb5;
+  font-size: 7px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1.55fr);
+  gap: 10px;
+}
+
+.panel {
+  min-width: 0;
+  border: 1px solid rgba(171, 206, 219, .17);
+  border-radius: 9px;
+  background: linear-gradient(145deg, rgba(17, 37, 52, .97), rgba(12, 28, 42, .97));
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .1);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.panelHeader > div { min-width: 0; }
+
+.panelHeader h2 {
+  margin: 0;
+  color: #e9f1f3;
+  font-size: 10px;
+  font-weight: 680;
+}
+
+.panelHeader p {
+  margin: 4px 0 0;
+  color: #8ca2ad;
+  font-size: 7px;
+}
+
+.heatPanel {
+  padding: 11px 12px 9px;
+}
+
+.panelPill,
+.totalTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  border: 1px solid rgba(173, 207, 219, .16);
+  border-radius: 5px;
+  color: #b7c7cf;
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: .35px;
+  white-space: nowrap;
+}
+
+.panelPill b { color: #93a8b2; font-size: 9px; }
+
+.heatmap {
+  display: grid;
+  grid-template-columns: 37px repeat(5, minmax(0, 1fr));
+  grid-template-rows: 17px repeat(5, minmax(27px, 1fr));
+  gap: 3px;
+  margin-top: 10px;
+}
+
+.heatCorner,
+.heatDay {
+  display: grid;
+  place-items: center;
+  color: #9ab0ba;
+  font-size: 6px;
+  font-weight: 650;
+}
+
+.heatDay { color: #bfd0d6; }
+.heatRow { display: contents; }
+.heatTime { display: grid; align-items: center; color: #9bb0ba; font-size: 6px; }
+
+.heatCell {
+  display: grid;
+  min-width: 0;
+  place-items: center;
+  border: 1px solid rgba(6, 22, 32, .45);
+  border-radius: 3px;
+  font-size: 8px;
+  font-weight: 750;
+  text-shadow: 0 1px rgba(255, 255, 255, .2);
+}
+
+.heat2 { background: #2785ad; color: #e5faff; }
+.heat3 { background: #31a6b4; color: #071c23; }
+.heat4 { background: #8ec451; color: #12200b; }
+.heat5 { background: #d0ca3a; color: #26230b; }
+.heat6 { background: #f1ae2e; color: #281a06; }
+.heat7 { background: #f27b27; color: #fff3e8; }
+.heat8 { background: #e94d38; color: #fff6f2; }
+
+.heatLegend {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 9px;
+  color: #9cb0b9;
+  font-size: 6px;
+}
+
+.heatLegend > span { margin-right: auto; color: #c2d0d6; font-weight: 650; }
+.heatLegend > i { width: 8px; height: 8px; border-radius: 2px; }
+.heatLegend > .heat2 { background: #2785ad; }
+.heatLegend > .heat5 { background: #d0ca3a; }
+.heatLegend > .heat8 { background: #e94d38; }
+
+.chartColumn {
+  display: grid;
+  min-width: 0;
+  grid-template-rows: minmax(126px, 1.1fr) minmax(110px, .9fr);
+  gap: 10px;
+}
+
+.trendPanel,
+.breakdownPanel {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  padding: 10px 11px 8px;
+}
+
+.trendDelta {
+  padding: 4px 6px;
+  border: 1px solid rgba(98, 219, 178, .2);
+  border-radius: 10px;
+  background: rgba(98, 219, 178, .07);
+  color: #80dfbd;
+  font-size: 7px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.trendWrap { display: flex; min-height: 0; flex: 1; gap: 6px; margin-top: 4px; }
+.trendYAxis { display: flex; flex-direction: column; justify-content: space-between; padding: 4px 0 3px; color: #849ba6; font-size: 6px; }
+.trendChart { width: 100%; min-height: 55px; overflow: visible; }
+.chartGridLines { fill: none; stroke: rgba(168, 196, 207, .14); stroke-dasharray: 3 4; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.trendFill { fill: url(#attendanceFill); }
+.trendLine { fill: none; stroke: #26c0c8; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.trendPoint { fill: #35cbd0; stroke: #e7ffff; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.weekLabels { display: flex; justify-content: space-between; padding-left: 30px; color: #94a8b1; font-size: 6px; }
+.totalTag { border-color: rgba(73, 199, 199, .2); background: rgba(73, 199, 199, .07); color: #72d5d2; }
+.breakdownRows { display: grid; gap: 6px; margin-top: 9px; }
+.breakdownRow { display: grid; grid-template-columns: minmax(80px, .9fr) minmax(0, 2fr) 26px; align-items: center; gap: 7px; color: #c1cfd5; font-size: 7px; }
+.breakdownRow > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.breakdownRow > strong { color: #e4ecef; font-size: 7px; font-weight: 650; text-align: right; }
+.breakdownTrack { height: 7px; overflow: hidden; border-radius: 6px; background: rgba(164, 190, 201, .1); }
+.breakdownTrack i { display: block; height: 100%; border-radius: inherit; }
+.barBlue { background: #4387e8; }.barTeal { background: #25b5c1; }.barGreen { background: #35b78e; }.barViolet { background: #a858d3; }.barPink { background: #e25586; }
+
+.activityPanel { padding: 10px 12px 7px; }
+.panelLink { color: #71d8d5; font-size: 7px; font-weight: 650; text-decoration: none; white-space: nowrap; }
+.panelLink span { margin-left: 3px; }
+.activityList { margin-top: 7px; }
+.activityRow { display: grid; min-height: 32px; grid-template-columns: 57px minmax(0, 1fr) 58px 70px; align-items: center; gap: 8px; }
+.activityRow + .activityRow { border-top: 1px solid rgba(169, 200, 211, .07); }
+.activityBadge { overflow: hidden; padding: 4px 3px; border-radius: 9px; color: white; font-size: 6px; font-weight: 700; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
+.activityBadge.teal { background: #198f96; }.activityBadge.orange { background: #d9862c; }.activityBadge.blue { background: #397fc0; }
+.activityCopy { display: grid; min-width: 0; gap: 2px; }
+.activityCopy strong { overflow: hidden; color: #e2ebee; font-size: 7px; font-weight: 550; text-overflow: ellipsis; white-space: nowrap; }
+.activityCopy small { overflow: hidden; color: #8fa4ae; font-size: 6px; text-overflow: ellipsis; white-space: nowrap; }
+.activityRow time { color: #8da2ad; font-size: 6px; text-align: right; white-space: nowrap; }
+.activityState { overflow: hidden; padding: 4px 5px; border: 1px solid rgba(165, 193, 204, .16); border-radius: 9px; color: #b7c6cd; font-size: 6px; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
+.stateUpcoming, .stateConfirmed, .stateAvailable, .statePublished { border-color: rgba(80, 209, 174, .2); background: rgba(80, 209, 174, .07); color: #83dcbd; }
+.stateDueSoon, .statePending, .stateNeedsreview { border-color: rgba(239, 185, 92, .2); background: rgba(239, 185, 92, .07); color: #e9c17a; }
+.stateInprogress { border-color: rgba(100, 174, 231, .2); background: rgba(100, 174, 231, .07); color: #91c5ef; }
+
+.bottomRow { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: stretch; gap: 9px; }
+.quickLinks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.quickLink { display: flex; min-width: 0; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid rgba(171, 206, 219, .14); border-radius: 7px; background: rgba(16, 37, 51, .75); color: #dce9ec; text-decoration: none; transition: border-color .15s ease, background .15s ease; }
+.quickLink:hover { border-color: rgba(77, 207, 208, .4); background: rgba(24, 79, 91, .45); }
+.quickLink > span:first-child { display: grid; width: 24px; height: 24px; flex: 0 0 24px; place-items: center; border-radius: 6px; background: rgba(53, 197, 196, .12); color: #67d8d3; font-size: 12px; }
+.quickLink > span:nth-child(2) { display: grid; min-width: 0; gap: 2px; }
+.quickLink strong { overflow: hidden; font-size: 7px; text-overflow: ellipsis; white-space: nowrap; }
+.quickLink small { overflow: hidden; color: #8ca4ae; font-size: 6px; text-overflow: ellipsis; white-space: nowrap; }
+.quickLink > b { margin-left: auto; color: #65d5d1; font-size: 10px; }
+.viewSchedule { display: flex; align-items: center; gap: 7px; padding: 0 12px; border: 1px solid rgba(73, 199, 199, .22); border-radius: 7px; background: rgba(30, 121, 130, .12); color: #72d8d4; font-size: 7px; font-weight: 650; text-decoration: none; white-space: nowrap; }
+.viewSchedule:hover { background: rgba(30, 121, 130, .22); }
+.viewSchedule span { font-size: 10px; }
+
+@media (min-width: 1450px) {
+  .statCard { min-height: 84px; }
+  .heatmap { grid-template-rows: 19px repeat(5, minmax(32px, 1fr)); }
+  .chartColumn { grid-template-rows: minmax(160px, 1.1fr) minmax(130px, .9fr); }
+  .activityRow { min-height: 37px; }
+}
+
+@media (max-width: 1023px) {
+  .analyticsGrid { grid-template-columns: minmax(0, .9fr) minmax(0, 1.3fr); }
+  .bottomRow { grid-template-columns: minmax(0, 1fr); }
+  .viewSchedule { justify-content: center; min-height: 34px; }
+}
+
+@media (max-width: 680px) {
+  .statGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .statCard { min-height: 76px; padding: 9px; }
+  .statIcon { width: 26px; height: 26px; flex-basis: 26px; }
+  .statCopy > span { font-size: 9px; line-height: 1.25; white-space: normal; overflow-wrap: anywhere; }
+  .statCopy > small { font-size: 8px; line-height: 1.25; white-space: normal; }
+  .statCopy > strong { font-size: 20px; }
+  .analyticsGrid { grid-template-columns: minmax(0, 1fr); }
+  .heatmap { grid-template-rows: 17px repeat(5, 31px); }
+  .chartColumn { grid-template-rows: minmax(140px, 1fr) minmax(122px, .9fr); }
+  .breakdownRows { gap: 8px; }
+  .breakdownRow { grid-template-columns: minmax(100px, .9fr) minmax(0, 2fr) 30px; gap: 8px; font-size: 9px; }
+  .breakdownRow > strong { font-size: 9px; }
+  .panelHeader { flex-wrap: wrap; }
+  .activityRow { grid-template-columns: 52px minmax(0, 1fr) auto; grid-template-areas: "badge copy time" ". state state"; gap: 5px 8px; padding: 8px 0; }
+  .activityBadge { grid-area: badge; font-size: 8px; }
+  .activityCopy { grid-area: copy; }
+  .activityCopy strong { display: -webkit-box; overflow: hidden; font-size: 9px; line-height: 1.3; white-space: normal; overflow-wrap: anywhere; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+  .activityCopy small { display: -webkit-box; font-size: 8px; line-height: 1.3; white-space: normal; overflow-wrap: anywhere; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+  .activityRow time { grid-area: time; font-size: 8px; }
+  .activityState { display: inline-block; grid-area: state; justify-self: start; font-size: 8px; }
+  .quickLinks { grid-template-columns: minmax(0, 1fr); }
+  .viewSchedule { min-height: 38px; font-size: 9px; }
+}
+
+@media (max-width: 420px) {
+  .statGrid { gap: 7px; }
+  .statCard { gap: 7px; padding: 8px; }
+  .statCopy > span { font-size: 8px; }
+  .statCopy > small { font-size: 7px; }
+  .activityPanel { padding-right: 9px; padding-left: 9px; }
+  .activityRow { grid-template-columns: 48px minmax(0, 1fr) auto; gap: 5px 6px; }
+  .activityCopy strong { font-size: 8px; }
+  .activityCopy small { font-size: 7px; }
+  .activityRow time { font-size: 7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statCard,
+  .quickLink { transition: none; }
+}
+
+.statCard { min-height: 88px; gap: 12px; padding: 13px 14px; }
+.statCopy { gap: 4px; }
+.statCopy > span { font-size: 12px; }
+.statCopy > small { font-size: 11px; }
+.statIcon { width: 36px; height: 36px; flex-basis: 36px; font-size: 16px; }
+.analyticsGrid { gap: 14px; }
+.panel { border-radius: 12px; }
+.panelHeader h2 { font-size: 15px; }
+.panelHeader p { font-size: 12px; }
+.heatPanel { padding: 16px; }
+.panelPill, .totalTag { padding: 6px 8px; font-size: 10px; }
+.heatmap { grid-template-columns: 48px repeat(5, minmax(0, 1fr)); grid-template-rows: 22px repeat(5, minmax(34px, 1fr)); gap: 5px; margin-top: 14px; }
+.heatCorner, .heatDay, .heatTime { font-size: 10px; }
+.heatCell { font-size: 12px; }
+.heatLegend { gap: 7px; margin-top: 12px; font-size: 10px; }
+.heatLegend > i { width: 10px; height: 10px; }
+.chartColumn { gap: 14px; }
+.trendPanel, .breakdownPanel { padding: 14px 16px 12px; }
+.trendDelta { padding: 6px 8px; font-size: 10px; }
+.trendWrap { min-width: 0; }
+.trendYAxis { flex: 0 0 28px; font-size: 10px; }
+.trendChart { min-width: 0; flex: 1; }
+.weekLabels { font-size: 10px; }
+.breakdownRows { gap: 9px; margin-top: 12px; }
+.breakdownRow { grid-template-columns: minmax(100px, .9fr) minmax(0, 2fr) 34px; gap: 9px; font-size: 11px; }
+.breakdownRow > strong { font-size: 11px; }
+.breakdownTrack { height: 9px; }
+.activityPanel { padding: 14px 16px 10px; }
+.panelLink { font-size: 11px; }
+.activityList { margin-top: 10px; }
+.activityRow { min-height: 44px; grid-template-columns: 64px minmax(0, 1fr) 72px 88px; gap: 10px; }
+.activityBadge, .activityState { padding: 5px 7px; font-size: 10px; }
+.activityCopy strong { font-size: 11px; }
+.activityCopy small { font-size: 10px; }
+.activityRow time { font-size: 10px; }
+.bottomRow { gap: 12px; }
+.quickLinks { gap: 10px; }
+.quickLink { min-height: 60px; gap: 10px; padding: 10px 12px; }
+.quickLink strong { font-size: 11px; }
+.quickLink small { font-size: 10px; }
+.viewSchedule { min-height: 42px; padding: 0 14px; font-size: 11px; }
+
+@media (max-width: 900px) {
+  .analyticsGrid { grid-template-columns: minmax(0, 1fr); }
+  .chartColumn { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto; }
+  .trendPanel, .breakdownPanel { min-height: 190px; }
+}
+
+@media (max-width: 680px) {
+  .statGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .statCard { min-height: 86px; gap: 9px; padding: 11px; }
+  .statIcon { width: 32px; height: 32px; flex-basis: 32px; }
+  .statCopy > span { font-size: 11px; }
+  .statCopy > small { font-size: 10px; }
+  .chartColumn { grid-template-columns: minmax(0, 1fr); }
+  .trendPanel, .breakdownPanel { min-height: 150px; }
+  .activityRow { grid-template-columns: 58px minmax(0, 1fr) auto; grid-template-areas: "badge copy time" ". state state"; gap: 6px 9px; padding: 10px 0; }
+  .activityBadge { grid-area: badge; }
+  .activityCopy { grid-area: copy; }
+  .activityRow time { grid-area: time; }
+  .activityState { grid-area: state; justify-self: start; }
+  .quickLinks { grid-template-columns: minmax(0, 1fr); }
+  .viewSchedule { min-height: 44px; }
+}
+
+@media (max-width: 420px) {
+  .statGrid { grid-template-columns: minmax(0, 1fr); }
+  .statCard { min-height: 74px; gap: 9px; padding: 10px 12px; }
+  .statIcon { width: 28px; height: 28px; flex-basis: 28px; font-size: 14px; }
+  .statCopy > span { font-size: 12px; }
+  .statCopy > small { font-size: 11px; }
+  .heatPanel, .trendPanel, .breakdownPanel { padding-right: 11px; padding-left: 11px; }
+  .heatmap { grid-template-columns: 36px repeat(5, minmax(0, 1fr)); gap: 2px; }
+  .heatCorner, .heatDay, .heatTime { font-size: 9px; }
+  .heatCell { min-height: 30px; font-size: 11px; }
+  .activityPanel { padding-right: 11px; padding-left: 11px; }
+}

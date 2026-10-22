@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { DayOfWeek } from "@/generated/prisma/enums";
 
 export type WeeklyScheduleSlot = {
@@ -74,11 +74,19 @@ export function WeeklyTimetable({
 }: {
   slots: WeeklyScheduleSlot[];
 }) {
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("list");
+
+  useEffect(() => {
+    const mobileLayout = window.matchMedia("(max-width: 639px)");
+    const syncViewMode = () => setViewMode(mobileLayout.matches ? "list" : "grid");
+    syncViewMode();
+    mobileLayout.addEventListener("change", syncViewMode);
+    return () => mobileLayout.removeEventListener("change", syncViewMode);
+  }, []);
 
   if (slots.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-slate-800 bg-[#111827]/70 p-12 text-center backdrop-blur-md">
+      <div className="rounded-2xl border border-dashed border-slate-800 bg-[#111827]/70 p-6 text-center backdrop-blur-md sm:p-12">
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-800/80 text-cyan-400">
           <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <rect height="18" rx="2" width="18" x="3" y="4" />
@@ -87,10 +95,10 @@ export function WeeklyTimetable({
             <line x1="3" x2="21" y1="10" y2="10" />
           </svg>
         </div>
-        <h2 className="mt-4 text-lg font-bold text-white">
+        <h2 className="mt-4 break-words text-lg font-bold text-white">
           No classes scheduled yet
         </h2>
-        <p className="mt-1 text-sm text-slate-400">
+        <p className="mx-auto mt-1 max-w-prose break-words text-sm text-slate-400">
           Once your academic timetable is configured, your weekly schedule will appear here.
         </p>
       </div>
@@ -110,19 +118,19 @@ export function WeeklyTimetable({
   );
 
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-4 sm:space-y-6">
       {/* View Toggle Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-[#111827]/90 px-4 py-4 shadow-xl backdrop-blur-md sm:gap-4 sm:px-6">
-        <div>
-          <h2 className="text-lg font-bold text-white">Weekly Academic Timetable</h2>
-          <p className="text-xs text-slate-400">
+      <div className="flex min-w-0 flex-col items-stretch justify-between gap-3 rounded-2xl border border-slate-800 bg-[#111827]/90 px-3 py-3 shadow-xl backdrop-blur-md sm:flex-row sm:items-center sm:gap-4 sm:px-6 sm:py-4">
+        <div className="min-w-0">
+          <h2 className="break-words text-base font-bold text-white sm:text-lg">Weekly Academic Timetable</h2>
+          <p className="break-words text-xs text-slate-400">
             {slots.length} lecture slots scheduled across the week
           </p>
         </div>
 
-        <div className="flex w-full items-center gap-1 rounded-xl border border-slate-800 bg-slate-900/80 p-1 sm:w-auto sm:gap-2">
+        <div className="flex w-full min-w-0 items-center gap-1 rounded-xl border border-slate-800 bg-slate-900/80 p-1 sm:w-auto sm:gap-2">
           <button
-            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+            className={`hidden min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-[11px] font-semibold transition sm:flex sm:flex-none sm:px-3 sm:py-1.5 sm:text-xs ${
               viewMode === "grid"
                 ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-sm"
                 : "text-slate-400 hover:text-white"
@@ -139,7 +147,7 @@ export function WeeklyTimetable({
             Weekly Grid
           </button>
           <button
-            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+            className={`flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-[11px] font-semibold transition sm:flex-none sm:px-3 sm:py-1.5 sm:text-xs ${
               viewMode === "list"
                 ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-sm"
                 : "text-slate-400 hover:text-white"
@@ -254,8 +262,8 @@ export function WeeklyTimetable({
                 className="overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/90 shadow-xl backdrop-blur-md"
                 key={day}
               >
-                <div className="flex items-center justify-between border-b border-slate-800 bg-slate-900/80 px-6 py-3.5">
-                  <h3 className="text-sm font-bold text-white" id={`day-${day}`}>
+                <div className="flex items-center justify-between gap-2 border-b border-slate-800 bg-slate-900/80 px-3 py-3 sm:px-6 sm:py-3.5">
+                  <h3 className="min-w-0 break-words text-sm font-bold text-white" id={`day-${day}`}>
                     {dayLabels[day]}
                   </h3>
                   <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-0.5 text-xs font-semibold text-cyan-300">
@@ -268,18 +276,18 @@ export function WeeklyTimetable({
                     const style = slotColorStyles[index % slotColorStyles.length];
                     return (
                       <li
-                        className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between"
+                        className="flex min-w-0 flex-col gap-3 p-3 sm:flex-row sm:items-center sm:justify-between sm:p-5"
                         key={slot.id}
                       >
-                        <div className="flex items-start gap-4">
+                        <div className="flex min-w-0 items-start gap-3 sm:gap-4">
                           <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${style.border} ${style.bg} text-xs font-bold ${style.text}`}>
                             {slot.courseCode.slice(0, 4)}
                           </div>
-                          <div>
-                            <p className="text-sm font-bold text-white">
+                          <div className="min-w-0">
+                            <p className="break-words text-sm font-bold text-white">
                               {slot.courseCode} · {slot.courseName}
                             </p>
-                            <p className="mt-1 text-xs text-slate-400">
+                            <p className="mt-1 break-words text-xs leading-relaxed text-slate-400">
                               Room: <span className="text-slate-200 font-semibold">{slot.roomName}</span> · Faculty: <span className="text-slate-200 font-semibold">{slot.teacherName}</span>
                               {slot.sectionName ? ` · Section: ${slot.sectionName}` : ""}
                             </p>
@@ -287,7 +295,7 @@ export function WeeklyTimetable({
                         </div>
 
                         <div className="shrink-0 sm:text-right">
-                          <span className="inline-flex items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800/80 px-3 py-1 text-xs font-bold tabular-nums text-cyan-300">
+                          <span className="inline-flex max-w-full flex-wrap items-center gap-1.5 rounded-lg border border-slate-700 bg-slate-800/80 px-3 py-1 text-xs font-bold tabular-nums text-cyan-300">
                             🕒 {slot.startTime} – {slot.endTime}
                           </span>
                         </div>
