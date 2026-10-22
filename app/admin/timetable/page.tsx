@@ -13,7 +13,8 @@ function formatTime(value: Date): string {
 }
 
 export default async function AdminTimetablePage() {
-  const user = await requireRole(UserRole.ADMIN);
+  const user = await requireRole([UserRole.ADMIN, UserRole.TEACHER]);
+  const isAdmin = user.role === UserRole.ADMIN;
 
   const [courses, sections, rooms, teachers, slots] = await Promise.all([
     prisma.course.findMany({
@@ -43,10 +44,10 @@ export default async function AdminTimetablePage() {
 
   return (
     <DashboardShell
-      badge="Admin Operations"
-      role={UserRole.ADMIN}
-      subtitle="Schedule classes, manage rooms & sections, and automatically prevent timetable clashes."
-      title="Master Academic Timetable"
+      badge={isAdmin ? "Admin Operations" : "Faculty Operations"}
+      role={user.role}
+      subtitle="Manage courses, sections, rooms, and scheduled classes while preventing timetable clashes."
+      title={isAdmin ? "Master Academic Timetable" : "Timetable Management"}
       user={user}
     >
       <AdminTimetableManager

@@ -101,6 +101,15 @@ export function DashboardShell({
     },
     ...(role === "TEACHER"
       ? [
+          {
+            href: "/admin/timetable",
+            label: "Manage Timetable",
+            icon: (active: boolean) => <IconCalendar active={active} />,
+          },
+        ]
+      : []),
+    ...(role === "TEACHER"
+      ? [
           { href: "/teacher/availability", label: "Office Hours", icon: (active: boolean) => <IconClock active={active} /> },
           { href: "/teacher/appointments", label: "Student Requests", badge: "Live", icon: (active: boolean) => <IconUsers active={active} /> },
         ]

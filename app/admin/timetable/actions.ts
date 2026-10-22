@@ -54,7 +54,7 @@ function revalidateTimetables(): void {
 export async function createCourseAction(
   formData: FormData,
 ): Promise<TimetableActionResult> {
-  await requireRole(UserRole.ADMIN);
+  await requireRole([UserRole.ADMIN, UserRole.TEACHER]);
 
   const code = field(formData, "code").toUpperCase();
   const name = field(formData, "name");
@@ -91,7 +91,7 @@ export async function createCourseAction(
 export async function createSectionAction(
   formData: FormData,
 ): Promise<TimetableActionResult> {
-  await requireRole(UserRole.ADMIN);
+  await requireRole([UserRole.ADMIN, UserRole.TEACHER]);
 
   const name = field(formData, "name");
   const department = field(formData, "department");
@@ -123,7 +123,7 @@ export async function createSectionAction(
 export async function createRoomAction(
   formData: FormData,
 ): Promise<TimetableActionResult> {
-  await requireRole(UserRole.ADMIN);
+  await requireRole([UserRole.ADMIN, UserRole.TEACHER]);
 
   const name = field(formData, "name");
   const capacity = Number(field(formData, "capacity"));
@@ -152,7 +152,7 @@ export async function createRoomAction(
 export async function saveTimetableSlotAction(
   formData: FormData,
 ): Promise<TimetableActionResult> {
-  await requireRole(UserRole.ADMIN);
+  await requireRole([UserRole.ADMIN, UserRole.TEACHER]);
 
   const id = field(formData, "id") || undefined;
   const courseId = field(formData, "courseId");
@@ -315,7 +315,7 @@ export async function saveTimetableSlotAction(
 export async function deleteTimetableSlotAction(
   formData: FormData,
 ): Promise<TimetableActionResult> {
-  await requireRole(UserRole.ADMIN);
+  await requireRole([UserRole.ADMIN, UserRole.TEACHER]);
 
   const id = field(formData, "id");
   if (!id) {
