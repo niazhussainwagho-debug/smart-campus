@@ -51,7 +51,10 @@ model User {
   status               UserStatus         @default(APPROVED)
   department           String?
   semester             Int?
+  emailVerifiedAt      DateTime?
+  avatarData           String?            @db.Text
   createdAt            DateTime           @default(now())
+  emailVerificationCode EmailVerificationCode?
   courses              Course[]           @relation("CourseTeacher")
   timetableSlots       TimetableSlot[]    @relation("TimetableTeacher")
   coTeachingSlots      TimetableSlot[]    @relation("TimetableSlotTeachers")
@@ -63,6 +66,18 @@ model User {
   passwordResetTokens  PasswordResetToken[]
 
   @@index([role])
+}
+
+model EmailVerificationCode {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  codeHash  String
+  expiresAt DateTime
+  attempts  Int      @default(0)
+  sentAt    DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
 }
 
 model PasswordResetToken {

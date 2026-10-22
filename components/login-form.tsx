@@ -31,6 +31,10 @@ export function LoginForm() {
           setError("Account pending admin approval");
           return;
         }
+        if (result?.code === "email-unverified") {
+          setError("Please verify your email address before signing in.");
+          return;
+        }
         setError("Incorrect email or password. Please try again.");
         return;
       }

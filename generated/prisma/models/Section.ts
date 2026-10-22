@@ -346,14 +346,6 @@ export type SectionScalarRelationFilter = {
   isNot?: Prisma.SectionWhereInput
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type SectionCreateNestedOneWithoutEnrollmentsInput = {
   create?: Prisma.XOR<Prisma.SectionCreateWithoutEnrollmentsInput, Prisma.SectionUncheckedCreateWithoutEnrollmentsInput>
   connectOrCreate?: Prisma.SectionCreateOrConnectWithoutEnrollmentsInput

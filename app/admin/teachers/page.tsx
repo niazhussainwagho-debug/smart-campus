@@ -7,7 +7,11 @@ import { prisma } from "@/lib/prisma";
 export default async function AdminTeachersPage() {
   const admin = await requireRole(UserRole.ADMIN);
   const pendingTeachers = await prisma.user.findMany({
-    where: { role: UserRole.TEACHER, status: UserStatus.PENDING },
+    where: {
+      role: UserRole.TEACHER,
+      status: UserStatus.PENDING,
+      emailVerifiedAt: { not: null },
+    },
     select: {
       id: true,
       name: true,

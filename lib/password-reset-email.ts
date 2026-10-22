@@ -55,21 +55,63 @@ export function isPasswordResetEmailConfigured(): boolean {
   }
 }
 
+function createTransporter() {
+  const smtp = getSmtpConfiguration();
+  return {
+    smtp,
+    transporter: nodemailer.createTransport({
+      host: smtp.host,
+      port: smtp.port,
+      secure: smtp.port === 465,
+      auth: {
+        user: smtp.user,
+        pass: smtp.password,
+      },
+    }),
+  };
+}
+
+export async function sendCampusEmail(
+  recipient: string,
+  subject: string,
+  text: string,
+): Promise<void> {
+  const { smtp, transporter } = createTransporter();
+  await transporter.sendMail({
+    from: smtp.from,
+    to: recipient,
+    subject,
+    text,
+  });
+}
+
+export async function sendCampusBulkEmail(
+  recipients: string[],
+  subject: string,
+  text: string,
+): Promise<number> {
+  const uniqueRecipients = [...new Set(recipients.map((email) => email.trim()).filter(Boolean))];
+  if (!uniqueRecipients.length) return 0;
+
+  const { smtp, transporter } = createTransporter();
+  for (let index = 0; index < uniqueRecipients.length; index += 50) {
+    const batch = uniqueRecipients.slice(index, index + 50);
+    await transporter.sendMail({
+      from: smtp.from,
+      to: smtp.from,
+      bcc: batch,
+      subject,
+      text,
+    });
+  }
+  return uniqueRecipients.length;
+}
+
 export async function sendPasswordResetEmail(
   recipient: string,
   resetUrl: string,
 ): Promise<void> {
-  const smtp = getSmtpConfiguration();
-  const transporter = nodemailer.createTransport({
-    host: smtp.host,
-    port: smtp.port,
-    secure: smtp.port === 465,
-    auth: {
-      user: smtp.user,
-      pass: smtp.password,
-    },
-  });
-
+  const { smtp, transporter } = createTransporter();
   await transporter.sendMail({
     from: smtp.from,
     to: recipient,

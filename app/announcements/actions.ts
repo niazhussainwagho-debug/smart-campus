@@ -1,6 +1,6 @@
 "use server";
 
-import { UserRole } from "@/generated/prisma/enums";
+import { UserRole, UserStatus } from "@/generated/prisma/enums";
 import { Prisma } from "@/generated/prisma/client";
 import { revalidatePath } from "next/cache";
 import { requireRole } from "@/lib/auth-helpers";
@@ -8,6 +8,7 @@ import {
   findAnnouncementsForViewer,
   type AnnouncementFilters,
 } from "@/lib/announcements";
+import { sendCampusBulkEmail } from "@/lib/password-reset-email";
 import { prisma } from "@/lib/prisma";
 
 export type AnnouncementActionResult = {
@@ -106,7 +107,49 @@ export async function createAnnouncementAction(
   }
 
   revalidatePath("/announcements");
-  return { ok: true, message: "Announcement published." };
+
+  try {
+    const recipientWhere =
+      !department
+        ? {}
+        : semester === null
+          ? { department }
+          : {
+              OR: [
+                { role: UserRole.TEACHER, department },
+                {
+                  role: UserRole.STUDENT,
+                  department,
+                  semester,
+                },
+              ],
+            };
+    const recipients = await prisma.user.findMany({
+      where: {
+        ...recipientWhere,
+        role: { in: [UserRole.STUDENT, UserRole.TEACHER] },
+        status: UserStatus.APPROVED,
+        emailVerifiedAt: { not: null },
+      },
+      select: { email: true },
+    });
+    const notifiedCount = await sendCampusBulkEmail(
+      recipients.map((recipient) => recipient.email),
+      `CAMPUS.OS announcement: ${title}`,
+      `${title}\n\n${message}\n\n${department ? `Audience: ${department}${semester ? `, semester ${semester}` : ""}` : "Audience: All campus"}\n\nView the announcement board in CAMPUS.OS.`,
+    );
+    return {
+      ok: true,
+      message: `Announcement published and emailed to ${notifiedCount} recipient${notifiedCount === 1 ? "" : "s"}.`,
+    };
+  } catch (error) {
+    logDatabaseError("Announcement email dispatch", error);
+    return {
+      ok: true,
+      message:
+        "Announcement published, but email notifications could not be sent. Check SMTP configuration and try again.",
+    };
+  }
 }
 
 export async function deleteAnnouncementAction(

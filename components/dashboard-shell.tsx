@@ -104,6 +104,15 @@ export function DashboardShell({
       label: "Announcements",
       icon: (active) => <IconBell active={active} />,
     },
+    ...(role === "STUDENT" || role === "TEACHER"
+      ? [
+          {
+            href: "/profile",
+            label: "My Profile",
+            icon: (active: boolean) => <IconUsers active={active} />,
+          },
+        ]
+      : []),
     ...(role === "TEACHER"
       ? [
           {

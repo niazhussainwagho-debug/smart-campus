@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, useTransition, type FormEvent } from "react";
-import { registerAccountAction } from "@/app/signup/actions";
+import {
+  registerAccountAction,
+  resendRegistrationCodeAction,
+  verifyRegistrationEmailAction,
+} from "@/app/signup/actions";
 import type { RegistrationResult } from "@/app/signup/actions";
 
 type SignupTarget = {
@@ -15,7 +19,11 @@ const fieldClass =
 export function SignupForm({ targets }: { targets: SignupTarget[] }) {
   const [role, setRole] = useState<"STUDENT" | "TEACHER">("STUDENT");
   const [department, setDepartment] = useState("");
+  const [semester, setSemester] = useState("");
   const [result, setResult] = useState<RegistrationResult | null>(null);
+  const [verificationEmail, setVerificationEmail] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+  const [verified, setVerified] = useState(false);
   const [isPending, startTransition] = useTransition();
   const departments = [...new Set(targets.map((target) => target.department))];
   const semesters = [
@@ -35,14 +43,110 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
       const response = await registerAccountAction(formData);
       setResult(response);
       if (response.ok) {
-        form.reset();
-        setDepartment("");
+        if (response.verificationRequired) {
+          setVerificationEmail(String(formData.get("email") ?? ""));
+        } else {
+          form.reset();
+          setDepartment("");
+          setSemester("");
+        }
       }
+    });
+  }
+
+  function submitVerification(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.set("email", verificationEmail);
+    formData.set("code", verificationCode);
+    startTransition(async () => {
+      const response = await verifyRegistrationEmailAction(formData);
+      setResult(response);
+      if (response.ok) {
+        setVerified(true);
+        setVerificationCode("");
+      }
+    });
+  }
+
+  function resendCode() {
+    const formData = new FormData();
+    formData.set("email", verificationEmail);
+    startTransition(async () => {
+      const response = await resendRegistrationCodeAction(formData);
+      setResult(response);
     });
   }
 
   return (
     <>
+      {verificationEmail ? (
+        <section
+          aria-labelledby="verify-email-heading"
+          className="mt-6 rounded-2xl border border-cyan-500/20 bg-slate-900/60 p-4 sm:p-5"
+        >
+          <h2 id="verify-email-heading" className="text-lg font-bold text-white">
+            Verify your email
+          </h2>
+          <p className="mt-2 break-words text-sm text-slate-400">
+            Enter the six-digit code sent to <strong className="text-slate-200">{verificationEmail}</strong>.
+            The code expires in 10 minutes.
+          </p>
+          {!verified ? (
+            <>
+              <form className="mt-4 grid gap-3" onSubmit={submitVerification}>
+                <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  Verification code
+                  <input
+                    autoComplete="one-time-code"
+                    className={`${fieldClass} text-center text-xl tracking-[0.35em]`}
+                    inputMode="numeric"
+                    maxLength={6}
+                    minLength={6}
+                    onChange={(event) =>
+                      setVerificationCode(event.target.value.replace(/\D/g, "").slice(0, 6))
+                    }
+                    pattern="[0-9]{6}"
+                    required
+                    value={verificationCode}
+                  />
+                </label>
+                <button
+                  className="min-h-11 rounded-xl bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-500 px-4 py-2 text-sm font-bold text-slate-950 disabled:opacity-60"
+                  disabled={isPending}
+                  type="submit"
+                >
+                  Verify email
+                </button>
+              </form>
+              <button
+                className="mt-3 w-full text-sm font-semibold text-cyan-400 hover:text-cyan-300 disabled:opacity-60"
+                disabled={isPending}
+                onClick={resendCode}
+                type="button"
+              >
+                Resend verification code
+              </button>
+            </>
+          ) : (
+            <p className="mt-4 text-sm font-semibold text-emerald-300">
+              Email verified. You can now sign in.
+            </p>
+          )}
+          {result && (
+            <p
+              aria-live="polite"
+              className={`mt-3 text-sm ${
+                result.ok ? "text-emerald-300" : "text-rose-300"
+              }`}
+              role={result.ok ? "status" : "alert"}
+            >
+              {result.message}
+            </p>
+          )}
+        </section>
+      ) : (
+        <>
       <div
         aria-label="Account type"
         className="mt-6 grid grid-cols-2 gap-2 rounded-xl border border-slate-800 bg-slate-900/70 p-1"
@@ -111,7 +215,10 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
           <select
             className={fieldClass}
             name="department"
-            onChange={(event) => setDepartment(event.target.value)}
+            onChange={(event) => {
+              setDepartment(event.target.value);
+              setSemester("");
+            }}
             required
             value={department}
           >
@@ -130,7 +237,9 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
               className={fieldClass}
               disabled={!department}
               name="semester"
+              onChange={(event) => setSemester(event.target.value)}
               required
+              value={semester}
             >
               <option value="">Select semester</option>
               {semesters.map((semester) => (
@@ -170,6 +279,8 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
               : "Submit teacher request"}
         </button>
       </form>
+        </>
+      )}
       {departments.length === 0 && (
         <p className="mt-3 text-sm text-amber-300">
           Registration is unavailable until campus departments are configured.

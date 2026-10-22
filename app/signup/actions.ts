@@ -3,12 +3,22 @@
 import { hash } from "bcryptjs";
 import { Prisma } from "@/generated/prisma/client";
 import { UserRole, UserStatus } from "@/generated/prisma/enums";
+import {
+  createVerificationCode,
+  hasTooManyVerificationAttempts,
+  isResendCooldownActive,
+  isValidVerificationCode,
+  isVerificationCodeMatch,
+  isVerificationExpired,
+} from "@/lib/email-verification";
+import { sendCampusEmail } from "@/lib/password-reset-email";
 import { isValidNewPassword } from "@/lib/password-reset";
 import { prisma } from "@/lib/prisma";
 
 export type RegistrationResult = {
   ok: boolean;
   message: string;
+  verificationRequired?: boolean;
 };
 
 function field(formData: FormData, name: string): string {
@@ -26,6 +36,41 @@ function isDuplicateEmail(error: unknown): boolean {
     error instanceof Prisma.PrismaClientKnownRequestError &&
     error.code === "P2002"
   );
+}
+
+async function sendVerificationCode(
+  userId: string,
+  email: string,
+): Promise<void> {
+  const verification = createVerificationCode(userId);
+  await prisma.emailVerificationCode.upsert({
+    where: { userId },
+    create: {
+      userId,
+      codeHash: verification.codeHash,
+      expiresAt: verification.expiresAt,
+      attempts: 0,
+      sentAt: verification.sentAt,
+    },
+    update: {
+      codeHash: verification.codeHash,
+      expiresAt: verification.expiresAt,
+      attempts: 0,
+      sentAt: verification.sentAt,
+    },
+  });
+  try {
+    await sendCampusEmail(
+      email,
+      "Verify your CAMPUS.OS email",
+      `Your CAMPUS.OS verification code is ${verification.code}. It expires in 10 minutes. If you did not request this, you can ignore this email.`,
+    );
+  } catch (error) {
+    await prisma.emailVerificationCode.deleteMany({
+      where: { userId, codeHash: verification.codeHash },
+    });
+    throw error;
+  }
 }
 
 export async function registerAccountAction(
@@ -104,8 +149,9 @@ export async function registerAccountAction(
   }
 
   const passwordHash = await hash(password, 12);
+  let user: { id: string; email: string };
   try {
-    await prisma.user.create({
+    user = await prisma.user.create({
       data: {
         name,
         email,
@@ -118,6 +164,7 @@ export async function registerAccountAction(
             ? UserStatus.APPROVED
             : UserStatus.PENDING,
       },
+      select: { id: true, email: true },
     });
   } catch (error) {
     if (isDuplicateEmail(error)) {
@@ -139,14 +186,155 @@ export async function registerAccountAction(
     };
   }
 
-  return role === UserRole.STUDENT
-    ? {
-        ok: true,
-        message: "Your student account is ready. You can now sign in.",
-      }
-    : {
-        ok: true,
-        message:
-          "Your teacher registration was submitted. You can sign in after admin approval.",
-      };
+  try {
+    await sendVerificationCode(user.id, user.email);
+  } catch (error) {
+    const detail = error instanceof Error ? error.name : "UnknownError";
+    console.error(`Registration verification email failed (${detail}).`);
+    return {
+      ok: true,
+      verificationRequired: true,
+      message:
+        "Your account was created, but the verification email could not be sent. Use Resend code to try again.",
+    };
+  }
+
+  return {
+    ok: true,
+    verificationRequired: true,
+    message:
+      role === UserRole.STUDENT
+        ? "A verification code has been sent. Verify your email before signing in."
+        : "A verification code has been sent. Verify your email before admin approval can be completed.",
+  };
+}
+
+export async function verifyRegistrationEmailAction(
+  formData: FormData,
+): Promise<RegistrationResult> {
+  const email = field(formData, "email").toLowerCase();
+  const code = field(formData, "code");
+  if (
+    email.length > 254 ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+    !isValidVerificationCode(code)
+  ) {
+    return { ok: false, message: "Enter the email and six-digit code." };
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+    select: { id: true, emailVerifiedAt: true },
+  });
+  if (!user) {
+    return { ok: false, message: "Invalid or expired verification code." };
+  }
+  if (user.emailVerifiedAt) {
+    return { ok: true, message: "Email verified. You can now sign in." };
+  }
+
+  const verification = await prisma.emailVerificationCode.findUnique({
+    where: { userId: user.id },
+  });
+  if (
+    !verification ||
+    isVerificationExpired(verification.expiresAt) ||
+    hasTooManyVerificationAttempts(verification.attempts)
+  ) {
+    if (verification && isVerificationExpired(verification.expiresAt)) {
+      await prisma.emailVerificationCode.deleteMany({
+        where: { id: verification.id },
+      });
+    }
+    return {
+      ok: false,
+      message: "Invalid or expired verification code. Request a new code.",
+    };
+  }
+
+  if (
+    !isVerificationCodeMatch(user.id, code, verification.codeHash)
+  ) {
+    await prisma.emailVerificationCode.updateMany({
+      where: {
+        id: verification.id,
+        attempts: { lt: 5 },
+        expiresAt: { gt: new Date() },
+      },
+      data: { attempts: { increment: 1 } },
+    });
+    return { ok: false, message: "Invalid or expired verification code." };
+  }
+
+  const now = new Date();
+  const verified = await prisma.$transaction(async (transaction) => {
+    const consumed = await transaction.emailVerificationCode.deleteMany({
+      where: {
+        id: verification.id,
+        codeHash: verification.codeHash,
+        attempts: { lt: 5 },
+        expiresAt: { gt: now },
+      },
+    });
+    if (consumed.count !== 1) return false;
+
+    await transaction.user.update({
+      where: { id: user.id },
+      data: { emailVerifiedAt: now },
+    });
+    return true;
+  });
+
+  return verified
+    ? { ok: true, message: "Email verified. You can now sign in." }
+    : { ok: false, message: "Invalid or expired verification code." };
+}
+
+export async function resendRegistrationCodeAction(
+  formData: FormData,
+): Promise<RegistrationResult> {
+  const email = field(formData, "email").toLowerCase();
+  if (
+    email.length > 254 ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  ) {
+    return { ok: false, message: "Enter a valid email address." };
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+    select: { id: true, email: true, emailVerifiedAt: true },
+  });
+  if (!user || user.emailVerifiedAt) {
+    return {
+      ok: true,
+      message: "If verification is required, a new code will be sent.",
+    };
+  }
+
+  const existingCode = await prisma.emailVerificationCode.findUnique({
+    where: { userId: user.id },
+    select: { sentAt: true },
+  });
+  if (
+    existingCode &&
+    isResendCooldownActive(existingCode.sentAt)
+  ) {
+    return {
+      ok: false,
+      message: "Please wait 60 seconds before requesting another code.",
+    };
+  }
+
+  try {
+    await sendVerificationCode(user.id, user.email);
+  } catch (error) {
+    const detail = error instanceof Error ? error.name : "UnknownError";
+    console.error(`Verification code resend failed (${detail}).`);
+    return {
+      ok: false,
+      message: "Could not send a verification code. Please try again later.",
+    };
+  }
+  return { ok: true, message: "A new verification code has been sent." };
 }

@@ -10,6 +10,10 @@ class PendingApprovalError extends CredentialsSignin {
   code = "account-pending";
 }
 
+class EmailVerificationRequiredError extends CredentialsSignin {
+  code = "email-unverified";
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   secret: process.env.AUTH_SECRET,
@@ -41,6 +45,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           return null;
         }
 
+        if (!user.emailVerifiedAt) {
+          throw new EmailVerificationRequiredError();
+        }
         if (user.status === UserStatus.PENDING) {
           throw new PendingApprovalError();
         }
