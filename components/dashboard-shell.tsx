@@ -47,8 +47,8 @@ function IconSearch() {
   return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8" /><line x1="21" x2="16.65" y1="21" y2="16.65" /></svg>;
 }
 
-function IconBell() {
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M10 21h4" /></svg>;
+function IconBell({ active = false }: { active?: boolean }) {
+  return <svg className={active ? styles.activeIcon : ""} viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M10 21h4" /></svg>;
 }
 
 export function DashboardShell({
@@ -98,6 +98,11 @@ export function DashboardShell({
       href: role === "ADMIN" ? "/admin/timetable" : role === "TEACHER" ? "/teacher/timetable" : "/student/timetable",
       label: role === "ADMIN" ? "Timetable" : "My Schedule",
       icon: (active) => <IconCalendar active={active} />,
+    },
+    {
+      href: "/announcements",
+      label: "Announcements",
+      icon: (active) => <IconBell active={active} />,
     },
     ...(role === "TEACHER"
       ? [
