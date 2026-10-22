@@ -1,8 +1,14 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { CredentialsSignin } from "next-auth";
 import { compare } from "bcryptjs";
 import { authConfig } from "@/auth.config";
+import { UserStatus } from "@/generated/prisma/enums";
 import { prisma } from "@/lib/prisma";
+
+class PendingApprovalError extends CredentialsSignin {
+  code = "account-pending";
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -32,6 +38,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         });
 
         if (!user || !(await compare(password, user.passwordHash))) {
+          return null;
+        }
+
+        if (user.status === UserStatus.PENDING) {
+          throw new PendingApprovalError();
+        }
+        if (user.status !== UserStatus.APPROVED) {
           return null;
         }
 

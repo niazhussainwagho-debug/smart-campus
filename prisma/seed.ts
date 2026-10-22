@@ -48,6 +48,7 @@ async function main() {
     update: {
       name: "Campus Admin",
       role: "ADMIN",
+      status: "APPROVED",
       passwordHash: adminPasswordHash,
     },
     create: {
@@ -55,6 +56,7 @@ async function main() {
       email: "admin@smartcampus.test",
       passwordHash: adminPasswordHash,
       role: "ADMIN",
+      status: "APPROVED",
     },
   });
 
@@ -63,6 +65,7 @@ async function main() {
     update: {
       name: "Demo Teacher",
       role: "TEACHER",
+      status: "APPROVED",
       passwordHash: teacherPasswordHash,
     },
     create: {
@@ -70,6 +73,7 @@ async function main() {
       email: "teacher@smartcampus.test",
       passwordHash: teacherPasswordHash,
       role: "TEACHER",
+      status: "APPROVED",
     },
   });
 
@@ -78,6 +82,7 @@ async function main() {
     update: {
       name: "Demo Student",
       role: "STUDENT",
+      status: "APPROVED",
       passwordHash: studentPasswordHash,
     },
     create: {
@@ -85,6 +90,7 @@ async function main() {
       email: "student@smartcampus.test",
       passwordHash: studentPasswordHash,
       role: "STUDENT",
+      status: "APPROVED",
     },
   });
 
@@ -130,8 +136,14 @@ async function main() {
       const passwordHash = await hash(randomBytes(32).toString("hex"), 12);
       const teacher = await prisma.user.upsert({
         where: { email },
-        update: { name, role: "TEACHER" },
-        create: { name, email, passwordHash, role: "TEACHER" },
+        update: { name, role: "TEACHER", status: "APPROVED" },
+        create: {
+          name,
+          email,
+          passwordHash,
+          role: "TEACHER",
+          status: "APPROVED",
+        },
         select: { id: true },
       });
       teacherByName.set(name, teacher.id);

@@ -228,6 +228,16 @@ function QuickLinks({ role }: { role: UserRole }) {
           { href: "/teacher/availability", title: "Office hours", detail: "Manage your availability", icon: "◷" },
         ]
       : [{ href: "/admin/timetable", title: "Review schedule", detail: "Resolve timetable conflicts", icon: "!" }]),
+    ...(role === "ADMIN"
+      ? [
+          {
+            href: "/admin/teachers",
+            title: "Teacher requests",
+            detail: "Approve pending teacher registrations",
+            icon: "♙",
+          },
+        ]
+      : []),
     ...(role !== "TEACHER"
       ? [{
           href: "/campus-status",

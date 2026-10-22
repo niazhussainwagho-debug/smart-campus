@@ -3,7 +3,7 @@ import type {
   AppointmentAvailabilityRow,
   StudentAppointmentRow,
 } from "@/components/student-appointment-booking";
-import { UserRole } from "@/generated/prisma/enums";
+import { UserRole, UserStatus } from "@/generated/prisma/enums";
 import { requireRole } from "@/lib/auth-helpers";
 import { prisma } from "@/lib/prisma";
 
@@ -25,12 +25,14 @@ export default async function StudentAppointmentsPage() {
   const student = await requireRole(UserRole.STUDENT);
   const [teachers, availability, appointments] = await Promise.all([
     prisma.user.findMany({
-      where: { role: UserRole.TEACHER },
+      where: { role: UserRole.TEACHER, status: UserStatus.APPROVED },
       select: { id: true, name: true },
       orderBy: { name: "asc" },
     }),
     prisma.availabilitySlot.findMany({
-      where: { teacher: { role: UserRole.TEACHER } },
+      where: {
+        teacher: { role: UserRole.TEACHER, status: UserStatus.APPROVED },
+      },
       include: { teacher: { select: { name: true } } },
       orderBy: [{ dayOfWeek: "asc" }, { startTime: "asc" }],
     }),

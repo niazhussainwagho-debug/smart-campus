@@ -27,6 +27,10 @@ export function LoginForm() {
       });
 
       if (!result?.ok || result.error) {
+        if (result?.code === "account-pending") {
+          setError("Account pending admin approval");
+          return;
+        }
         setError("Incorrect email or password. Please try again.");
         return;
       }
@@ -181,6 +185,16 @@ export function LoginForm() {
           </>
         )}
       </button>
+
+      <p className="text-center text-sm text-slate-400">
+        New to CAMPUS.OS?{" "}
+        <Link
+          className="font-semibold text-cyan-400 transition-colors hover:text-cyan-300"
+          href="/signup"
+        >
+          Create an account
+        </Link>
+      </p>
     </form>
   );
 }

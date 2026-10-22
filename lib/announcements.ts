@@ -23,16 +23,29 @@ export async function findAnnouncementsForViewer(
   }
 
   if (role === UserRole.STUDENT) {
-    const enrollments = await prisma.enrollment.findMany({
-      where: { studentId },
-      select: { section: { select: { department: true, semester: true } } },
-    });
+    const [student, enrollments] = await Promise.all([
+      prisma.user.findUnique({
+        where: { id: studentId },
+        select: { department: true, semester: true },
+      }),
+      prisma.enrollment.findMany({
+        where: { studentId },
+        select: { section: { select: { department: true, semester: true } } },
+      }),
+    ]);
+    const enrolledSections = enrollments.map(({ section }) => section);
+    if (student?.department && student.semester !== null) {
+      enrolledSections.push({
+        department: student.department,
+        semester: student.semester,
+      });
+    }
     const audiences: Prisma.AnnouncementWhereInput[] = [
       { department: null, semester: null },
       ...[
-        ...new Set(enrollments.map(({ section }) => section.semester)),
+        ...new Set(enrolledSections.map((section) => section.semester)),
       ].map((semester) => ({ department: null, semester })),
-      ...enrollments.map(({ section }) => ({
+      ...enrolledSections.map((section) => ({
         department: section.department,
         OR: [{ semester: null }, { semester: section.semester }],
       })),

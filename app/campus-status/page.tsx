@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { CampusStatusTracker } from "@/components/campus-status-tracker";
 import { DashboardShell } from "@/components/dashboard-shell";
-import { UserRole } from "@/generated/prisma/enums";
+import { UserRole, UserStatus } from "@/generated/prisma/enums";
 import type { CampusStatusSlot } from "@/lib/campus-status";
 import { getDashboardPath } from "@/lib/roles";
 import { prisma } from "@/lib/prisma";
@@ -28,7 +28,7 @@ export default async function CampusStatusPage() {
 
   const [teachers, rooms, timetableSlots] = await Promise.all([
     prisma.user.findMany({
-      where: { role: UserRole.TEACHER },
+      where: { role: UserRole.TEACHER, status: UserStatus.APPROVED },
       select: { id: true, name: true },
       orderBy: { name: "asc" },
     }),

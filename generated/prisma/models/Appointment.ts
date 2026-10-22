@@ -473,10 +473,6 @@ export type EnumAppointmentStatusFieldUpdateOperationsInput = {
   set?: $Enums.AppointmentStatus
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type AppointmentCreateWithoutStudentInput = {
   id?: string
   date: Date | string

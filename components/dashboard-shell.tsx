@@ -113,6 +113,15 @@ export function DashboardShell({
           },
         ]
       : []),
+    ...(role === "ADMIN"
+      ? [
+          {
+            href: "/admin/teachers",
+            label: "Teacher Management",
+            icon: (active: boolean) => <IconUsers active={active} />,
+          },
+        ]
+      : []),
     ...(role === "TEACHER"
       ? [
           { href: "/teacher/availability", label: "Office Hours", icon: (active: boolean) => <IconClock active={active} /> },

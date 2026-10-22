@@ -1,6 +1,6 @@
 import { AdminTimetableManager } from "@/components/admin-timetable-manager";
 import { DashboardShell } from "@/components/dashboard-shell";
-import { UserRole } from "@/generated/prisma/enums";
+import { UserRole, UserStatus } from "@/generated/prisma/enums";
 import { requireRole } from "@/lib/auth-helpers";
 import { prisma } from "@/lib/prisma";
 
@@ -26,7 +26,7 @@ export default async function AdminTimetablePage() {
     }),
     prisma.room.findMany({ orderBy: { name: "asc" } }),
     prisma.user.findMany({
-      where: { role: UserRole.TEACHER },
+      where: { role: UserRole.TEACHER, status: UserStatus.APPROVED },
       select: { id: true, name: true },
       orderBy: { name: "asc" },
     }),

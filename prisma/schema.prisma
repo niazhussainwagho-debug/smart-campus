@@ -13,6 +13,12 @@ enum UserRole {
   ADMIN
 }
 
+enum UserStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 enum DayOfWeek {
   MON
   TUE
@@ -42,6 +48,9 @@ model User {
   email                String             @unique
   passwordHash         String
   role                 UserRole
+  status               UserStatus         @default(APPROVED)
+  department           String?
+  semester             Int?
   createdAt            DateTime           @default(now())
   courses              Course[]           @relation("CourseTeacher")
   timetableSlots       TimetableSlot[]    @relation("TimetableTeacher")

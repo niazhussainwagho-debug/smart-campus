@@ -64,6 +64,13 @@ export const authConfig = {
         return false;
       }
 
+      if (
+        pathname === "/admin/timetable" &&
+        user.role === UserRole.TEACHER
+      ) {
+        return true;
+      }
+
       if (user.role !== protectedRoute.role) {
         return Response.redirect(new URL(getDashboardPath(user.role), request.nextUrl));
       }
