@@ -19,6 +19,7 @@ import {
   type DashboardNotification,
 } from "@/app/notifications/actions";
 import { LogoutButton } from "@/components/logout-button";
+import { useTheme } from "@/components/theme-provider";
 import styles from "./dashboard-shell.module.css";
 
 export type NavItem = {
@@ -76,6 +77,32 @@ function IconSearch() {
 
 function IconBell({ active = false }: { active?: boolean }) {
   return <svg className={active ? styles.activeIcon : ""} viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M10 21h4" /></svg>;
+}
+
+function ThemeSwitch() {
+  const { theme, resolvedTheme, cycleTheme } = useTheme();
+  const label = `Switch theme. Current mode: ${theme}`;
+
+  return (
+    <button
+      aria-label={label}
+      className={styles.themeButton}
+      onClick={cycleTheme}
+      title={`${label}. Click to cycle through dark, light, and system modes.`}
+      type="button"
+    >
+      {resolvedTheme === "light" ? (
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+        </svg>
+      ) : (
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M20.5 14.3A8.5 8.5 0 0 1 9.7 3.5 8.5 8.5 0 1 0 20.5 14.3Z" />
+        </svg>
+      )}
+    </button>
+  );
 }
 
 function notificationHref(
@@ -387,6 +414,7 @@ export function DashboardShell({
 
           <div className={styles.headerActions}>
             {action}
+            <ThemeSwitch />
             <div className={styles.notificationWrap} ref={notificationWrap}>
               <button
                 aria-expanded={notificationsOpen}

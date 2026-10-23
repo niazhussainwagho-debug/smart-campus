@@ -205,6 +205,42 @@
   .footer { font-size: 5px; }
 }
 
+:global(html.light) .preview {
+  --ink: #172b3a;
+  --muted: #526779;
+  --line: #cbd8e2;
+  background: #f1f5f9;
+  color: var(--ink);
+}
+
+:global(html.light) .sidebar,
+:global(html.light) .topbar {
+  border-color: var(--line);
+  background: #ffffff;
+}
+
+:global(html.light) .statCard,
+:global(html.light) .panel {
+  border-color: var(--line);
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(23, 43, 58, .06);
+}
+
+:global(html.light) .pageHeading h1,
+:global(html.light) .panelHeader h2,
+:global(html.light) .activityCopy strong,
+:global(html.light) .statCopy > strong {
+  color: #172b3a;
+}
+
+:global(html.light) .pageHeading p,
+:global(html.light) .panelHeader p,
+:global(html.light) .activityCopy small,
+:global(html.light) .statCopy > span,
+:global(html.light) .statCopy > small {
+  color: #526779;
+}
+
 .navItem { min-height: 42px; font-size: 12px; }
 .navLabel { font-size: 10px; }
 .helpCard strong { font-size: 12px; }

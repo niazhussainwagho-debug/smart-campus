@@ -71,6 +71,9 @@
 .searchResults > p { margin: 0; padding: 11px 12px; color: #93a8b2; font-size: 9px; }
 .headerActions { display: flex; min-width: 0; align-items: center; gap: 10px; margin-left: auto; }
 .notificationWrap { position: relative; }
+.themeButton { display: grid; width: 31px; height: 31px; flex: 0 0 31px; place-items: center; border: 1px solid rgba(171, 204, 216, .15); border-radius: 7px; background: rgba(255,255,255,.035); color: #a6bac3; cursor: pointer; transition: border-color .16s ease, background .16s ease, color .16s ease; }
+.themeButton:hover { border-color: rgba(67, 201, 200, .4); background: rgba(53, 197, 196, .08); color: #eaf7f7; }
+.themeButton svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
 .notificationButton { position: relative; display: grid; width: 31px; height: 31px; place-items: center; border: 1px solid rgba(171, 204, 216, .15); border-radius: 7px; background: rgba(255,255,255,.035); color: #a6bac3; }
 .notificationButton:hover, .notificationButton[aria-expanded="true"] { border-color: rgba(67, 201, 200, .4); color: #eaf7f7; }
 .notificationButton svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.6; }
@@ -143,6 +146,7 @@
 .searchWrap input { font-size: 13px; }
 .searchResults > a, .searchResults > p { font-size: 12px; }
 .notificationButton { width: 40px; height: 40px; }
+.themeButton { width: 40px; height: 40px; flex-basis: 40px; }
 .notificationPanelHeader > strong { font-size: 13px; }
 .notificationPanelHeader > button, .notificationEmpty, .notificationError { font-size: 11px; }
 .notificationContent > strong { font-size: 12px; }
@@ -173,4 +177,101 @@
   .headerUser { display: none; }
   .headerActions { gap: 5px; }
   .pageContent { padding-right: 10px; padding-left: 10px; }
+}
+
+:global(html.light) .shell {
+  --canvas: #f1f5f9;
+  --sidebar: #ffffff;
+  --panel: #ffffff;
+  --panel-raised: #e7eef4;
+  --border: #cbd8e2;
+  --text: #172b3a;
+  --muted: #526779;
+  background: var(--canvas);
+  color: var(--text);
+}
+
+:global(html.light) .sidebar {
+  border-right-color: var(--border);
+  background: #ffffff;
+}
+
+:global(html.light) .brand,
+:global(html.light) .sidebarNote strong,
+:global(html.light) .userMeta strong,
+:global(html.light) .headerUserMeta strong,
+:global(html.light) .pageHeading h1,
+:global(html.light) .notificationPanelHeader > strong,
+:global(html.light) .notificationContent > strong {
+  color: #172b3a;
+}
+
+:global(html.light) .sidebarNote small,
+:global(html.light) .userMeta small,
+:global(html.light) .headerUserMeta small,
+:global(html.light) .pageHeading p,
+:global(html.light) .eyebrow,
+:global(html.light) .notificationContent > span,
+:global(html.light) .notificationContent > time,
+:global(html.light) .searchResults > p {
+  color: #526779;
+}
+
+:global(html.light) .topbar {
+  border-bottom-color: var(--border);
+  background: rgba(255, 255, 255, .94);
+}
+
+:global(html.light) .searchWrap,
+:global(html.light) .notificationButton,
+:global(html.light) .themeButton,
+:global(html.light) .menuButton {
+  border-color: var(--border);
+  background: rgba(23, 43, 58, .035);
+  color: #526779;
+}
+
+:global(html.light) .searchWrap input {
+  color: #172b3a;
+}
+
+:global(html.light) .searchWrap input::placeholder {
+  color: #64798a;
+}
+
+:global(html.light) .notificationPanel,
+:global(html.light) .searchResults {
+  border-color: var(--border);
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(23, 43, 58, .16);
+}
+
+:global(html.light) .notificationUnread {
+  background: rgba(14, 116, 144, .06);
+}
+
+:global(html.light) .notificationBadge {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+:global(html.light) .notificationEmpty {
+  color: #526779;
+}
+
+:global(html.light) .sidebarNote {
+  border-color: rgba(14, 116, 144, .18);
+  background: #f1f8fa;
+}
+
+:global(html.light) .sidebarProfileLink:hover {
+  background: rgba(23, 43, 58, .06);
+}
+
+:global(html.light) .sidebarUser {
+  border-top-color: var(--border);
+}
+
+:global(html.light) .sidebarUser .avatar > i {
+  border-color: #ffffff;
 }

@@ -145,3 +145,49 @@
   .status { grid-column: 4; grid-row: 1; }
   .moreButton { grid-column: 4; grid-row: 2; }
 }
+
+:global(html.light) .preview {
+  --text: #172b3a;
+  --muted: #526779;
+  --line: #cbd8e2;
+  background: #f1f5f9;
+  color: var(--text);
+}
+
+:global(html.light) .sidebar,
+:global(html.light) .topbar {
+  border-color: var(--line);
+  background: #ffffff;
+}
+
+:global(html.light) .summary article,
+:global(html.light) .panel,
+:global(html.light) .classRow {
+  border-color: var(--line);
+  background: #ffffff;
+  color: #172b3a;
+}
+
+:global(html.light) .pageHeading h1,
+:global(html.light) .panelHeading h2,
+:global(html.light) .breadcrumb strong,
+:global(html.light) .summary article strong,
+:global(html.light) .className {
+  color: #172b3a;
+}
+
+:global(html.light) .pageHeading p,
+:global(html.light) .panelHeading p,
+:global(html.light) .summary article small,
+:global(html.light) .classMeta {
+  color: #526779;
+}
+
+:global(html.light) .form input,
+:global(html.light) .form select,
+:global(html.light) .search,
+:global(html.light) .search input {
+  border-color: var(--line);
+  background: #ffffff;
+  color: #172b3a;
+}
