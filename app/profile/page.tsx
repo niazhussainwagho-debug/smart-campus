@@ -10,11 +10,16 @@ export default async function ProfilePage() {
     prisma.user.findUniqueOrThrow({
       where: { id: user.id },
       select: {
+        id: true,
         name: true,
         email: true,
         role: true,
         department: true,
         semester: true,
+        rollNo: true,
+        fatherName: true,
+        surname: true,
+        category: true,
         phone: true,
         bloodGroup: true,
         emergencyContact: true,
@@ -48,11 +53,16 @@ export default async function ProfilePage() {
       <ProfileManager
         targets={targets}
         profile={{
+          id: profile.id,
           name: profile.name,
           email: profile.email,
           role: profile.role,
           department: profile.department ?? "",
           semester: profile.semester,
+          rollNo: profile.rollNo ?? "",
+          fatherName: profile.fatherName ?? "",
+          surname: profile.surname ?? "",
+          category: profile.category ?? "",
           phone: profile.phone ?? "",
           bloodGroup: profile.bloodGroup ?? "",
           emergencyContact: profile.emergencyContact ?? "",

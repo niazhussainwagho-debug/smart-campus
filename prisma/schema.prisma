@@ -62,6 +62,10 @@ model User {
   status               UserStatus         @default(APPROVED)
   department           String?
   semester             Int?
+  rollNo               String?            @unique
+  fatherName           String?
+  surname              String?
+  category             String?
   phone                String?
   bloodGroup           String?
   emergencyContact     String?

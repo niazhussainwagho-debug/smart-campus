@@ -43,6 +43,10 @@ export type UserMinAggregateOutputType = {
   status: $Enums.UserStatus | null
   department: string | null
   semester: number | null
+  rollNo: string | null
+  fatherName: string | null
+  surname: string | null
+  category: string | null
   phone: string | null
   bloodGroup: string | null
   emergencyContact: string | null
@@ -62,6 +66,10 @@ export type UserMaxAggregateOutputType = {
   status: $Enums.UserStatus | null
   department: string | null
   semester: number | null
+  rollNo: string | null
+  fatherName: string | null
+  surname: string | null
+  category: string | null
   phone: string | null
   bloodGroup: string | null
   emergencyContact: string | null
@@ -81,6 +89,10 @@ export type UserCountAggregateOutputType = {
   status: number
   department: number
   semester: number
+  rollNo: number
+  fatherName: number
+  surname: number
+  category: number
   phone: number
   bloodGroup: number
   emergencyContact: number
@@ -110,6 +122,10 @@ export type UserMinAggregateInputType = {
   status?: true
   department?: true
   semester?: true
+  rollNo?: true
+  fatherName?: true
+  surname?: true
+  category?: true
   phone?: true
   bloodGroup?: true
   emergencyContact?: true
@@ -129,6 +145,10 @@ export type UserMaxAggregateInputType = {
   status?: true
   department?: true
   semester?: true
+  rollNo?: true
+  fatherName?: true
+  surname?: true
+  category?: true
   phone?: true
   bloodGroup?: true
   emergencyContact?: true
@@ -148,6 +168,10 @@ export type UserCountAggregateInputType = {
   status?: true
   department?: true
   semester?: true
+  rollNo?: true
+  fatherName?: true
+  surname?: true
+  category?: true
   phone?: true
   bloodGroup?: true
   emergencyContact?: true
@@ -254,6 +278,10 @@ export type UserGroupByOutputType = {
   status: $Enums.UserStatus
   department: string | null
   semester: number | null
+  rollNo: string | null
+  fatherName: string | null
+  surname: string | null
+  category: string | null
   phone: string | null
   bloodGroup: string | null
   emergencyContact: string | null
@@ -296,6 +324,10 @@ export type UserWhereInput = {
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
+  rollNo?: Prisma.StringNullableFilter<"User"> | string | null
+  fatherName?: Prisma.StringNullableFilter<"User"> | string | null
+  surname?: Prisma.StringNullableFilter<"User"> | string | null
+  category?: Prisma.StringNullableFilter<"User"> | string | null
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   bloodGroup?: Prisma.StringNullableFilter<"User"> | string | null
   emergencyContact?: Prisma.StringNullableFilter<"User"> | string | null
@@ -328,6 +360,10 @@ export type UserOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   department?: Prisma.SortOrderInput | Prisma.SortOrder
   semester?: Prisma.SortOrderInput | Prisma.SortOrder
+  rollNo?: Prisma.SortOrderInput | Prisma.SortOrder
+  fatherName?: Prisma.SortOrderInput | Prisma.SortOrder
+  surname?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   bloodGroup?: Prisma.SortOrderInput | Prisma.SortOrder
   emergencyContact?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -354,6 +390,7 @@ export type UserOrderByWithRelationInput = {
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   email?: string
+  rollNo?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
@@ -363,6 +400,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
+  fatherName?: Prisma.StringNullableFilter<"User"> | string | null
+  surname?: Prisma.StringNullableFilter<"User"> | string | null
+  category?: Prisma.StringNullableFilter<"User"> | string | null
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   bloodGroup?: Prisma.StringNullableFilter<"User"> | string | null
   emergencyContact?: Prisma.StringNullableFilter<"User"> | string | null
@@ -384,7 +424,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   notifications?: Prisma.NotificationListRelationFilter
   studentAttendance?: Prisma.AttendanceListRelationFilter
   attendanceMarked?: Prisma.AttendanceListRelationFilter
-}, "id" | "email">
+}, "id" | "email" | "rollNo">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -395,6 +435,10 @@ export type UserOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   department?: Prisma.SortOrderInput | Prisma.SortOrder
   semester?: Prisma.SortOrderInput | Prisma.SortOrder
+  rollNo?: Prisma.SortOrderInput | Prisma.SortOrder
+  fatherName?: Prisma.SortOrderInput | Prisma.SortOrder
+  surname?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   bloodGroup?: Prisma.SortOrderInput | Prisma.SortOrder
   emergencyContact?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -422,6 +466,10 @@ export type UserScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
   department?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   semester?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  rollNo?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  fatherName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  surname?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  category?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   bloodGroup?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   emergencyContact?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -441,6 +489,10 @@ export type UserCreateInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -473,6 +525,10 @@ export type UserUncheckedCreateInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -505,6 +561,10 @@ export type UserUpdateInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -537,6 +597,10 @@ export type UserUncheckedUpdateInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -569,6 +633,10 @@ export type UserCreateManyInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -588,6 +656,10 @@ export type UserUpdateManyMutationInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -607,6 +679,10 @@ export type UserUncheckedUpdateManyInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -626,6 +702,10 @@ export type UserCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   department?: Prisma.SortOrder
   semester?: Prisma.SortOrder
+  rollNo?: Prisma.SortOrder
+  fatherName?: Prisma.SortOrder
+  surname?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   bloodGroup?: Prisma.SortOrder
   emergencyContact?: Prisma.SortOrder
@@ -649,6 +729,10 @@ export type UserMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   department?: Prisma.SortOrder
   semester?: Prisma.SortOrder
+  rollNo?: Prisma.SortOrder
+  fatherName?: Prisma.SortOrder
+  surname?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   bloodGroup?: Prisma.SortOrder
   emergencyContact?: Prisma.SortOrder
@@ -668,6 +752,10 @@ export type UserMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   department?: Prisma.SortOrder
   semester?: Prisma.SortOrder
+  rollNo?: Prisma.SortOrder
+  fatherName?: Prisma.SortOrder
+  surname?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   bloodGroup?: Prisma.SortOrder
   emergencyContact?: Prisma.SortOrder
@@ -944,6 +1032,10 @@ export type UserCreateWithoutEmailVerificationCodeInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -975,6 +1067,10 @@ export type UserUncheckedCreateWithoutEmailVerificationCodeInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1022,6 +1118,10 @@ export type UserUpdateWithoutEmailVerificationCodeInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1053,6 +1153,10 @@ export type UserUncheckedUpdateWithoutEmailVerificationCodeInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1084,6 +1188,10 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1115,6 +1223,10 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1162,6 +1274,10 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1193,6 +1309,10 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1224,6 +1344,10 @@ export type UserCreateWithoutCoursesInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1255,6 +1379,10 @@ export type UserUncheckedCreateWithoutCoursesInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1302,6 +1430,10 @@ export type UserUpdateWithoutCoursesInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1333,6 +1465,10 @@ export type UserUncheckedUpdateWithoutCoursesInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1364,6 +1500,10 @@ export type UserCreateWithoutEnrollmentsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1395,6 +1535,10 @@ export type UserUncheckedCreateWithoutEnrollmentsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1442,6 +1586,10 @@ export type UserUpdateWithoutEnrollmentsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1473,6 +1621,10 @@ export type UserUncheckedUpdateWithoutEnrollmentsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1504,6 +1656,10 @@ export type UserCreateWithoutTimetableSlotsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1535,6 +1691,10 @@ export type UserUncheckedCreateWithoutTimetableSlotsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1571,6 +1731,10 @@ export type UserCreateWithoutCoTeachingSlotsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1602,6 +1766,10 @@ export type UserUncheckedCreateWithoutCoTeachingSlotsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1649,6 +1817,10 @@ export type UserUpdateWithoutTimetableSlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1680,6 +1852,10 @@ export type UserUncheckedUpdateWithoutTimetableSlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1730,6 +1906,10 @@ export type UserScalarWhereInput = {
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
+  rollNo?: Prisma.StringNullableFilter<"User"> | string | null
+  fatherName?: Prisma.StringNullableFilter<"User"> | string | null
+  surname?: Prisma.StringNullableFilter<"User"> | string | null
+  category?: Prisma.StringNullableFilter<"User"> | string | null
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   bloodGroup?: Prisma.StringNullableFilter<"User"> | string | null
   emergencyContact?: Prisma.StringNullableFilter<"User"> | string | null
@@ -1749,6 +1929,10 @@ export type UserCreateWithoutAvailabilitySlotsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1780,6 +1964,10 @@ export type UserUncheckedCreateWithoutAvailabilitySlotsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1827,6 +2015,10 @@ export type UserUpdateWithoutAvailabilitySlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1858,6 +2050,10 @@ export type UserUncheckedUpdateWithoutAvailabilitySlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1889,6 +2085,10 @@ export type UserCreateWithoutStudentAppointmentsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1920,6 +2120,10 @@ export type UserUncheckedCreateWithoutStudentAppointmentsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1956,6 +2160,10 @@ export type UserCreateWithoutTeacherAppointmentsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -1987,6 +2195,10 @@ export type UserUncheckedCreateWithoutTeacherAppointmentsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -2034,6 +2246,10 @@ export type UserUpdateWithoutStudentAppointmentsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2065,6 +2281,10 @@ export type UserUncheckedUpdateWithoutStudentAppointmentsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2107,6 +2327,10 @@ export type UserUpdateWithoutTeacherAppointmentsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2138,6 +2362,10 @@ export type UserUncheckedUpdateWithoutTeacherAppointmentsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2169,6 +2397,10 @@ export type UserCreateWithoutAnnouncementsCreatedInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -2200,6 +2432,10 @@ export type UserUncheckedCreateWithoutAnnouncementsCreatedInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -2247,6 +2483,10 @@ export type UserUpdateWithoutAnnouncementsCreatedInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2278,6 +2518,10 @@ export type UserUncheckedUpdateWithoutAnnouncementsCreatedInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2309,6 +2553,10 @@ export type UserCreateWithoutNotificationsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -2340,6 +2588,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -2387,6 +2639,10 @@ export type UserUpdateWithoutNotificationsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2418,6 +2674,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2449,6 +2709,10 @@ export type UserCreateWithoutStudentAttendanceInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -2480,6 +2744,10 @@ export type UserUncheckedCreateWithoutStudentAttendanceInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -2516,6 +2784,10 @@ export type UserCreateWithoutAttendanceMarkedInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -2547,6 +2819,10 @@ export type UserUncheckedCreateWithoutAttendanceMarkedInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  rollNo?: string | null
+  fatherName?: string | null
+  surname?: string | null
+  category?: string | null
   phone?: string | null
   bloodGroup?: string | null
   emergencyContact?: string | null
@@ -2594,6 +2870,10 @@ export type UserUpdateWithoutStudentAttendanceInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2625,6 +2905,10 @@ export type UserUncheckedUpdateWithoutStudentAttendanceInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2667,6 +2951,10 @@ export type UserUpdateWithoutAttendanceMarkedInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2698,6 +2986,10 @@ export type UserUncheckedUpdateWithoutAttendanceMarkedInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2729,6 +3021,10 @@ export type UserUpdateWithoutCoTeachingSlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2760,6 +3056,10 @@ export type UserUncheckedUpdateWithoutCoTeachingSlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2791,6 +3091,10 @@ export type UserUncheckedUpdateManyWithoutCoTeachingSlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2940,6 +3244,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   status?: boolean
   department?: boolean
   semester?: boolean
+  rollNo?: boolean
+  fatherName?: boolean
+  surname?: boolean
+  category?: boolean
   phone?: boolean
   bloodGroup?: boolean
   emergencyContact?: boolean
@@ -2973,6 +3281,10 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   status?: boolean
   department?: boolean
   semester?: boolean
+  rollNo?: boolean
+  fatherName?: boolean
+  surname?: boolean
+  category?: boolean
   phone?: boolean
   bloodGroup?: boolean
   emergencyContact?: boolean
@@ -2992,6 +3304,10 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   status?: boolean
   department?: boolean
   semester?: boolean
+  rollNo?: boolean
+  fatherName?: boolean
+  surname?: boolean
+  category?: boolean
   phone?: boolean
   bloodGroup?: boolean
   emergencyContact?: boolean
@@ -3011,6 +3327,10 @@ export type UserSelectScalar = {
   status?: boolean
   department?: boolean
   semester?: boolean
+  rollNo?: boolean
+  fatherName?: boolean
+  surname?: boolean
+  category?: boolean
   phone?: boolean
   bloodGroup?: boolean
   emergencyContact?: boolean
@@ -3021,7 +3341,7 @@ export type UserSelectScalar = {
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "status" | "department" | "semester" | "phone" | "bloodGroup" | "emergencyContact" | "linkedinUrl" | "githubUrl" | "emailVerifiedAt" | "image" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "status" | "department" | "semester" | "rollNo" | "fatherName" | "surname" | "category" | "phone" | "bloodGroup" | "emergencyContact" | "linkedinUrl" | "githubUrl" | "emailVerifiedAt" | "image" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   emailVerificationCode?: boolean | Prisma.User$emailVerificationCodeArgs<ExtArgs>
   courses?: boolean | Prisma.User$coursesArgs<ExtArgs>
@@ -3067,6 +3387,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     status: $Enums.UserStatus
     department: string | null
     semester: number | null
+    rollNo: string | null
+    fatherName: string | null
+    surname: string | null
+    category: string | null
     phone: string | null
     bloodGroup: string | null
     emergencyContact: string | null
@@ -3519,6 +3843,10 @@ export interface UserFieldRefs {
   readonly status: Prisma.FieldRef<"User", 'UserStatus'>
   readonly department: Prisma.FieldRef<"User", 'String'>
   readonly semester: Prisma.FieldRef<"User", 'Int'>
+  readonly rollNo: Prisma.FieldRef<"User", 'String'>
+  readonly fatherName: Prisma.FieldRef<"User", 'String'>
+  readonly surname: Prisma.FieldRef<"User", 'String'>
+  readonly category: Prisma.FieldRef<"User", 'String'>
   readonly phone: Prisma.FieldRef<"User", 'String'>
   readonly bloodGroup: Prisma.FieldRef<"User", 'String'>
   readonly emergencyContact: Prisma.FieldRef<"User", 'String'>

@@ -86,6 +86,10 @@ export async function updateProfileAction(
   const name = field(formData, "name");
   const department = field(formData, "department");
   const semesterText = field(formData, "semester");
+  const rollNo = field(formData, "rollNo");
+  const fatherName = field(formData, "fatherName");
+  const surname = field(formData, "surname");
+  const category = field(formData, "category");
   const phone = field(formData, "phone");
   const bloodGroup = field(formData, "bloodGroup");
   const emergencyContact = field(formData, "emergencyContact");
@@ -101,6 +105,27 @@ export async function updateProfileAction(
   }
   if (!department) {
     return { ok: false, message: "Select a department." };
+  }
+  if (
+    user.role === UserRole.STUDENT &&
+    (rollNo.length > 64 ||
+      fatherName.length > 120 ||
+      surname.length > 120 ||
+      category.length > 40)
+  ) {
+    return {
+      ok: false,
+      message: "Official student details exceed the allowed length.",
+    };
+  }
+  if (user.role === UserRole.STUDENT && rollNo) {
+    const existingRollNo = await prisma.user.findFirst({
+      where: { rollNo, id: { not: user.id } },
+      select: { id: true },
+    });
+    if (existingRollNo) {
+      return { ok: false, message: "That roll number is already in use." };
+    }
   }
   if (phone && !isValidPhoneNumber(phone)) {
     return { ok: false, message: "Enter a valid phone number." };
@@ -176,6 +201,14 @@ export async function updateProfileAction(
         name,
         department,
         semester,
+        ...(user.role === UserRole.STUDENT
+          ? {
+              rollNo: rollNo || null,
+              fatherName: fatherName || null,
+              surname: surname || null,
+              category: category || null,
+            }
+          : {}),
         phone: phone || null,
         bloodGroup: bloodGroup || null,
         emergencyContact: emergencyContact || null,

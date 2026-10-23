@@ -16,11 +16,16 @@ import {
 } from "@/app/profile/actions";
 
 type ProfileData = {
+  id: string;
   name: string;
   email: string;
   role: UserRole;
   department: string;
   semester: number | null;
+  rollNo: string;
+  fatherName: string;
+  surname: string;
+  category: string;
   phone: string;
   bloodGroup: string;
   emergencyContact: string;
@@ -37,10 +42,13 @@ type ProfileTarget = {
 const inputClass =
   "mt-1.5 min-h-11 w-full rounded-xl border border-slate-700/80 bg-slate-900/80 px-3.5 py-2.5 text-base text-white outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-500/15 sm:text-sm";
 
-const barcodeBars = [
-  2, 1, 3, 1, 1, 2, 2, 1, 3, 1, 2, 1,
-  1, 3, 2, 1, 2, 3, 1, 1, 2, 1, 3, 2,
-];
+function createBarcodeBars(value: string): number[] {
+  const chars = Array.from(value || "CAMPUS");
+  return Array.from({ length: 36 }, (_, index) => {
+    const charCode = chars[index % chars.length].charCodeAt(0);
+    return 1 + ((charCode + index * 7) % 3);
+  });
+}
 
 export function ProfileManager({
   profile,
@@ -59,6 +67,11 @@ export function ProfileManager({
   const idCardRef = useRef<HTMLElement>(null);
   const { setImage } = useDashboardUserImage();
   const [name, setName] = useState(profile.name);
+  const [surname, setSurname] = useState(profile.surname);
+  const [fatherName, setFatherName] = useState(profile.fatherName);
+  const [rollNo, setRollNo] = useState(profile.rollNo);
+  const [category, setCategory] = useState(profile.category);
+  const [bloodGroup, setBloodGroup] = useState(profile.bloodGroup);
   const [department, setDepartment] = useState(profile.department);
   const [semester, setSemester] = useState(
     profile.semester === null ? "" : String(profile.semester),
@@ -71,6 +84,11 @@ export function ProfileManager({
         .map((target) => target.semester),
     ),
   ].sort((first, second) => first - second);
+  const barcodeBars = createBarcodeBars(`${profile.id}${rollNo}`);
+  const studentName =
+    surname && !name.trim().toLowerCase().endsWith(surname.toLowerCase())
+      ? `${name} ${surname}`
+      : name;
 
   useEffect(() => {
     return () => {
@@ -181,10 +199,13 @@ export function ProfileManager({
             )}
             <div className="min-w-0 flex-1">
               <p className="truncate text-lg font-bold text-white">
-                {name || "Full Name"}
+                {studentName || "Full Name"}
               </p>
               <p className="mt-1 text-xs font-medium text-cyan-100/70">
                 {profile.role === "STUDENT" ? "STUDENT" : "FACULTY"}
+              </p>
+              <p className="mt-1 truncate text-[10px] font-medium text-slate-300">
+                ID #{profile.id}
               </p>
               <p className="mt-2 truncate text-xs text-slate-300">
                 {department || "Department not selected"}
@@ -194,6 +215,58 @@ export function ProfileManager({
               </p>
             </div>
           </div>
+          {profile.role === "STUDENT" ? (
+            <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-white/10 pt-3 text-xs">
+              <div className="min-w-0">
+                <dt className="text-[9px] uppercase tracking-wider text-slate-400">
+                  Roll No
+                </dt>
+                <dd className="truncate font-semibold text-white">
+                  {rollNo || "Not provided"}
+                </dd>
+              </div>
+              <div className="min-w-0">
+                <dt className="text-[9px] uppercase tracking-wider text-slate-400">
+                  Father&apos;s Name
+                </dt>
+                <dd className="truncate font-semibold text-white">
+                  {fatherName || "Not provided"}
+                </dd>
+              </div>
+              <div className="min-w-0">
+                <dt className="text-[9px] uppercase tracking-wider text-slate-400">
+                  Surname
+                </dt>
+                <dd className="truncate font-semibold text-white">
+                  {surname || "Not provided"}
+                </dd>
+              </div>
+              <div className="min-w-0">
+                <dt className="text-[9px] uppercase tracking-wider text-slate-400">
+                  Blood Group
+                </dt>
+                <dd className="truncate font-semibold text-white">
+                  {bloodGroup || "Not provided"}
+                </dd>
+              </div>
+              <div className="min-w-0">
+                <dt className="text-[9px] uppercase tracking-wider text-slate-400">
+                  Category
+                </dt>
+                <dd className="truncate font-semibold text-white">
+                  {category || "Not provided"}
+                </dd>
+              </div>
+              <div className="min-w-0">
+                <dt className="text-[9px] uppercase tracking-wider text-slate-400">
+                  Department
+                </dt>
+                <dd className="truncate font-semibold text-white">
+                  {department || "Not provided"}
+                </dd>
+              </div>
+            </dl>
+          ) : null}
           <div className="mt-5 flex items-end justify-between gap-4 border-t border-white/10 pt-3">
             <span className="text-[9px] uppercase tracking-[0.18em] text-slate-400">
               Smart Campus Identity
@@ -342,6 +415,56 @@ export function ProfileManager({
               value={profile.email}
             />
           </label>
+          {profile.role === "STUDENT" ? (
+            <>
+              <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Roll number
+                <input
+                  autoComplete="off"
+                  className={inputClass}
+                  maxLength={64}
+                  name="rollNo"
+                  onChange={(event) => setRollNo(event.target.value)}
+                  placeholder="2K24/SWE/124"
+                  value={rollNo}
+                />
+              </label>
+              <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Father&apos;s name
+                <input
+                  autoComplete="off"
+                  className={inputClass}
+                  maxLength={120}
+                  name="fatherName"
+                  onChange={(event) => setFatherName(event.target.value)}
+                  value={fatherName}
+                />
+              </label>
+              <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Surname
+                <input
+                  autoComplete="family-name"
+                  className={inputClass}
+                  maxLength={120}
+                  name="surname"
+                  onChange={(event) => setSurname(event.target.value)}
+                  value={surname}
+                />
+              </label>
+              <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Category
+                <input
+                  autoComplete="off"
+                  className={inputClass}
+                  maxLength={40}
+                  name="category"
+                  onChange={(event) => setCategory(event.target.value)}
+                  placeholder="MERIT"
+                  value={category}
+                />
+              </label>
+            </>
+          ) : null}
           <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
             Phone number
             <input
@@ -358,8 +481,9 @@ export function ProfileManager({
             Blood group
             <select
               className={inputClass}
-              defaultValue={profile.bloodGroup}
+              onChange={(event) => setBloodGroup(event.target.value)}
               name="bloodGroup"
+              value={bloodGroup}
             >
               <option value="">Select blood group</option>
               {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(
