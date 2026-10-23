@@ -134,7 +134,10 @@ html.light [class*="bg-[#111827]/"],
 html.light [class*="bg-[#0d1727"],
 html.light [class*="bg-[#0D1727"],
 html.light [class*="bg-[#0b"],
-html.light [class*="bg-[#0B"] {
+html.light [class*="bg-[#0B"],
+html.light [class*="bg-[#0e141f"],
+html.light [class*="bg-[#111824"],
+html.light [class*="bg-[#161f2e"] {
   background-color: var(--app-card) !important;
   background-image: none;
 }
@@ -148,6 +151,75 @@ html.light [class*="via-[#161f2e]"],
 html.light [class*="to-[#121824]"] {
   background-color: var(--app-card) !important;
   background-image: none !important;
+}
+
+html.light .weeklyTimetable [class*="bg-slate-900"],
+html.light .weeklyTimetable [class*="bg-[#111827"],
+html.light .weeklyTimetable [class*="bg-[#111824"],
+html.light .weeklyTimetable [class*="bg-[#161f2e"],
+html.light .departmentTimetable [class*="bg-[#0e141f"],
+html.light .departmentTimetable [class*="bg-[#111824"],
+html.light .departmentTimetable [class*="bg-[#161f2e"],
+html.light .departmentTimetable [class*="bg-[#111827"] {
+  border-color: #cbd5e1 !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  color: #0f172a;
+}
+
+html.light .weeklyTimetable [aria-pressed="false"],
+html.light .departmentTimetable [aria-pressed="false"] {
+  border-color: #cbd5e1 !important;
+  background-color: #ffffff !important;
+  color: #334155 !important;
+}
+
+html.light .weeklyTimetable [aria-pressed="false"]:hover,
+html.light .departmentTimetable [aria-pressed="false"]:hover {
+  border-color: #94a3b8 !important;
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+html.light .weeklyTimetable [aria-pressed="true"],
+html.light .departmentTimetable [aria-pressed="true"] {
+  border-color: #99d6d1 !important;
+  background-color: #ecfdf5 !important;
+  color: #115e59 !important;
+}
+
+html.light .scheduleVenueBadge {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  background: #f1f5f9;
+  color: #1e293b !important;
+  padding: 0.2rem 0.45rem;
+}
+
+html.light .departmentTimetable [class*="text-white"],
+html.light .departmentTimetable [class*="text-slate-200"],
+html.light .departmentTimetable [class*="text-slate-300"],
+html.light .departmentTimetable [class*="text-slate-400"],
+html.light .departmentTimetable [class*="text-slate-500"],
+html.light .weeklyTimetable [class*="text-white"],
+html.light .weeklyTimetable [class*="text-slate-200"],
+html.light .weeklyTimetable [class*="text-slate-300"],
+html.light .weeklyTimetable [class*="text-slate-400"],
+html.light .weeklyTimetable [class*="text-slate-500"] {
+  color: #334155 !important;
+}
+
+html.light .departmentTimetable [class*="text-white"],
+html.light .departmentTimetable h3,
+html.light .departmentTimetable h4,
+html.light .departmentTimetable h5,
+html.light .weeklyTimetable [class*="text-white"],
+html.light .weeklyTimetable h2,
+html.light .weeklyTimetable h3 {
+  color: #0f172a !important;
 }
 
 html.light aside[class*="from-slate-900"] {

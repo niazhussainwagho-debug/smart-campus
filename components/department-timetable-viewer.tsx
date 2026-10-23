@@ -307,7 +307,7 @@ export function DepartmentTimetableViewer({
   }, [activeDaySlots]);
 
   return (
-    <div className="min-w-0 space-y-3 sm:space-y-6">
+    <div className="departmentTimetable min-w-0 space-y-3 sm:space-y-6">
       {/* ── 1. TOP HEADER & VIEW CONTROLS ── */}
       <div className="flex min-w-0 flex-col gap-3 rounded-2xl border border-slate-800/80 bg-[#161f2e]/90 p-3 shadow-2xl backdrop-blur-md sm:gap-4 sm:p-5 md:flex-row md:items-center md:justify-between">
         <div>
@@ -335,6 +335,7 @@ export function DepartmentTimetableViewer({
             <div className="flex max-w-full flex-wrap items-center rounded-xl border border-slate-800 bg-[#0e141f] p-1">
               <button
                 type="button"
+                aria-pressed={filterMode === "personal"}
                 onClick={() => setFilterMode("personal")}
                 className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                   filterMode === "personal"
@@ -346,6 +347,7 @@ export function DepartmentTimetableViewer({
               </button>
               <button
                 type="button"
+                aria-pressed={filterMode === "department"}
                 onClick={() => setFilterMode("department")}
                 className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                   filterMode === "department"
@@ -362,6 +364,7 @@ export function DepartmentTimetableViewer({
           <div className="flex max-w-full flex-wrap items-center rounded-xl border border-slate-800 bg-[#0e141f] p-1">
             <button
               type="button"
+              aria-pressed={viewType === "dayList"}
               onClick={() => setViewType("dayList")}
               className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                 viewType === "dayList"
@@ -381,6 +384,7 @@ export function DepartmentTimetableViewer({
             </button>
             <button
               type="button"
+              aria-pressed={viewType === "weeklyGrid"}
               onClick={() => setViewType("weeklyGrid")}
               className={`hidden items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition sm:flex ${
                 viewType === "weeklyGrid"
@@ -412,6 +416,7 @@ export function DepartmentTimetableViewer({
               <button
                 key={day}
                 type="button"
+                aria-pressed={isSelected}
                 onClick={() => setActiveDay(day)}
                 className={`relative flex min-w-0 flex-col items-center justify-center rounded-xl px-1.5 py-2.5 text-center transition-all duration-200 sm:px-2 sm:py-3 ${
                   isSelected
@@ -466,6 +471,7 @@ export function DepartmentTimetableViewer({
           </span>
           <button
             type="button"
+            aria-pressed={selectedDept === "ALL"}
             onClick={() => {
               setSelectedDept("ALL");
               setSelectedSemester("ALL");
@@ -488,6 +494,7 @@ export function DepartmentTimetableViewer({
               <button
                 key={dept}
                 type="button"
+                aria-pressed={isSelected}
                 onClick={() => {
                   setSelectedDept(dept);
                   setSelectedSemester("ALL");
@@ -515,6 +522,7 @@ export function DepartmentTimetableViewer({
               <div className="flex items-center gap-1 rounded-xl border border-slate-800 bg-[#0e141f] p-1">
                 <button
                   type="button"
+                  aria-pressed={selectedSemester === "ALL"}
                   onClick={() => setSelectedSemester("ALL")}
                   className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
                     selectedSemester === "ALL"
@@ -528,6 +536,7 @@ export function DepartmentTimetableViewer({
                   <button
                     key={sem}
                     type="button"
+                    aria-pressed={selectedSemester === sem}
                     onClick={() => setSelectedSemester(sem)}
                     className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
                       selectedSemester === sem
@@ -753,7 +762,7 @@ export function DepartmentTimetableViewer({
 
                     {/* RIGHT COLUMN: Location & Room details */}
                     <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-800/60 pt-3 lg:flex-col lg:items-end lg:justify-center lg:border-t-0 lg:pt-0">
-                      <div className="flex max-w-full items-center gap-1.5 break-words rounded-xl border border-slate-700/80 bg-[#0e141f] px-3 py-1.5 text-xs font-bold text-white shadow-inner">
+                      <div className="scheduleVenueBadge flex max-w-full items-center gap-1.5 break-words rounded-xl border border-slate-700/80 bg-[#0e141f] px-3 py-1.5 text-xs font-bold text-white shadow-inner">
                         <span className="text-cyan-400">📍</span>
                         <span>{slot.roomName}</span>
                       </div>
@@ -780,6 +789,7 @@ export function DepartmentTimetableViewer({
                   <button
                     key={day}
                     type="button"
+                    aria-pressed={isCurrent}
                     onClick={() => {
                       setActiveDay(day);
                       setViewType("dayList");
@@ -827,8 +837,11 @@ export function DepartmentTimetableViewer({
                             <h5 className="mt-1 text-xs font-bold text-white line-clamp-1">
                               {slot.courseName}
                             </h5>
-                            <p className="mt-1 text-[10px] text-slate-400 truncate">
-                              📍 {slot.roomName} • {slot.teacherName}
+                            <p className="mt-1 truncate text-[10px] text-slate-400">
+                              <span className="scheduleVenueBadge">
+                                📍 {slot.roomName}
+                              </span>{" "}
+                              • {slot.teacherName}
                             </p>
                           </div>
                         );

@@ -233,3 +233,63 @@
   background: #ffffff;
   color: #0f172a;
 }
+
+:global(html.light) .filterBar {
+  border-bottom-color: #cbd5e1;
+}
+
+:global(html.light) .filterBar button {
+  border-color: #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+}
+
+:global(html.light) .filterBar button:hover {
+  border-color: #94a3b8;
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+:global(html.light) .filterBar button[class*="active"],
+:global(html.light) .filterBar button[aria-pressed="true"] {
+  border-color: #99d6d1;
+  background: #ecfdf5;
+  color: #115e59;
+}
+
+:global(html.light) .classTime strong,
+:global(html.light) .courseTitle > strong,
+:global(html.light) .classMeta {
+  color: #1e293b;
+}
+
+:global(html.light) .classTime span,
+:global(html.light) .courseTitle > span,
+:global(html.light) .classDetails p,
+:global(html.light) .classDetails p i,
+:global(html.light) .status,
+:global(html.light) .listFooter,
+:global(html.light) .footer {
+  color: #334155;
+}
+
+:global(html.light) .courseTitle > span,
+:global(html.light) .status {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
+}
+
+:global(html.light) .statusLive {
+  border-color: #86efac;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+:global(html.light) .listFooter,
+:global(html.light) .classRow {
+  border-color: #e2e8f0;
+}
+
+:global(html.light) .listFooter a {
+  color: #0f766e;
+}

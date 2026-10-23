@@ -86,7 +86,7 @@ export function WeeklyTimetable({
 
   if (slots.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-slate-800 bg-[#111827]/70 p-6 text-center backdrop-blur-md sm:p-12">
+      <div className="weeklyTimetable rounded-2xl border border-dashed border-slate-800 bg-[#111827]/70 p-6 text-center backdrop-blur-md sm:p-12">
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-800/80 text-cyan-400">
           <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <rect height="18" rx="2" width="18" x="3" y="4" />
@@ -118,7 +118,7 @@ export function WeeklyTimetable({
   );
 
   return (
-    <div className="min-w-0 space-y-4 sm:space-y-6">
+    <div className="weeklyTimetable min-w-0 space-y-4 sm:space-y-6">
       {/* View Toggle Bar */}
       <div className="flex min-w-0 flex-col items-stretch justify-between gap-3 rounded-2xl border border-slate-800 bg-[#111827]/90 px-3 py-3 shadow-xl backdrop-blur-md sm:flex-row sm:items-center sm:gap-4 sm:px-6 sm:py-4">
         <div className="min-w-0">
@@ -130,6 +130,7 @@ export function WeeklyTimetable({
 
         <div className="flex w-full min-w-0 items-center gap-1 rounded-xl border border-slate-800 bg-slate-900/80 p-1 sm:w-auto sm:gap-2">
           <button
+            aria-pressed={viewMode === "grid"}
             className={`hidden min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-[11px] font-semibold transition sm:flex sm:flex-none sm:px-3 sm:py-1.5 sm:text-xs ${
               viewMode === "grid"
                 ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-sm"
@@ -147,6 +148,7 @@ export function WeeklyTimetable({
             Weekly Grid
           </button>
           <button
+            aria-pressed={viewMode === "list"}
             className={`flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-[11px] font-semibold transition sm:flex-none sm:px-3 sm:py-1.5 sm:text-xs ${
               viewMode === "list"
                 ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-sm"
@@ -221,7 +223,7 @@ export function WeeklyTimetable({
                             </p>
 
                             <div className="mt-3 flex items-center justify-between border-t border-white/5 pt-2 text-[11px] text-slate-400">
-                              <span className="font-semibold text-slate-300">
+                              <span className="scheduleVenueBadge font-semibold text-slate-300">
                                 📍 {slot.roomName}
                               </span>
                               {slot.sectionName ? (
