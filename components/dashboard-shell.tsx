@@ -218,15 +218,21 @@ export function DashboardShell({
         <div className={styles.sidebarBottom}>
           <div className={styles.sidebarNote}><span>✦</span><strong>Campus, connected</strong><small>Your classes and campus services, all in one place.</small></div>
           <div className={styles.sidebarUser}>
-            <span className={styles.avatar}>
-              {image ? (
-                // Images are validated as raster files before they are persisted.
-                // eslint-disable-next-line @next/next/no-img-element
-                <img alt="" src={image} />
-              ) : initials}
-              <i />
-            </span>
-            <span className={styles.userMeta}><strong>{user.name ?? "Campus User"}</strong><small>{roleMeta.portalName}</small></span>
+            <Link
+              className={styles.sidebarProfileLink}
+              href="/profile"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <span className={styles.avatar}>
+                {image ? (
+                  // Images are validated as raster files before they are persisted.
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img alt="" src={image} />
+                ) : initials}
+                <i />
+              </span>
+              <span className={styles.userMeta}><strong>{user.name ?? "Campus User"}</strong><small>{roleMeta.portalName}</small></span>
+            </Link>
             <LogoutButton className={styles.logout} />
           </div>
         </div>
