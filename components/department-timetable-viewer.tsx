@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { DayOfWeek } from "@/generated/prisma/enums";
+import { TimetableCalendarExport } from "@/components/timetable-calendar-export";
 
 export type DepartmentSectionInfo = {
   id: string;
@@ -331,6 +332,7 @@ export function DepartmentTimetableViewer({
 
         {/* View toggle & Mode buttons */}
         <div className="flex min-w-0 flex-wrap items-center gap-2">
+          <TimetableCalendarExport slots={baseSlots} />
           {(userRole === "STUDENT" || userRole === "TEACHER") && (
             <div className="flex max-w-full flex-wrap items-center rounded-xl border border-slate-800 bg-[#0e141f] p-1">
               <button

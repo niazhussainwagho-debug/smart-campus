@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { DayOfWeek } from "@/generated/prisma/enums";
+import { TimetableCalendarExport } from "@/components/timetable-calendar-export";
 
 export type WeeklyScheduleSlot = {
   id: string;
@@ -128,45 +129,48 @@ export function WeeklyTimetable({
           </p>
         </div>
 
-        <div className="flex w-full min-w-0 items-center gap-1 rounded-xl border border-slate-800 bg-slate-900/80 p-1 sm:w-auto sm:gap-2">
-          <button
-            aria-pressed={viewMode === "grid"}
-            className={`hidden min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-[11px] font-semibold transition sm:flex sm:flex-none sm:px-3 sm:py-1.5 sm:text-xs ${
-              viewMode === "grid"
-                ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-sm"
-                : "text-slate-400 hover:text-white"
-            }`}
-            onClick={() => setViewMode("grid")}
-            type="button"
-          >
-            <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <rect height="7" width="7" x="3" y="3" />
-              <rect height="7" width="7" x="14" y="3" />
-              <rect height="7" width="7" x="14" y="14" />
-              <rect height="7" width="7" x="3" y="14" />
-            </svg>
-            Weekly Grid
-          </button>
-          <button
-            aria-pressed={viewMode === "list"}
-            className={`flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-[11px] font-semibold transition sm:flex-none sm:px-3 sm:py-1.5 sm:text-xs ${
-              viewMode === "list"
-                ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-sm"
-                : "text-slate-400 hover:text-white"
-            }`}
-            onClick={() => setViewMode("list")}
-            type="button"
-          >
-            <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <line x1="8" x2="21" y1="6" y2="6" />
-              <line x1="8" x2="21" y1="12" y2="12" />
-              <line x1="8" x2="21" y1="18" y2="18" />
-              <line x1="3" x2="3.01" y1="6" y2="6" />
-              <line x1="3" x2="3.01" y1="12" y2="12" />
-              <line x1="3" x2="3.01" y1="18" y2="18" />
-            </svg>
-            List View
-          </button>
+        <div className="flex w-full min-w-0 flex-wrap items-center justify-between gap-2 sm:w-auto sm:justify-end">
+          <TimetableCalendarExport slots={sortedSlots} />
+          <div className="flex min-w-0 flex-1 items-center gap-1 rounded-xl border border-slate-800 bg-slate-900/80 p-1 sm:flex-none sm:gap-2">
+            <button
+              aria-pressed={viewMode === "grid"}
+              className={`hidden min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-[11px] font-semibold transition sm:flex sm:flex-none sm:px-3 sm:py-1.5 sm:text-xs ${
+                viewMode === "grid"
+                  ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-sm"
+                  : "text-slate-400 hover:text-white"
+              }`}
+              onClick={() => setViewMode("grid")}
+              type="button"
+            >
+              <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <rect height="7" width="7" x="3" y="3" />
+                <rect height="7" width="7" x="14" y="3" />
+                <rect height="7" width="7" x="14" y="14" />
+                <rect height="7" width="7" x="3" y="14" />
+              </svg>
+              Weekly Grid
+            </button>
+            <button
+              aria-pressed={viewMode === "list"}
+              className={`flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-[11px] font-semibold transition sm:flex-none sm:px-3 sm:py-1.5 sm:text-xs ${
+                viewMode === "list"
+                  ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-sm"
+                  : "text-slate-400 hover:text-white"
+              }`}
+              onClick={() => setViewMode("list")}
+              type="button"
+            >
+              <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <line x1="8" x2="21" y1="6" y2="6" />
+                <line x1="8" x2="21" y1="12" y2="12" />
+                <line x1="8" x2="21" y1="18" y2="18" />
+                <line x1="3" x2="3.01" y1="6" y2="6" />
+                <line x1="3" x2="3.01" y1="12" y2="12" />
+                <line x1="3" x2="3.01" y1="18" y2="18" />
+              </svg>
+              List View
+            </button>
+          </div>
         </div>
       </div>
 
