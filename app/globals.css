@@ -383,3 +383,50 @@ html.light [class*="departmentSelect"] {
   background: var(--app-input) !important;
   color: var(--app-foreground) !important;
 }
+
+html.light .campusIdCardActions > button:first-child {
+  border-color: #99d6d1;
+  background: #ecfdf5;
+  color: #115e59;
+}
+
+html.light .campusIdCardActions > button:first-child:hover {
+  background: #d1fae5;
+}
+
+@media print {
+  @page {
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  .campusIdCardPrint,
+  .campusIdCardPrint * {
+    visibility: visible !important;
+  }
+
+  .campusIdCardPrint {
+    position: fixed !important;
+    top: 12mm !important;
+    left: 50% !important;
+    width: min(170mm, calc(100vw - 24mm)) !important;
+    max-width: 170mm !important;
+    transform: translateX(-50%) !important;
+    box-shadow: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .campusIdCardActions {
+    display: none !important;
+  }
+}

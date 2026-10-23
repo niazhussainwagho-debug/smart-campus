@@ -7,6 +7,7 @@ import {
   useTransition,
   type FormEvent,
 } from "react";
+import { toPng } from "html-to-image";
 import type { UserRole } from "@/generated/prisma/enums";
 import { useDashboardUserImage } from "@/components/dashboard-shell";
 import {
@@ -52,7 +53,10 @@ export function ProfileManager({
   const [notice, setNotice] = useState<ProfileActionResult | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(profile.image);
   const [removeAvatar, setRemoveAvatar] = useState(false);
+  const [isExportingId, setIsExportingId] = useState(false);
+  const [idCardError, setIdCardError] = useState<string | null>(null);
   const avatarInput = useRef<HTMLInputElement>(null);
+  const idCardRef = useRef<HTMLElement>(null);
   const { setImage } = useDashboardUserImage();
   const [name, setName] = useState(profile.name);
   const [department, setDepartment] = useState(profile.department);
@@ -104,12 +108,43 @@ export function ProfileManager({
     });
   }
 
+  async function downloadIdCard() {
+    const card = idCardRef.current;
+    if (!card) {
+      setIdCardError("The campus ID card is not available to download.");
+      return;
+    }
+
+    setIsExportingId(true);
+    setIdCardError(null);
+    try {
+      await document.fonts.ready;
+      const dataUrl = await toPng(card, {
+        cacheBust: true,
+        pixelRatio: 3,
+        backgroundColor: getComputedStyle(card).backgroundColor,
+      });
+      const anchor = document.createElement("a");
+      anchor.download = "campus-id-card.png";
+      anchor.href = dataUrl;
+      anchor.click();
+    } catch (error) {
+      console.error("Unable to render the campus ID card.", error);
+      setIdCardError(
+        "Unable to render the ID card image. Please try again or use Print ID.",
+      );
+    } finally {
+      setIsExportingId(false);
+    }
+  }
+
   return (
     <section className="min-w-0 rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl sm:p-6">
       <form className="grid min-w-0 gap-5 sm:grid-cols-2" onSubmit={submit}>
         <aside
+          ref={idCardRef}
           aria-label="Digital campus ID card preview"
-          className="relative isolate overflow-hidden rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-slate-900 via-[#102b3a] to-cyan-950/80 p-5 shadow-lg shadow-cyan-950/30 transition-colors hover:border-cyan-400/40 sm:col-span-2"
+          className="campusIdCardPrint relative isolate overflow-hidden rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-slate-900 via-[#102b3a] to-cyan-950/80 p-5 shadow-lg shadow-cyan-950/30 transition-colors hover:border-cyan-400/40 sm:col-span-2"
         >
           <div className="absolute -right-12 -top-16 -z-10 h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl" />
           <div className="flex items-center justify-between gap-3">
@@ -184,6 +219,52 @@ export function ProfileManager({
             </svg>
           </div>
         </aside>
+        <div className="campusIdCardActions flex flex-wrap items-center gap-3 sm:col-span-2">
+          <button
+            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm font-semibold text-cyan-300 transition hover:border-cyan-400/50 hover:bg-cyan-500/15 disabled:cursor-wait disabled:opacity-60"
+            disabled={isExportingId}
+            onClick={downloadIdCard}
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 3v12m0 0 4-4m-4 4-4-4" />
+              <path d="M5 17v3h14v-3" />
+            </svg>
+            {isExportingId ? "Preparing image…" : "Download ID Card"}
+          </button>
+          <button
+            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-border bg-muted px-4 py-2 text-sm font-semibold text-foreground transition hover:bg-background"
+            onClick={() => window.print()}
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              viewBox="0 0 24 24"
+            >
+              <path d="M6 9V3h12v6" />
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+              <path d="M6 14h12v7H6z" />
+              <path d="M18 12h.01" />
+            </svg>
+            Print ID
+          </button>
+          {idCardError ? (
+            <p className="basis-full text-sm text-rose-600 dark:text-rose-300" role="alert">
+              {idCardError}
+            </p>
+          ) : null}
+        </div>
         <div className="flex min-w-0 flex-col items-center gap-3 rounded-xl border border-slate-800 bg-slate-900/40 p-5 sm:col-span-2 sm:flex-row">
           {avatarPreview ? (
             // Uploaded images are validated as raster images before persistence.

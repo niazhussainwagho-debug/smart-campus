@@ -17,6 +17,7 @@
     "@prisma/adapter-neon": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "bcryptjs": "^3.0.3",
+    "html-to-image": "^1.11.13",
     "next": "16.3.8",
     "next-auth": "^5.0.0-beta.32",
     "nodemailer": "^8.0.11",
