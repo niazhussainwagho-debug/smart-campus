@@ -209,3 +209,73 @@
   .card { padding: 12px; }
   .metadata { align-items: flex-start; flex-direction: column; gap: 5px; }
 }
+
+:global(html.light) .panel,
+:global(html.light) .card {
+  border-color: #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+:global(html.light) .panelHeading h2,
+:global(html.light) .titleGroup h3,
+:global(html.light) .message {
+  color: #0f172a;
+}
+
+:global(html.light) .panelHeading p,
+:global(html.light) .field,
+:global(html.light) .count,
+:global(html.light) .metadata,
+:global(html.light) .empty {
+  color: #334155;
+}
+
+:global(html.light) .field input,
+:global(html.light) .field textarea,
+:global(html.light) .field select {
+  border-color: #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+:global(html.light) .field input::placeholder,
+:global(html.light) .field textarea::placeholder {
+  color: #475569;
+  opacity: 1;
+}
+
+:global(html.light) .field select option {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+:global(html.light) .count,
+:global(html.light) .empty {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+
+:global(html.light) .audience {
+  color: #0f766e;
+}
+
+:global(html.light) .submit {
+  border-color: #99d6d1;
+  background: #ecfdf5;
+  color: #115e59;
+}
+
+:global(html.light) .successNotice {
+  color: #166534;
+}
+
+:global(html.light) .errorNotice,
+:global(html.light) .delete {
+  color: #9f1239;
+}
+
+:global(html.light) .delete {
+  border-color: #fecdd3;
+  background: #fff1f2;
+}

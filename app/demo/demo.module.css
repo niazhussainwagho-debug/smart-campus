@@ -241,6 +241,50 @@
   color: #526779;
 }
 
+:global(html.light) .sidebar a,
+:global(html.light) .sidebar button,
+:global(html.light) .topbar a,
+:global(html.light) .topbar button {
+  color: #334155;
+}
+
+:global(html.light) .sidebar a:hover,
+:global(html.light) .sidebar button:hover,
+:global(html.light) .topbar a:hover,
+:global(html.light) .topbar button:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+:global(html.light) .sidebar a[aria-current="page"],
+:global(html.light) .sidebar a[class*="active"],
+:global(html.light) .sidebar button[class*="active"] {
+  border-color: #99d6d1;
+  background: #ecfdf5;
+  color: #115e59;
+}
+
+:global(html.light) .panel,
+:global(html.light) .statCard {
+  border-color: #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+:global(html.light) .panelHeader h2,
+:global(html.light) .statCopy > strong,
+:global(html.light) .activityCopy strong {
+  color: #0f172a;
+}
+
+:global(html.light) .pageHeading p,
+:global(html.light) .panelHeader p,
+:global(html.light) .activityCopy small,
+:global(html.light) .statCopy > span,
+:global(html.light) .statCopy > small {
+  color: #334155;
+}
+
 .navItem { min-height: 42px; font-size: 12px; }
 .navLabel { font-size: 10px; }
 .helpCard strong { font-size: 12px; }

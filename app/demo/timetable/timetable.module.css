@@ -189,5 +189,47 @@
 :global(html.light) .search input {
   border-color: var(--line);
   background: #ffffff;
-  color: #172b3a;
+  color: #0f172a;
+}
+
+:global(html.light) .sidebar a,
+:global(html.light) .sidebar button,
+:global(html.light) .topbar a,
+:global(html.light) .topbar button {
+  color: #334155;
+}
+
+:global(html.light) .sidebar a:hover,
+:global(html.light) .sidebar button:hover,
+:global(html.light) .topbar a:hover,
+:global(html.light) .topbar button:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+:global(html.light) .sidebar a[aria-current="page"],
+:global(html.light) .sidebar a[class*="active"],
+:global(html.light) .sidebar button[class*="active"] {
+  border-color: #99d6d1;
+  background: #ecfdf5;
+  color: #115e59;
+}
+
+:global(html.light) .className,
+:global(html.light) .breadcrumb strong,
+:global(html.light) .summary article strong {
+  color: #0f172a;
+}
+
+:global(html.light) .classMeta,
+:global(html.light) .summary article small {
+  color: #334155;
+}
+
+:global(html.light) .classRow,
+:global(html.light) .summary article,
+:global(html.light) .panel {
+  border-color: #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
 }

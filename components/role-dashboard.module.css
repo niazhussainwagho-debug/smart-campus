@@ -308,6 +308,105 @@
   .quickLink { transition: none; }
 }
 
+:global(html.light) .statCard,
+:global(html.light) .panel,
+:global(html.light) .heatPanel,
+:global(html.light) .trendPanel,
+:global(html.light) .breakdownPanel,
+:global(html.light) .activityPanel,
+:global(html.light) .departmentPanel {
+  border-color: #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, .06);
+}
+
+:global(html.light) .panelHeader h2,
+:global(html.light) .statCopy > strong,
+:global(html.light) .activityCopy strong,
+:global(html.light) .breakdownRow > strong,
+:global(html.light) .quickLink strong {
+  color: #0f172a;
+}
+
+:global(html.light) .panelHeader p,
+:global(html.light) .statCopy > span,
+:global(html.light) .statCopy > small,
+:global(html.light) .heatCorner,
+:global(html.light) .heatDay,
+:global(html.light) .heatTime,
+:global(html.light) .heatLegend,
+:global(html.light) .heatLegend > span,
+:global(html.light) .trendYAxis,
+:global(html.light) .weekLabels,
+:global(html.light) .breakdownRow,
+:global(html.light) .activityCopy small,
+:global(html.light) .activityRow time,
+:global(html.light) .quickLink small {
+  color: #334155;
+}
+
+:global(html.light) .panelPill,
+:global(html.light) .totalTag,
+:global(html.light) .activityState,
+:global(html.light) .quickLink {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+  color: #334155;
+}
+
+:global(html.light) .quickLink:hover {
+  border-color: #0f766e;
+  background: #f1f5f9;
+}
+
+:global(html.light) .quickLink > span:first-child {
+  background: #ccfbf1;
+  color: #115e59;
+}
+
+:global(html.light) .panelLink,
+:global(html.light) .totalTag,
+:global(html.light) .viewSchedule {
+  color: #0f766e;
+}
+
+:global(html.light) .viewSchedule {
+  border-color: #99d6d1;
+  background: #ecfdf5;
+}
+
+:global(html.light) .breakdownTrack {
+  background: #e2e8f0;
+}
+
+:global(html.light) .activityRow + .activityRow {
+  border-top-color: #e2e8f0;
+}
+
+:global(html.light) .stateUpcoming,
+:global(html.light) .stateConfirmed,
+:global(html.light) .stateAvailable,
+:global(html.light) .statePublished {
+  border-color: #86efac;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+:global(html.light) .stateDueSoon,
+:global(html.light) .statePending,
+:global(html.light) .stateNeedsreview {
+  border-color: #fcd34d;
+  background: #fffbeb;
+  color: #854d0e;
+}
+
+:global(html.light) .stateInprogress {
+  border-color: #93c5fd;
+  background: #eff6ff;
+  color: #1e40af;
+}
+
 .statCard { min-height: 88px; gap: 12px; padding: 13px 14px; }
 .statCopy { gap: 4px; }
 .statCopy > span { font-size: 12px; }

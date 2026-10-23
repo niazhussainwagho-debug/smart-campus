@@ -203,7 +203,7 @@
 :global(html.light) .pageHeading h1,
 :global(html.light) .notificationPanelHeader > strong,
 :global(html.light) .notificationContent > strong {
-  color: #172b3a;
+  color: #0f172a;
 }
 
 :global(html.light) .sidebarNote small,
@@ -213,8 +213,9 @@
 :global(html.light) .eyebrow,
 :global(html.light) .notificationContent > span,
 :global(html.light) .notificationContent > time,
-:global(html.light) .searchResults > p {
-  color: #526779;
+:global(html.light) .searchResults > p,
+:global(html.light) .navLabel {
+  color: #334155;
 }
 
 :global(html.light) .topbar {
@@ -232,7 +233,7 @@
 }
 
 :global(html.light) .searchWrap input {
-  color: #172b3a;
+  color: #0f172a;
 }
 
 :global(html.light) .searchWrap input::placeholder {
@@ -256,7 +257,41 @@
 }
 
 :global(html.light) .notificationEmpty {
-  color: #526779;
+  color: #334155;
+}
+
+:global(html.light) .navLink {
+  color: #334155;
+}
+
+:global(html.light) .navLink svg {
+  color: #475569;
+}
+
+:global(html.light) .navLink:hover {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+:global(html.light) .navLinkActive {
+  border-color: #99d6d1;
+  background: #ecfdf5;
+  color: #115e59;
+}
+
+:global(html.light) .navLinkActive svg,
+:global(html.light) .brand strong span {
+  color: #0f766e;
+}
+
+:global(html.light) .logout {
+  color: #334155;
+}
+
+:global(html.light) .logout:hover {
+  background: #f1f5f9;
+  color: #9f1239;
 }
 
 :global(html.light) .sidebarNote {

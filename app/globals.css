@@ -27,12 +27,12 @@ html.dark {
 html.light {
   color-scheme: light;
   --app-background: #f1f5f9;
-  --app-foreground: #172b3a;
+  --app-foreground: #0f172a;
   --app-card: #ffffff;
-  --app-card-foreground: #172b3a;
-  --app-muted: #e7eef4;
-  --app-muted-foreground: #526779;
-  --app-border: #cbd8e2;
+  --app-card-foreground: #0f172a;
+  --app-muted: #e2e8f0;
+  --app-muted-foreground: #334155;
+  --app-border: #cbd5e1;
   --app-input: #ffffff;
 }
 
@@ -130,9 +130,29 @@ html.light [class*="bg-slate-800"],
 html.light [class*="bg-[#0B0F19"],
 html.light [class*="bg-[#0b0f19"],
 html.light [class*="bg-[#111827"],
-html.light [class*="bg-[#111827]/"] {
+html.light [class*="bg-[#111827]/"],
+html.light [class*="bg-[#0d1727"],
+html.light [class*="bg-[#0D1727"],
+html.light [class*="bg-[#0b"],
+html.light [class*="bg-[#0B"] {
   background-color: var(--app-card) !important;
   background-image: none;
+}
+
+html.light [class*="from-slate-900"],
+html.light [class*="via-slate-900"],
+html.light [class*="to-slate-900"],
+html.light [class*="via-[#102b3a]"],
+html.light [class*="to-cyan-950"],
+html.light [class*="via-[#161f2e]"],
+html.light [class*="to-[#121824]"] {
+  background-color: var(--app-card) !important;
+  background-image: none !important;
+}
+
+html.light aside[class*="from-slate-900"] {
+  border-color: var(--app-border) !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, .08) !important;
 }
 
 html.light [class*="bg-slate-700"],
@@ -157,6 +177,14 @@ html.light [class*="bg-amber-950"] {
   background-color: #fffbeb !important;
 }
 
+html.light [class*="bg-indigo-950"],
+html.light [class*="bg-purple-950"],
+html.light [class*="bg-violet-950"],
+html.light [class*="bg-teal-950"],
+html.light [class*="bg-blue-950"] {
+  background-color: #f1f5f9 !important;
+}
+
 html.light [class*="text-white"],
 html.light [class*="text-slate-50"],
 html.light [class*="text-slate-100"],
@@ -167,8 +195,9 @@ html.light [class*="text-slate-300"] {
 
 html.light [class*="text-slate-400"],
 html.light [class*="text-slate-500"],
-html.light [class*="text-slate-600"] {
-  color: var(--app-muted-foreground) !important;
+html.light [class*="text-slate-600"],
+html.light [class*="text-slate-700"] {
+  color: #334155 !important;
 }
 
 html.light [class*="text-cyan-"],
@@ -192,9 +221,32 @@ html.light [class*="text-blue-"] {
   color: #1d4ed8 !important;
 }
 
+html.light [class*="text-indigo-"] {
+  color: #4338ca !important;
+}
+
+html.light [class*="text-purple-"],
+html.light [class*="text-violet-"] {
+  color: #6d28d9 !important;
+}
+
+html.light [class*="text-pink-"] {
+  color: #be185d !important;
+}
+
+html.light [class*="text-[#00D37F]"] {
+  color: #15803d !important;
+}
+
 html.light [class*="border-slate-"],
 html.light [class*="border-white/"] {
   border-color: var(--app-border) !important;
+}
+
+html.light [class*="placeholder:text-slate-"]::placeholder,
+html.light [class*="placeholder:text-gray-"]::placeholder {
+  color: #475569 !important;
+  opacity: 1;
 }
 
 html.light input:not([type="checkbox"]):not([type="radio"]),
