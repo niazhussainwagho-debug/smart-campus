@@ -47,6 +47,12 @@ enum NotificationType {
   APPOINTMENT
 }
 
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+}
+
 model User {
   id                   String             @id @default(cuid())
   name                 String
@@ -73,8 +79,10 @@ model User {
   teacherAppointments  Appointment[]      @relation("AppointmentTeacher")
   enrollments          Enrollment[]       @relation("EnrollmentStudent")
   announcementsCreated Announcement[]     @relation("AnnouncementCreator")
-  passwordResetTokens  PasswordResetToken[]
+  passwordResetTokens PasswordResetToken[]
   notifications        Notification[]
+  studentAttendance    Attendance[]       @relation("AttendanceStudent")
+  attendanceMarked     Attendance[]       @relation("AttendanceMarker")
 
   @@index([role])
 }
@@ -121,6 +129,7 @@ model Section {
   semester       Int
   enrollments    Enrollment[]
   timetableSlots TimetableSlot[]
+  attendance     Attendance[]
 
   @@index([department, semester])
 }
@@ -157,6 +166,7 @@ model TimetableSlot {
   room      Room      @relation(fields: [roomId], references: [id])
   teacher   User      @relation("TimetableTeacher", fields: [teacherId], references: [id])
   teachers  User[]    @relation("TimetableSlotTeachers")
+  attendance Attendance[]
 
   @@index([roomId, dayOfWeek, startTime])
   @@index([teacherId, dayOfWeek, startTime])
@@ -229,4 +239,25 @@ model Notification {
 
   @@index([userId, isRead, createdAt])
   @@index([userId, createdAt])
+}
+
+model Attendance {
+  id              String           @id @default(cuid())
+  studentId       String
+  sectionId       String
+  timetableSlotId String
+  courseCode      String
+  date            DateTime         @db.Date
+  status          AttendanceStatus
+  markedBy        String
+  createdAt       DateTime         @default(now())
+  student         User             @relation("AttendanceStudent", fields: [studentId], references: [id], onDelete: Cascade)
+  teacher         User             @relation("AttendanceMarker", fields: [markedBy], references: [id], onDelete: Restrict)
+  section         Section          @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  timetableSlot   TimetableSlot    @relation(fields: [timetableSlotId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, timetableSlotId, date])
+  @@index([studentId, date])
+  @@index([timetableSlotId, date])
+  @@index([markedBy, date])
 }

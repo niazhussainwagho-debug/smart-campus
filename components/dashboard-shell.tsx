@@ -303,12 +303,16 @@ export function DashboardShell({
       : []),
     ...(role === "TEACHER"
       ? [
+          { href: "/teacher/attendance", label: "Attendance", icon: (active: boolean) => <IconUsers active={active} /> },
           { href: "/teacher/availability", label: "Office Hours", icon: (active: boolean) => <IconClock active={active} /> },
           { href: "/teacher/appointments", label: "Student Requests", badge: "Live", icon: (active: boolean) => <IconUsers active={active} /> },
         ]
       : []),
     ...(role === "STUDENT"
-      ? [{ href: "/student/appointments", label: "Appointments", icon: (active: boolean) => <IconUsers active={active} /> }]
+      ? [
+          { href: "/student/attendance", label: "Attendance", icon: (active: boolean) => <IconUsers active={active} /> },
+          { href: "/student/appointments", label: "Appointments", icon: (active: boolean) => <IconUsers active={active} /> },
+        ]
       : []),
     ...(role !== "TEACHER"
       ? [{

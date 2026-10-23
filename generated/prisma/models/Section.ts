@@ -210,6 +210,7 @@ export type SectionWhereInput = {
   semester?: Prisma.IntFilter<"Section"> | number
   enrollments?: Prisma.EnrollmentListRelationFilter
   timetableSlots?: Prisma.TimetableSlotListRelationFilter
+  attendance?: Prisma.AttendanceListRelationFilter
 }
 
 export type SectionOrderByWithRelationInput = {
@@ -219,6 +220,7 @@ export type SectionOrderByWithRelationInput = {
   semester?: Prisma.SortOrder
   enrollments?: Prisma.EnrollmentOrderByRelationAggregateInput
   timetableSlots?: Prisma.TimetableSlotOrderByRelationAggregateInput
+  attendance?: Prisma.AttendanceOrderByRelationAggregateInput
 }
 
 export type SectionWhereUniqueInput = Prisma.AtLeast<{
@@ -231,6 +233,7 @@ export type SectionWhereUniqueInput = Prisma.AtLeast<{
   semester?: Prisma.IntFilter<"Section"> | number
   enrollments?: Prisma.EnrollmentListRelationFilter
   timetableSlots?: Prisma.TimetableSlotListRelationFilter
+  attendance?: Prisma.AttendanceListRelationFilter
 }, "id">
 
 export type SectionOrderByWithAggregationInput = {
@@ -262,6 +265,7 @@ export type SectionCreateInput = {
   semester: number
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutSectionInput
   timetableSlots?: Prisma.TimetableSlotCreateNestedManyWithoutSectionInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutSectionInput
 }
 
 export type SectionUncheckedCreateInput = {
@@ -271,6 +275,7 @@ export type SectionUncheckedCreateInput = {
   semester: number
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutSectionInput
   timetableSlots?: Prisma.TimetableSlotUncheckedCreateNestedManyWithoutSectionInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutSectionInput
 }
 
 export type SectionUpdateInput = {
@@ -280,6 +285,7 @@ export type SectionUpdateInput = {
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   enrollments?: Prisma.EnrollmentUpdateManyWithoutSectionNestedInput
   timetableSlots?: Prisma.TimetableSlotUpdateManyWithoutSectionNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutSectionNestedInput
 }
 
 export type SectionUncheckedUpdateInput = {
@@ -289,6 +295,7 @@ export type SectionUncheckedUpdateInput = {
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutSectionNestedInput
   timetableSlots?: Prisma.TimetableSlotUncheckedUpdateManyWithoutSectionNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutSectionNestedInput
 }
 
 export type SectionCreateManyInput = {
@@ -374,12 +381,27 @@ export type SectionUpdateOneRequiredWithoutTimetableSlotsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SectionUpdateToOneWithWhereWithoutTimetableSlotsInput, Prisma.SectionUpdateWithoutTimetableSlotsInput>, Prisma.SectionUncheckedUpdateWithoutTimetableSlotsInput>
 }
 
+export type SectionCreateNestedOneWithoutAttendanceInput = {
+  create?: Prisma.XOR<Prisma.SectionCreateWithoutAttendanceInput, Prisma.SectionUncheckedCreateWithoutAttendanceInput>
+  connectOrCreate?: Prisma.SectionCreateOrConnectWithoutAttendanceInput
+  connect?: Prisma.SectionWhereUniqueInput
+}
+
+export type SectionUpdateOneRequiredWithoutAttendanceNestedInput = {
+  create?: Prisma.XOR<Prisma.SectionCreateWithoutAttendanceInput, Prisma.SectionUncheckedCreateWithoutAttendanceInput>
+  connectOrCreate?: Prisma.SectionCreateOrConnectWithoutAttendanceInput
+  upsert?: Prisma.SectionUpsertWithoutAttendanceInput
+  connect?: Prisma.SectionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SectionUpdateToOneWithWhereWithoutAttendanceInput, Prisma.SectionUpdateWithoutAttendanceInput>, Prisma.SectionUncheckedUpdateWithoutAttendanceInput>
+}
+
 export type SectionCreateWithoutEnrollmentsInput = {
   id?: string
   name: string
   department: string
   semester: number
   timetableSlots?: Prisma.TimetableSlotCreateNestedManyWithoutSectionInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutSectionInput
 }
 
 export type SectionUncheckedCreateWithoutEnrollmentsInput = {
@@ -388,6 +410,7 @@ export type SectionUncheckedCreateWithoutEnrollmentsInput = {
   department: string
   semester: number
   timetableSlots?: Prisma.TimetableSlotUncheckedCreateNestedManyWithoutSectionInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutSectionInput
 }
 
 export type SectionCreateOrConnectWithoutEnrollmentsInput = {
@@ -412,6 +435,7 @@ export type SectionUpdateWithoutEnrollmentsInput = {
   department?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   timetableSlots?: Prisma.TimetableSlotUpdateManyWithoutSectionNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutSectionNestedInput
 }
 
 export type SectionUncheckedUpdateWithoutEnrollmentsInput = {
@@ -420,6 +444,7 @@ export type SectionUncheckedUpdateWithoutEnrollmentsInput = {
   department?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   timetableSlots?: Prisma.TimetableSlotUncheckedUpdateManyWithoutSectionNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutSectionNestedInput
 }
 
 export type SectionCreateWithoutTimetableSlotsInput = {
@@ -428,6 +453,7 @@ export type SectionCreateWithoutTimetableSlotsInput = {
   department: string
   semester: number
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutSectionInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutSectionInput
 }
 
 export type SectionUncheckedCreateWithoutTimetableSlotsInput = {
@@ -436,6 +462,7 @@ export type SectionUncheckedCreateWithoutTimetableSlotsInput = {
   department: string
   semester: number
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutSectionInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutSectionInput
 }
 
 export type SectionCreateOrConnectWithoutTimetableSlotsInput = {
@@ -460,6 +487,7 @@ export type SectionUpdateWithoutTimetableSlotsInput = {
   department?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   enrollments?: Prisma.EnrollmentUpdateManyWithoutSectionNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutSectionNestedInput
 }
 
 export type SectionUncheckedUpdateWithoutTimetableSlotsInput = {
@@ -468,6 +496,59 @@ export type SectionUncheckedUpdateWithoutTimetableSlotsInput = {
   department?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutSectionNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutSectionNestedInput
+}
+
+export type SectionCreateWithoutAttendanceInput = {
+  id?: string
+  name: string
+  department: string
+  semester: number
+  enrollments?: Prisma.EnrollmentCreateNestedManyWithoutSectionInput
+  timetableSlots?: Prisma.TimetableSlotCreateNestedManyWithoutSectionInput
+}
+
+export type SectionUncheckedCreateWithoutAttendanceInput = {
+  id?: string
+  name: string
+  department: string
+  semester: number
+  enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutSectionInput
+  timetableSlots?: Prisma.TimetableSlotUncheckedCreateNestedManyWithoutSectionInput
+}
+
+export type SectionCreateOrConnectWithoutAttendanceInput = {
+  where: Prisma.SectionWhereUniqueInput
+  create: Prisma.XOR<Prisma.SectionCreateWithoutAttendanceInput, Prisma.SectionUncheckedCreateWithoutAttendanceInput>
+}
+
+export type SectionUpsertWithoutAttendanceInput = {
+  update: Prisma.XOR<Prisma.SectionUpdateWithoutAttendanceInput, Prisma.SectionUncheckedUpdateWithoutAttendanceInput>
+  create: Prisma.XOR<Prisma.SectionCreateWithoutAttendanceInput, Prisma.SectionUncheckedCreateWithoutAttendanceInput>
+  where?: Prisma.SectionWhereInput
+}
+
+export type SectionUpdateToOneWithWhereWithoutAttendanceInput = {
+  where?: Prisma.SectionWhereInput
+  data: Prisma.XOR<Prisma.SectionUpdateWithoutAttendanceInput, Prisma.SectionUncheckedUpdateWithoutAttendanceInput>
+}
+
+export type SectionUpdateWithoutAttendanceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.StringFieldUpdateOperationsInput | string
+  semester?: Prisma.IntFieldUpdateOperationsInput | number
+  enrollments?: Prisma.EnrollmentUpdateManyWithoutSectionNestedInput
+  timetableSlots?: Prisma.TimetableSlotUpdateManyWithoutSectionNestedInput
+}
+
+export type SectionUncheckedUpdateWithoutAttendanceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.StringFieldUpdateOperationsInput | string
+  semester?: Prisma.IntFieldUpdateOperationsInput | number
+  enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutSectionNestedInput
+  timetableSlots?: Prisma.TimetableSlotUncheckedUpdateManyWithoutSectionNestedInput
 }
 
 
@@ -478,11 +559,13 @@ export type SectionUncheckedUpdateWithoutTimetableSlotsInput = {
 export type SectionCountOutputType = {
   enrollments: number
   timetableSlots: number
+  attendance: number
 }
 
 export type SectionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   enrollments?: boolean | SectionCountOutputTypeCountEnrollmentsArgs
   timetableSlots?: boolean | SectionCountOutputTypeCountTimetableSlotsArgs
+  attendance?: boolean | SectionCountOutputTypeCountAttendanceArgs
 }
 
 /**
@@ -509,6 +592,13 @@ export type SectionCountOutputTypeCountTimetableSlotsArgs<ExtArgs extends runtim
   where?: Prisma.TimetableSlotWhereInput
 }
 
+/**
+ * SectionCountOutputType without action
+ */
+export type SectionCountOutputTypeCountAttendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AttendanceWhereInput
+}
+
 
 export type SectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -517,6 +607,7 @@ export type SectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   semester?: boolean
   enrollments?: boolean | Prisma.Section$enrollmentsArgs<ExtArgs>
   timetableSlots?: boolean | Prisma.Section$timetableSlotsArgs<ExtArgs>
+  attendance?: boolean | Prisma.Section$attendanceArgs<ExtArgs>
   _count?: boolean | Prisma.SectionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["section"]>
 
@@ -545,6 +636,7 @@ export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type SectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   enrollments?: boolean | Prisma.Section$enrollmentsArgs<ExtArgs>
   timetableSlots?: boolean | Prisma.Section$timetableSlotsArgs<ExtArgs>
+  attendance?: boolean | Prisma.Section$attendanceArgs<ExtArgs>
   _count?: boolean | Prisma.SectionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SectionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -555,6 +647,7 @@ export type $SectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     enrollments: Prisma.$EnrollmentPayload<ExtArgs>[]
     timetableSlots: Prisma.$TimetableSlotPayload<ExtArgs>[]
+    attendance: Prisma.$AttendancePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -957,6 +1050,7 @@ export interface Prisma__SectionClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   enrollments<T extends Prisma.Section$enrollmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   timetableSlots<T extends Prisma.Section$timetableSlotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$timetableSlotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TimetableSlotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attendance<T extends Prisma.Section$attendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Section$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1428,6 +1522,30 @@ export type Section$timetableSlotsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.TimetableSlotScalarFieldEnum | Prisma.TimetableSlotScalarFieldEnum[]
+}
+
+/**
+ * Section.attendance
+ */
+export type Section$attendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Attendance
+   */
+  select?: Prisma.AttendanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Attendance
+   */
+  omit?: Prisma.AttendanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AttendanceInclude<ExtArgs> | null
+  where?: Prisma.AttendanceWhereInput
+  orderBy?: Prisma.AttendanceOrderByWithRelationInput | Prisma.AttendanceOrderByWithRelationInput[]
+  cursor?: Prisma.AttendanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AttendanceScalarFieldEnum | Prisma.AttendanceScalarFieldEnum[]
 }
 
 /**

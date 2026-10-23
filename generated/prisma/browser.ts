@@ -82,3 +82,8 @@ export type Announcement = Prisma.AnnouncementModel
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model Attendance
+ *
+ */
+export type Attendance = Prisma.AttendanceModel
