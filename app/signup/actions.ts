@@ -18,7 +18,6 @@ import { prisma } from "@/lib/prisma";
 export type RegistrationResult = {
   ok: boolean;
   message: string;
-  verificationRequired?: boolean;
 };
 
 function field(formData: FormData, name: string): string {
@@ -149,9 +148,8 @@ export async function registerAccountAction(
   }
 
   const passwordHash = await hash(password, 12);
-  let user: { id: string; email: string };
   try {
-    user = await prisma.user.create({
+    await prisma.user.create({
       data: {
         name,
         email,
@@ -159,12 +157,12 @@ export async function registerAccountAction(
         role,
         department,
         semester,
+        emailVerifiedAt: new Date(),
         status:
           role === UserRole.STUDENT
             ? UserStatus.APPROVED
             : UserStatus.PENDING,
       },
-      select: { id: true, email: true },
     });
   } catch (error) {
     if (isDuplicateEmail(error)) {
@@ -186,26 +184,12 @@ export async function registerAccountAction(
     };
   }
 
-  try {
-    await sendVerificationCode(user.id, user.email);
-  } catch (error) {
-    const detail = error instanceof Error ? error.name : "UnknownError";
-    console.error(`Registration verification email failed (${detail}).`);
-    return {
-      ok: true,
-      verificationRequired: true,
-      message:
-        "Your account was created, but the verification email could not be sent. Use Resend code to try again.",
-    };
-  }
-
   return {
     ok: true,
-    verificationRequired: true,
     message:
       role === UserRole.STUDENT
-        ? "A verification code has been sent. Verify your email before signing in."
-        : "A verification code has been sent. Verify your email before admin approval can be completed.",
+        ? "Your account has been created. You can now sign in."
+        : "Your request has been submitted and is pending admin approval.",
   };
 }
 

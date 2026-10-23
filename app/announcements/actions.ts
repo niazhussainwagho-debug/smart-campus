@@ -129,7 +129,6 @@ export async function createAnnouncementAction(
         ...recipientWhere,
         role: { in: [UserRole.STUDENT, UserRole.TEACHER] },
         status: UserStatus.APPROVED,
-        emailVerifiedAt: { not: null },
       },
       select: { email: true },
     });

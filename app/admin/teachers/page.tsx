@@ -10,7 +10,6 @@ export default async function AdminTeachersPage() {
     where: {
       role: UserRole.TEACHER,
       status: UserStatus.PENDING,
-      emailVerifiedAt: { not: null },
     },
     select: {
       id: true,

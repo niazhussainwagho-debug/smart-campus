@@ -9,8 +9,7 @@ type SmtpConfiguration = {
 };
 
 function getSmtpConfiguration(): SmtpConfiguration {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, SMTP_FROM } =
-    process.env;
+    const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM } = process.env;
   const port = Number(SMTP_PORT);
 
   if (
@@ -20,7 +19,7 @@ function getSmtpConfiguration(): SmtpConfiguration {
     port < 1 ||
     port > 65535 ||
     !SMTP_USER ||
-    !SMTP_PASSWORD ||
+    !SMTP_PASS ||
     !SMTP_FROM
   ) {
     throw new Error(
@@ -32,7 +31,7 @@ function getSmtpConfiguration(): SmtpConfiguration {
     host: SMTP_HOST,
     port,
     user: SMTP_USER,
-    password: SMTP_PASSWORD,
+    password: SMTP_PASS,
     from: SMTP_FROM,
   };
 }
