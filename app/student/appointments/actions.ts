@@ -2,6 +2,7 @@
 
 import {
   AppointmentStatus,
+  NotificationType,
   UserRole,
 } from "@/generated/prisma/enums";
 import { Prisma } from "@/generated/prisma/client";
@@ -14,6 +15,7 @@ import {
   validateAppointmentRequest,
 } from "@/lib/appointment-rules";
 import { prisma } from "@/lib/prisma";
+import { createUserNotification } from "@/lib/notifications";
 
 export type StudentAppointmentActionResult = {
   ok: boolean;
@@ -152,6 +154,14 @@ export async function requestAppointmentAction(
     };
   }
 
+  await createUserNotification({
+    userId: teacher.id,
+    title: "New appointment request",
+    message: `${student.name} requested an appointment on ${dateKey} at ${startTimeText}.`,
+    type: NotificationType.APPOINTMENT,
+    link: "/teacher/appointments",
+  });
+
   revalidatePath("/student/appointments");
   revalidatePath("/teacher/appointments");
   return {
@@ -171,6 +181,21 @@ export async function cancelAppointmentAction(
     return { ok: false, message: "Appointment ID not provided." };
   }
 
+  const appointment = await prisma.appointment.findFirst({
+    where: {
+      id,
+      studentId: student.id,
+      status: AppointmentStatus.PENDING,
+    },
+    select: { teacherId: true },
+  });
+  if (!appointment) {
+    return {
+      ok: false,
+      message: "You can only cancel your own pending appointment requests.",
+    };
+  }
+
   const result = await prisma.appointment.updateMany({
     where: {
       id,
@@ -186,6 +211,14 @@ export async function cancelAppointmentAction(
       message: "You can only cancel your own pending appointment requests.",
     };
   }
+
+  await createUserNotification({
+    userId: appointment.teacherId,
+    title: "Appointment request cancelled",
+    message: `${student.name} cancelled a pending appointment request.`,
+    type: NotificationType.APPOINTMENT,
+    link: "/teacher/appointments",
+  });
 
   revalidatePath("/student/appointments");
   revalidatePath("/teacher/appointments");

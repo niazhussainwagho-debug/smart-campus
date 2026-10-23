@@ -1,15 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
-import type { UserRole } from "@/generated/prisma/enums";
+import { NotificationType, type UserRole } from "@/generated/prisma/enums";
+import {
+  getNotificationsAction,
+  markAllNotificationsReadAction,
+  markNotificationReadAction,
+  type DashboardNotification,
+} from "@/app/notifications/actions";
 import { LogoutButton } from "@/components/logout-button";
 import styles from "./dashboard-shell.module.css";
 
@@ -70,6 +78,31 @@ function IconBell({ active = false }: { active?: boolean }) {
   return <svg className={active ? styles.activeIcon : ""} viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M10 21h4" /></svg>;
 }
 
+function notificationHref(
+  notification: DashboardNotification,
+  role: UserRole,
+): string {
+  if (
+    notification.link &&
+    notification.link.startsWith("/") &&
+    !notification.link.startsWith("//")
+  ) {
+    return notification.link;
+  }
+  return notification.type === NotificationType.ANNOUNCEMENT
+    ? "/announcements"
+    : role === "TEACHER"
+      ? "/teacher/appointments"
+      : "/student/appointments";
+}
+
+function notificationTimestamp(value: string): string {
+  return new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(new Date(value));
+}
+
 export function DashboardShell({
   role,
   user,
@@ -80,10 +113,100 @@ export function DashboardShell({
   children,
 }: DashboardShellProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [image, setImage] = useState(user.image ?? null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [notifications, setNotifications] = useState<DashboardNotification[]>([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [notificationError, setNotificationError] = useState("");
+  const notificationWrap = useRef<HTMLDivElement>(null);
+  const fetchingNotifications = useRef(false);
+
+  const refreshNotifications = useCallback(async () => {
+    if (fetchingNotifications.current) return;
+    fetchingNotifications.current = true;
+    try {
+      const result = await getNotificationsAction();
+      setNotifications(result.notifications);
+      setUnreadCount(result.unreadCount);
+      setNotificationError("");
+    } catch {
+      setNotificationError("Could not load notifications. Please try again.");
+    } finally {
+      fetchingNotifications.current = false;
+    }
+  }, []);
+
+  async function openNotification(notification: DashboardNotification) {
+    setNotificationsOpen(false);
+    if (!notification.isRead) {
+      setNotifications((current) =>
+        current.map((item) =>
+          item.id === notification.id ? { ...item, isRead: true } : item,
+        ),
+      );
+      setUnreadCount((current) => Math.max(0, current - 1));
+      try {
+        await markNotificationReadAction(notification.id);
+      } catch {
+        setNotificationError("Could not update notification status.");
+        void refreshNotifications();
+      }
+    }
+    router.push(notificationHref(notification, role));
+  }
+
+  function markAllAsRead() {
+    setNotifications((current) =>
+      current.map((notification) => ({ ...notification, isRead: true })),
+    );
+    setUnreadCount(0);
+    void markAllNotificationsReadAction().catch(() => {
+      setNotificationError("Could not update notification status.");
+      void refreshNotifications();
+    });
+  }
+
+  useEffect(() => {
+    const initialRefresh = window.setTimeout(() => {
+      void refreshNotifications();
+    }, 0);
+    const interval = window.setInterval(() => {
+      void refreshNotifications();
+    }, 30_000);
+    const refreshOnFocus = () => {
+      if (document.visibilityState === "visible") void refreshNotifications();
+    };
+    document.addEventListener("visibilitychange", refreshOnFocus);
+    return () => {
+      window.clearTimeout(initialRefresh);
+      window.clearInterval(interval);
+      document.removeEventListener("visibilitychange", refreshOnFocus);
+    };
+  }, [refreshNotifications]);
+
+  useEffect(() => {
+    if (!notificationsOpen) return;
+    function closePopover(event: PointerEvent) {
+      if (
+        event.target instanceof Node &&
+        !notificationWrap.current?.contains(event.target)
+      ) {
+        setNotificationsOpen(false);
+      }
+    }
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setNotificationsOpen(false);
+    }
+    document.addEventListener("pointerdown", closePopover);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closePopover);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [notificationsOpen]);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -264,15 +387,81 @@ export function DashboardShell({
 
           <div className={styles.headerActions}>
             {action}
-            <div className={styles.notificationWrap}>
-              <button aria-expanded={notificationsOpen} aria-label="Notifications" className={styles.notificationButton} onClick={() => setNotificationsOpen(!notificationsOpen)} type="button">
-                <IconBell /><i />
+            <div className={styles.notificationWrap} ref={notificationWrap}>
+              <button
+                aria-expanded={notificationsOpen}
+                aria-label={
+                  unreadCount
+                    ? `Notifications, ${unreadCount} unread`
+                    : "Notifications"
+                }
+                className={styles.notificationButton}
+                onClick={() => {
+                  const opening = !notificationsOpen;
+                  setNotificationsOpen(opening);
+                  if (opening) void refreshNotifications();
+                }}
+                type="button"
+              >
+                <IconBell />
+                {unreadCount > 0 && (
+                  <span aria-hidden="true" className={styles.notificationBadge}>
+                    {unreadCount > 99 ? "99+" : unreadCount}
+                  </span>
+                )}
               </button>
               {notificationsOpen && (
-                <div className={styles.notificationPanel}>
-                  <strong>Campus updates</strong>
-                  <p>{role === "STUDENT" ? "Check your appointment requests and timetable for the latest updates." : "Review your schedule and appointment requests for the latest updates."}</p>
-                  {role === "STUDENT" ? <Link href="/student/appointments" onClick={() => setNotificationsOpen(false)}>Open appointments <span>→</span></Link> : role === "TEACHER" ? <Link href="/teacher/appointments" onClick={() => setNotificationsOpen(false)}>Review requests <span>→</span></Link> : <Link href="/admin/timetable" onClick={() => setNotificationsOpen(false)}>Open timetable <span>→</span></Link>}
+                <div
+                  aria-label="Notifications"
+                  className={styles.notificationPanel}
+                  role="region"
+                >
+                  <div className={styles.notificationPanelHeader}>
+                    <strong>Notifications</strong>
+                    {unreadCount > 0 && (
+                      <button onClick={markAllAsRead} type="button">
+                        Mark all as read
+                      </button>
+                    )}
+                  </div>
+                  {notificationError && (
+                    <p className={styles.notificationError} role="alert">
+                      {notificationError}
+                    </p>
+                  )}
+                  {notifications.length ? (
+                    <ul className={styles.notificationList}>
+                      {notifications.map((notification) => (
+                        <li key={notification.id}>
+                          <Link
+                            aria-label={`${notification.isRead ? "Read" : "Unread"} notification: ${notification.title}`}
+                            className={`${styles.notificationItem} ${notification.isRead ? styles.notificationRead : styles.notificationUnread}`}
+                            href={notificationHref(notification, role)}
+                            onClick={(event) => {
+                              event.preventDefault();
+                              void openNotification(notification);
+                            }}
+                          >
+                            <span
+                              aria-hidden="true"
+                              className={styles.notificationIndicator}
+                            />
+                            <span className={styles.notificationContent}>
+                              <strong>{notification.title}</strong>
+                              <span>{notification.message}</span>
+                              <time dateTime={notification.createdAt}>
+                                {notificationTimestamp(notification.createdAt)}
+                              </time>
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className={styles.notificationEmpty}>
+                      You&apos;re all caught up.
+                    </p>
+                  )}
                 </div>
               )}
             </div>

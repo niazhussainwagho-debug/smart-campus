@@ -42,6 +42,11 @@ enum DeadlineType {
   EXAM
 }
 
+enum NotificationType {
+  ANNOUNCEMENT
+  APPOINTMENT
+}
+
 model User {
   id                   String             @id @default(cuid())
   name                 String
@@ -69,6 +74,7 @@ model User {
   enrollments          Enrollment[]       @relation("EnrollmentStudent")
   announcementsCreated Announcement[]     @relation("AnnouncementCreator")
   passwordResetTokens  PasswordResetToken[]
+  notifications        Notification[]
 
   @@index([role])
 }
@@ -208,4 +214,19 @@ model Announcement {
 
   @@index([department, semester, createdAt])
   @@index([createdAt])
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      NotificationType
+  isRead    Boolean          @default(false)
+  link      String?
+  createdAt DateTime         @default(now())
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead, createdAt])
+  @@index([userId, createdAt])
 }

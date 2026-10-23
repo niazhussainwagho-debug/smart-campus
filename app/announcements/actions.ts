@@ -1,6 +1,10 @@
 "use server";
 
-import { UserRole, UserStatus } from "@/generated/prisma/enums";
+import {
+  NotificationType,
+  UserRole,
+  UserStatus,
+} from "@/generated/prisma/enums";
 import { Prisma } from "@/generated/prisma/client";
 import { revalidatePath } from "next/cache";
 import { requireRole } from "@/lib/auth-helpers";
@@ -9,6 +13,7 @@ import {
   type AnnouncementFilters,
 } from "@/lib/announcements";
 import { sendCampusBulkEmail } from "@/lib/password-reset-email";
+import { createUserNotifications } from "@/lib/notifications";
 import { prisma } from "@/lib/prisma";
 
 export type AnnouncementActionResult = {
@@ -129,9 +134,19 @@ export async function createAnnouncementAction(
         ...recipientWhere,
         role: { in: [UserRole.STUDENT, UserRole.TEACHER] },
         status: UserStatus.APPROVED,
+        id: { not: user.id },
       },
-      select: { email: true },
+      select: { id: true, email: true },
     });
+    await createUserNotifications(
+      recipients.map((recipient) => ({
+        userId: recipient.id,
+        title,
+        message: message.length > 180 ? `${message.slice(0, 177)}...` : message,
+        type: NotificationType.ANNOUNCEMENT,
+        link: "/announcements",
+      })),
+    );
     const notifiedCount = await sendCampusBulkEmail(
       recipients.map((recipient) => recipient.email),
       `CAMPUS.OS announcement: ${title}`,

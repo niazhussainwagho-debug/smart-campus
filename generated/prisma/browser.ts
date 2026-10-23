@@ -77,3 +77,8 @@ export type Deadline = Prisma.DeadlineModel
  * 
  */
 export type Announcement = Prisma.AnnouncementModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel

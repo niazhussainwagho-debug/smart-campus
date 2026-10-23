@@ -2,6 +2,7 @@
 
 import {
   AppointmentStatus,
+  NotificationType,
   UserRole,
 } from "@/generated/prisma/enums";
 import { Prisma } from "@/generated/prisma/client";
@@ -14,6 +15,7 @@ import {
   validateAppointmentRequest,
 } from "@/lib/appointment-rules";
 import { prisma } from "@/lib/prisma";
+import { createUserNotification } from "@/lib/notifications";
 
 export type TeacherAppointmentActionResult = {
   ok: boolean;
@@ -172,6 +174,14 @@ export async function approveAppointmentAction(
     };
   }
 
+  await createUserNotification({
+    userId: appointment.studentId,
+    title: "Appointment approved",
+    message: "Your appointment request has been approved.",
+    type: NotificationType.APPOINTMENT,
+    link: "/student/appointments",
+  });
+
   revalidatePath("/teacher/appointments");
   revalidatePath("/student/appointments");
   return { ok: true, message: "Appointment approved successfully." };
@@ -185,6 +195,21 @@ export async function rejectAppointmentAction(
 
   if (!id) {
     return { ok: false, message: "Appointment ID was not provided." };
+  }
+
+  const appointment = await prisma.appointment.findFirst({
+    where: {
+      id,
+      teacherId: teacher.id,
+      status: AppointmentStatus.PENDING,
+    },
+    select: { studentId: true },
+  });
+  if (!appointment) {
+    return {
+      ok: false,
+      message: "Pending request not found or you are not authorized.",
+    };
   }
 
   const result = await prisma.appointment.updateMany({
@@ -202,6 +227,14 @@ export async function rejectAppointmentAction(
       message: "Pending request not found or you are not authorized.",
     };
   }
+
+  await createUserNotification({
+    userId: appointment.studentId,
+    title: "Appointment declined",
+    message: "Your appointment request was rejected.",
+    type: NotificationType.APPOINTMENT,
+    link: "/student/appointments",
+  });
 
   revalidatePath("/teacher/appointments");
   revalidatePath("/student/appointments");
@@ -312,6 +345,14 @@ export async function rescheduleAppointmentAction(
       message: "Failed to reschedule appointment. Please try again.",
     };
   }
+
+  await createUserNotification({
+    userId: appointment.studentId,
+    title: "Appointment rescheduled",
+    message: `Your appointment was rescheduled to ${dateKey} at ${startTimeText}.`,
+    type: NotificationType.APPOINTMENT,
+    link: "/student/appointments",
+  });
 
   revalidatePath("/teacher/appointments");
   revalidatePath("/student/appointments");

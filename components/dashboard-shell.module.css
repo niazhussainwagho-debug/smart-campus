@@ -74,11 +74,25 @@
 .notificationButton { position: relative; display: grid; width: 31px; height: 31px; place-items: center; border: 1px solid rgba(171, 204, 216, .15); border-radius: 7px; background: rgba(255,255,255,.035); color: #a6bac3; }
 .notificationButton:hover, .notificationButton[aria-expanded="true"] { border-color: rgba(67, 201, 200, .4); color: #eaf7f7; }
 .notificationButton svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.6; }
-.notificationButton > i { position: absolute; top: 5px; right: 5px; width: 5px; height: 5px; border-radius: 50%; background: #f28a8d; }
-.notificationPanel { position: absolute; top: calc(100% + 9px); right: 0; z-index: 45; width: min(280px, calc(100vw - 24px)); padding: 13px; border: 1px solid var(--border); border-radius: 9px; background: #102431; box-shadow: 0 12px 30px #0008; }
-.notificationPanel > strong { color: #e7f0f2; font-size: 10px; }
-.notificationPanel > p { margin: 7px 0 10px; color: #99adb6; font-size: 8px; line-height: 1.55; }
-.notificationPanel > a { display: flex; justify-content: space-between; color: #6ed5d2; font-size: 8px; font-weight: 650; text-decoration: none; }
+.notificationBadge { position: absolute; top: -5px; right: -6px; display: grid; min-width: 17px; height: 17px; place-items: center; padding: 0 4px; border: 2px solid #081621; border-radius: 999px; background: #ef4444; color: #fff; font-size: 8px; font-weight: 800; line-height: 1; }
+.notificationPanel { position: absolute; top: calc(100% + 9px); right: 0; z-index: 45; width: min(350px, calc(100vw - 24px)); max-height: min(480px, calc(100vh - 90px)); overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: #102431; box-shadow: 0 12px 30px #0008; }
+.notificationPanelHeader { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px; border-bottom: 1px solid rgba(171, 204, 216, .1); }
+.notificationPanelHeader > strong { color: #e7f0f2; font-size: 10px; }
+.notificationPanelHeader > button { border: 0; background: transparent; color: #6ed5d2; cursor: pointer; font-size: 8px; font-weight: 650; }
+.notificationPanelHeader > button:hover { color: #a5f3ed; text-decoration: underline; }
+.notificationList { max-height: 390px; overflow-y: auto; margin: 0; padding: 0; list-style: none; }
+.notificationList > li + li { border-top: 1px solid rgba(171, 204, 216, .08); }
+.notificationItem { display: flex; gap: 10px; padding: 11px 13px; color: inherit; text-decoration: none; transition: background .16s ease; }
+.notificationItem:hover { background: rgba(53, 197, 196, .08); }
+.notificationUnread { background: rgba(53, 197, 196, .045); }
+.notificationIndicator { width: 7px; height: 7px; flex: 0 0 7px; margin-top: 4px; border-radius: 50%; background: transparent; }
+.notificationUnread .notificationIndicator { background: #ef5757; box-shadow: 0 0 8px rgba(239, 87, 87, .35); }
+.notificationContent { display: grid; min-width: 0; gap: 4px; }
+.notificationContent > strong { overflow: hidden; color: #e7f0f2; font-size: 9px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.notificationContent > span { display: -webkit-box; overflow: hidden; color: #99adb6; font-size: 8px; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.notificationContent > time { color: #708b97; font-size: 7px; }
+.notificationEmpty, .notificationError { margin: 0; padding: 18px 13px; color: #99adb6; font-size: 9px; text-align: center; }
+.notificationError { color: #fda4af; }
 .headerUser { display: flex; min-width: 0; align-items: center; gap: 7px; }
 .headerUserMeta { display: grid; max-width: 140px; gap: 3px; }
 .headerUserMeta strong { overflow: hidden; color: #eaf1f3; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
@@ -129,8 +143,11 @@
 .searchWrap input { font-size: 13px; }
 .searchResults > a, .searchResults > p { font-size: 12px; }
 .notificationButton { width: 40px; height: 40px; }
-.notificationPanel > strong { font-size: 13px; }
-.notificationPanel > p, .notificationPanel > a { font-size: 12px; }
+.notificationPanelHeader > strong { font-size: 13px; }
+.notificationPanelHeader > button, .notificationEmpty, .notificationError { font-size: 11px; }
+.notificationContent > strong { font-size: 12px; }
+.notificationContent > span { font-size: 11px; }
+.notificationContent > time { font-size: 10px; }
 .pageContent { padding-top: 28px; padding-bottom: 24px; }
 .eyebrow { font-size: 10px; }
 .pageHeading p { font-size: 14px; }

@@ -57,3 +57,11 @@ export const DeadlineType = {
 } as const
 
 export type DeadlineType = (typeof DeadlineType)[keyof typeof DeadlineType]
+
+
+export const NotificationType = {
+  ANNOUNCEMENT: 'ANNOUNCEMENT',
+  APPOINTMENT: 'APPOINTMENT'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
