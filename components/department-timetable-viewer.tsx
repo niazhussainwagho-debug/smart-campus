@@ -195,6 +195,7 @@ export function DepartmentTimetableViewer({
     userEnrolledSectionIds.length > 0 ? "personal" : "department"
   );
   const [viewType, setViewType] = useState<"dayList" | "weeklyGrid">("dayList");
+  const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
 
   useEffect(() => {
     const mobileLayout = window.matchMedia("(max-width: 639px)");
@@ -310,8 +311,8 @@ export function DepartmentTimetableViewer({
   return (
     <div className="departmentTimetable min-w-0 space-y-3 sm:space-y-6">
       {/* ── 1. TOP HEADER & VIEW CONTROLS ── */}
-      <div className="flex min-w-0 flex-col gap-3 rounded-2xl border border-slate-800/80 bg-[#161f2e]/90 p-3 shadow-2xl backdrop-blur-md sm:gap-4 sm:p-5 md:flex-row md:items-center md:justify-between">
-        <div>
+      <div className={`relative flex min-w-0 flex-col gap-3 rounded-2xl border border-slate-800/80 bg-[#161f2e]/90 p-3 shadow-2xl backdrop-blur-md sm:gap-4 sm:p-5 md:flex-row md:items-center md:justify-between ${calendarMenuOpen ? "z-50" : ""}`}>
+        <div className="min-w-0 flex-1">
           <div className="flex min-w-0 items-start gap-2.5">
             <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#00D37F]/15 text-base text-[#00D37F] border border-[#00D37F]/30 shadow-[0_0_12px_rgba(0,211,127,0.2)]">
               📅
@@ -331,8 +332,11 @@ export function DepartmentTimetableViewer({
         </div>
 
         {/* View toggle & Mode buttons */}
-        <div className="flex min-w-0 flex-wrap items-center gap-2">
-          <TimetableCalendarExport slots={baseSlots} />
+        <div className="flex w-full min-w-0 flex-wrap items-center gap-2 md:w-auto md:justify-end">
+          <TimetableCalendarExport
+            onOpenChange={setCalendarMenuOpen}
+            slots={baseSlots}
+          />
           {(userRole === "STUDENT" || userRole === "TEACHER") && (
             <div className="flex max-w-full flex-wrap items-center rounded-xl border border-slate-800 bg-[#0e141f] p-1">
               <button

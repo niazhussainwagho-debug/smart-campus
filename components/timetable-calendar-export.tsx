@@ -19,8 +19,10 @@ const dayLabels: Record<CalendarScheduleSlot["dayOfWeek"], string> = {
 
 export function TimetableCalendarExport({
   slots,
+  onOpenChange,
 }: {
   slots: CalendarScheduleSlot[];
+  onOpenChange: (open: boolean) => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,12 +35,30 @@ export function TimetableCalendarExport({
         !containerRef.current?.contains(event.target)
       ) {
         setIsOpen(false);
+        onOpenChange(false);
+      }
+    }
+
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        onOpenChange(false);
       }
     }
 
     document.addEventListener("pointerdown", closeOnOutsideClick);
-    return () => document.removeEventListener("pointerdown", closeOnOutsideClick);
-  }, []);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsideClick);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [onOpenChange]);
+
+  function toggleMenu() {
+    const nextOpen = !isOpen;
+    setIsOpen(nextOpen);
+    onOpenChange(nextOpen);
+  }
 
   function downloadIcs() {
     try {
@@ -52,6 +72,7 @@ export function TimetableCalendarExport({
       window.setTimeout(() => URL.revokeObjectURL(url), 1000);
       setError(null);
       setIsOpen(false);
+      onOpenChange(false);
     } catch (caught) {
       setError(
         caught instanceof Error
@@ -62,7 +83,7 @@ export function TimetableCalendarExport({
   }
 
   return (
-    <div className="relative shrink-0" ref={containerRef}>
+    <div className="relative z-50 shrink-0" ref={containerRef}>
       <button
         aria-expanded={isOpen}
         aria-haspopup="true"
@@ -70,7 +91,7 @@ export function TimetableCalendarExport({
         disabled={slots.length === 0}
         onClick={() => {
           setError(null);
-          setIsOpen((open) => !open);
+          toggleMenu();
         }}
         type="button"
       >
@@ -93,7 +114,7 @@ export function TimetableCalendarExport({
 
       {isOpen ? (
         <div
-          className="absolute right-0 z-50 mt-2 w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-xl"
+          className="absolute left-0 top-full z-50 mt-2 flex max-h-[min(70vh,32rem)] w-[min(22rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-2xl ring-1 ring-black/10 sm:left-auto sm:right-0"
           role="dialog"
           aria-label="Calendar export options"
         >
@@ -112,7 +133,7 @@ export function TimetableCalendarExport({
               until removed.
             </p>
           </div>
-          <div className="max-h-64 overflow-y-auto p-2">
+          <div className="min-h-0 overflow-y-auto p-2">
             <p className="px-2 pb-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
               Add an individual class
             </p>

@@ -76,6 +76,7 @@ export function WeeklyTimetable({
   slots: WeeklyScheduleSlot[];
 }) {
   const [viewMode, setViewMode] = useState<"grid" | "list">("list");
+  const [calendarMenuOpen, setCalendarMenuOpen] = useState(false);
 
   useEffect(() => {
     const mobileLayout = window.matchMedia("(max-width: 639px)");
@@ -121,16 +122,19 @@ export function WeeklyTimetable({
   return (
     <div className="weeklyTimetable min-w-0 space-y-4 sm:space-y-6">
       {/* View Toggle Bar */}
-      <div className="flex min-w-0 flex-col items-stretch justify-between gap-3 rounded-2xl border border-slate-800 bg-[#111827]/90 px-3 py-3 shadow-xl backdrop-blur-md sm:flex-row sm:items-center sm:gap-4 sm:px-6 sm:py-4">
-        <div className="min-w-0">
+      <div className={`relative flex min-w-0 flex-col items-stretch justify-between gap-3 rounded-2xl border border-slate-800 bg-[#111827]/90 px-3 py-3 shadow-xl backdrop-blur-md md:flex-row md:items-center md:gap-4 md:px-6 md:py-4 ${calendarMenuOpen ? "z-50" : ""}`}>
+        <div className="min-w-0 flex-1">
           <h2 className="break-words text-base font-bold text-white sm:text-lg">Weekly Academic Timetable</h2>
           <p className="break-words text-xs text-slate-400">
             {slots.length} lecture slots scheduled across the week
           </p>
         </div>
 
-        <div className="flex w-full min-w-0 flex-wrap items-center justify-between gap-2 sm:w-auto sm:justify-end">
-          <TimetableCalendarExport slots={sortedSlots} />
+        <div className="flex w-full min-w-0 flex-wrap items-center justify-between gap-2 md:w-auto md:justify-end">
+          <TimetableCalendarExport
+            onOpenChange={setCalendarMenuOpen}
+            slots={sortedSlots}
+          />
           <div className="flex min-w-0 flex-1 items-center gap-1 rounded-xl border border-slate-800 bg-slate-900/80 p-1 sm:flex-none sm:gap-2">
             <button
               aria-pressed={viewMode === "grid"}
