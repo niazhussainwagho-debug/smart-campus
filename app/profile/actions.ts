@@ -10,6 +10,7 @@ import { prisma } from "@/lib/prisma";
 export type ProfileActionResult = {
   ok: boolean;
   message: string;
+  image?: string | null;
 };
 
 const maximumAvatarBytes = 2 * 1024 * 1024;
@@ -96,7 +97,7 @@ export async function updateProfileAction(
     return { ok: false, message: "Choose an available department and semester." };
   }
 
-  let avatarData: string | undefined;
+  let image: string | undefined;
   if (avatarValue instanceof File && avatarValue.size > 0) {
     if (avatarValue.size > maximumAvatarBytes) {
       return { ok: false, message: "Profile images must be 2 MB or smaller." };
@@ -109,24 +110,27 @@ export async function updateProfileAction(
         message: "Choose a valid PNG, JPEG, or WebP image.",
       };
     }
-    avatarData = `data:${mimeType};base64,${Buffer.from(bytes).toString("base64")}`;
+    image = `data:${mimeType};base64,${Buffer.from(bytes).toString("base64")}`;
   } else if (avatarValue && !(avatarValue instanceof File)) {
     return { ok: false, message: "Choose a valid image file." };
   }
 
   const passwordHash = password ? await hash(password, 12) : undefined;
+  let updatedImage: string | null;
   try {
-    await prisma.user.update({
+    const updatedUser = await prisma.user.update({
       where: { id: user.id },
       data: {
         name,
         department,
         semester,
         ...(passwordHash ? { passwordHash } : {}),
-        ...(removeAvatar ? { avatarData: null } : {}),
-        ...(avatarData ? { avatarData } : {}),
+        ...(removeAvatar ? { image: null } : {}),
+        ...(image ? { image } : {}),
       },
+      select: { image: true },
     });
+    updatedImage = updatedUser.image;
   } catch (error) {
     const detail = error instanceof Error ? error.name : "UnknownError";
     console.error(`Profile update failed (${detail}).`);
@@ -137,5 +141,9 @@ export async function updateProfileAction(
   }
 
   revalidatePath("/profile");
-  return { ok: true, message: "Your profile was updated." };
+  return {
+    ok: true,
+    message: "Your profile was updated.",
+    image: updatedImage,
+  };
 }

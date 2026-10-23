@@ -43,6 +43,7 @@
 .sidebarNote small { color: #8ba5b0; font-size: 7px; line-height: 1.45; }
 .sidebarUser { display: flex; min-width: 0; align-items: center; gap: 8px; padding: 10px 5px 1px; border-top: 1px solid var(--border); }
 .avatar { position: relative; display: grid; width: 29px; height: 29px; flex: 0 0 29px; place-items: center; border: 1px solid rgba(117, 214, 210, .34); border-radius: 50%; background: linear-gradient(140deg, #167887, #3b596f); color: #edffff; font-size: 7px; font-weight: 800; }
+.avatar > img { width: 100%; height: 100%; border-radius: inherit; object-fit: cover; }
 .avatar > i { position: absolute; right: -1px; bottom: 0; width: 7px; height: 7px; border: 1px solid #0b1d2a; border-radius: 50%; background: #5ad3a5; }
 .userMeta { display: grid; min-width: 0; flex: 1; gap: 3px; }
 .userMeta strong { overflow: hidden; color: #edf4f6; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }

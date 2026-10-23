@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { CredentialsSignin } from "next-auth";
 import { compare } from "bcryptjs";
 import { authConfig } from "@/auth.config";
-import { UserStatus } from "@/generated/prisma/enums";
+import { UserRole, UserStatus } from "@/generated/prisma/enums";
 import { prisma } from "@/lib/prisma";
 
 class PendingApprovalError extends CredentialsSignin {
@@ -13,6 +13,28 @@ class PendingApprovalError extends CredentialsSignin {
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   secret: process.env.AUTH_SECRET,
+  callbacks: {
+    ...authConfig.callbacks,
+    async session({ session, token }) {
+      if (
+        session.user &&
+        typeof token.id === "string" &&
+        (token.role === UserRole.STUDENT ||
+          token.role === UserRole.TEACHER ||
+          token.role === UserRole.ADMIN)
+      ) {
+        session.user.id = token.id;
+        session.user.role = token.role;
+        const user = await prisma.user.findUnique({
+          where: { id: token.id },
+          select: { image: true },
+        });
+        session.user.image = user?.image ?? null;
+      }
+
+      return session;
+    },
+  },
   providers: [
     Credentials({
       credentials: {

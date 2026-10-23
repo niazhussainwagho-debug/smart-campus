@@ -15,7 +15,7 @@ export default async function ProfilePage() {
         role: true,
         department: true,
         semester: true,
-        avatarData: true,
+        image: true,
       },
     }),
     prisma.section.findMany({
@@ -48,7 +48,7 @@ export default async function ProfilePage() {
           role: profile.role,
           department: profile.department ?? "",
           semester: profile.semester,
-          avatarData: profile.avatarData,
+          image: profile.image,
         }}
       />
     </DashboardShell>

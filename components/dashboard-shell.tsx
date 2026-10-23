@@ -2,7 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import type { UserRole } from "@/generated/prisma/enums";
 import { LogoutButton } from "@/components/logout-button";
 import styles from "./dashboard-shell.module.css";
@@ -19,12 +25,25 @@ interface DashboardShellProps {
   user: {
     name?: string | null;
     email?: string | null;
+    image?: string | null;
   };
   title?: string;
   subtitle?: string;
   badge?: string;
   action?: ReactNode;
   children: ReactNode;
+}
+
+const DashboardUserImageContext = createContext<{
+  setImage: (image: string | null) => void;
+} | null>(null);
+
+export function useDashboardUserImage() {
+  const context = useContext(DashboardUserImageContext);
+  if (!context) {
+    throw new Error("useDashboardUserImage must be used inside DashboardShell.");
+  }
+  return context;
 }
 
 function IconDashboard({ active }: { active: boolean }) {
@@ -61,6 +80,7 @@ export function DashboardShell({
   children,
 }: DashboardShellProps) {
   const pathname = usePathname();
+  const [image, setImage] = useState(user.image ?? null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -152,6 +172,7 @@ export function DashboardShell({
   const filteredNavItems = navItems.filter((item) => item.label.toLowerCase().includes(searchQuery.trim().toLowerCase()));
 
   return (
+    <DashboardUserImageContext.Provider value={{ setImage }}>
     <div className={styles.shell}>
       <button
         aria-hidden={!mobileMenuOpen}
@@ -197,7 +218,14 @@ export function DashboardShell({
         <div className={styles.sidebarBottom}>
           <div className={styles.sidebarNote}><span>✦</span><strong>Campus, connected</strong><small>Your classes and campus services, all in one place.</small></div>
           <div className={styles.sidebarUser}>
-            <span className={styles.avatar}>{initials}<i /></span>
+            <span className={styles.avatar}>
+              {image ? (
+                // Images are validated as raster files before they are persisted.
+                // eslint-disable-next-line @next/next/no-img-element
+                <img alt="" src={image} />
+              ) : initials}
+              <i />
+            </span>
             <span className={styles.userMeta}><strong>{user.name ?? "Campus User"}</strong><small>{roleMeta.portalName}</small></span>
             <LogoutButton className={styles.logout} />
           </div>
@@ -243,7 +271,13 @@ export function DashboardShell({
               )}
             </div>
             <div className={styles.headerUser}>
-              <span className={styles.avatar}>{initials}<i /></span>
+              <span className={styles.avatar}>
+                {image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img alt="" src={image} />
+                ) : initials}
+                <i />
+              </span>
               <span className={styles.headerUserMeta}><strong>{user.name ?? "Campus User"}</strong><small>{roleMeta.portalName}</small></span>
             </div>
           </div>
@@ -264,5 +298,6 @@ export function DashboardShell({
         </main>
       </div>
     </div>
+    </DashboardUserImageContext.Provider>
   );
 }

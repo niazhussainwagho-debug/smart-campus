@@ -44,7 +44,7 @@ export type UserMinAggregateOutputType = {
   department: string | null
   semester: number | null
   emailVerifiedAt: Date | null
-  avatarData: string | null
+  image: string | null
   createdAt: Date | null
 }
 
@@ -58,7 +58,7 @@ export type UserMaxAggregateOutputType = {
   department: string | null
   semester: number | null
   emailVerifiedAt: Date | null
-  avatarData: string | null
+  image: string | null
   createdAt: Date | null
 }
 
@@ -72,7 +72,7 @@ export type UserCountAggregateOutputType = {
   department: number
   semester: number
   emailVerifiedAt: number
-  avatarData: number
+  image: number
   createdAt: number
   _all: number
 }
@@ -96,7 +96,7 @@ export type UserMinAggregateInputType = {
   department?: true
   semester?: true
   emailVerifiedAt?: true
-  avatarData?: true
+  image?: true
   createdAt?: true
 }
 
@@ -110,7 +110,7 @@ export type UserMaxAggregateInputType = {
   department?: true
   semester?: true
   emailVerifiedAt?: true
-  avatarData?: true
+  image?: true
   createdAt?: true
 }
 
@@ -124,7 +124,7 @@ export type UserCountAggregateInputType = {
   department?: true
   semester?: true
   emailVerifiedAt?: true
-  avatarData?: true
+  image?: true
   createdAt?: true
   _all?: true
 }
@@ -225,7 +225,7 @@ export type UserGroupByOutputType = {
   department: string | null
   semester: number | null
   emailVerifiedAt: Date | null
-  avatarData: string | null
+  image: string | null
   createdAt: Date
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
@@ -262,7 +262,7 @@ export type UserWhereInput = {
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
   emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  avatarData?: Prisma.StringNullableFilter<"User"> | string | null
+  image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   emailVerificationCode?: Prisma.XOR<Prisma.EmailVerificationCodeNullableScalarRelationFilter, Prisma.EmailVerificationCodeWhereInput> | null
   courses?: Prisma.CourseListRelationFilter
@@ -286,7 +286,7 @@ export type UserOrderByWithRelationInput = {
   department?: Prisma.SortOrderInput | Prisma.SortOrder
   semester?: Prisma.SortOrderInput | Prisma.SortOrder
   emailVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  avatarData?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   emailVerificationCode?: Prisma.EmailVerificationCodeOrderByWithRelationInput
   courses?: Prisma.CourseOrderByRelationAggregateInput
@@ -313,7 +313,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
   emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  avatarData?: Prisma.StringNullableFilter<"User"> | string | null
+  image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   emailVerificationCode?: Prisma.XOR<Prisma.EmailVerificationCodeNullableScalarRelationFilter, Prisma.EmailVerificationCodeWhereInput> | null
   courses?: Prisma.CourseListRelationFilter
@@ -337,7 +337,7 @@ export type UserOrderByWithAggregationInput = {
   department?: Prisma.SortOrderInput | Prisma.SortOrder
   semester?: Prisma.SortOrderInput | Prisma.SortOrder
   emailVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  avatarData?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
@@ -359,7 +359,7 @@ export type UserScalarWhereWithAggregatesInput = {
   department?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   semester?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
   emailVerifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-  avatarData?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
@@ -373,7 +373,7 @@ export type UserCreateInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseCreateNestedManyWithoutTeacherInput
@@ -397,7 +397,7 @@ export type UserUncheckedCreateInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutTeacherInput
@@ -421,7 +421,7 @@ export type UserUpdateInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUpdateManyWithoutTeacherNestedInput
@@ -445,7 +445,7 @@ export type UserUncheckedUpdateInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutTeacherNestedInput
@@ -469,7 +469,7 @@ export type UserCreateManyInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
 }
 
@@ -483,7 +483,7 @@ export type UserUpdateManyMutationInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -497,7 +497,7 @@ export type UserUncheckedUpdateManyInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -511,7 +511,7 @@ export type UserCountOrderByAggregateInput = {
   department?: Prisma.SortOrder
   semester?: Prisma.SortOrder
   emailVerifiedAt?: Prisma.SortOrder
-  avatarData?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -529,7 +529,7 @@ export type UserMaxOrderByAggregateInput = {
   department?: Prisma.SortOrder
   semester?: Prisma.SortOrder
   emailVerifiedAt?: Prisma.SortOrder
-  avatarData?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -543,7 +543,7 @@ export type UserMinOrderByAggregateInput = {
   department?: Prisma.SortOrder
   semester?: Prisma.SortOrder
   emailVerifiedAt?: Prisma.SortOrder
-  avatarData?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -772,7 +772,7 @@ export type UserCreateWithoutEmailVerificationCodeInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   courses?: Prisma.CourseCreateNestedManyWithoutTeacherInput
   timetableSlots?: Prisma.TimetableSlotCreateNestedManyWithoutTeacherInput
@@ -795,7 +795,7 @@ export type UserUncheckedCreateWithoutEmailVerificationCodeInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutTeacherInput
   timetableSlots?: Prisma.TimetableSlotUncheckedCreateNestedManyWithoutTeacherInput
@@ -834,7 +834,7 @@ export type UserUpdateWithoutEmailVerificationCodeInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUpdateManyWithoutTeacherNestedInput
   timetableSlots?: Prisma.TimetableSlotUpdateManyWithoutTeacherNestedInput
@@ -857,7 +857,7 @@ export type UserUncheckedUpdateWithoutEmailVerificationCodeInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   courses?: Prisma.CourseUncheckedUpdateManyWithoutTeacherNestedInput
   timetableSlots?: Prisma.TimetableSlotUncheckedUpdateManyWithoutTeacherNestedInput
@@ -880,7 +880,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseCreateNestedManyWithoutTeacherInput
@@ -903,7 +903,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutTeacherInput
@@ -942,7 +942,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUpdateManyWithoutTeacherNestedInput
@@ -965,7 +965,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutTeacherNestedInput
@@ -988,7 +988,7 @@ export type UserCreateWithoutCoursesInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeCreateNestedOneWithoutUserInput
   timetableSlots?: Prisma.TimetableSlotCreateNestedManyWithoutTeacherInput
@@ -1011,7 +1011,7 @@ export type UserUncheckedCreateWithoutCoursesInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedCreateNestedOneWithoutUserInput
   timetableSlots?: Prisma.TimetableSlotUncheckedCreateNestedManyWithoutTeacherInput
@@ -1050,7 +1050,7 @@ export type UserUpdateWithoutCoursesInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUpdateOneWithoutUserNestedInput
   timetableSlots?: Prisma.TimetableSlotUpdateManyWithoutTeacherNestedInput
@@ -1073,7 +1073,7 @@ export type UserUncheckedUpdateWithoutCoursesInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedUpdateOneWithoutUserNestedInput
   timetableSlots?: Prisma.TimetableSlotUncheckedUpdateManyWithoutTeacherNestedInput
@@ -1096,7 +1096,7 @@ export type UserCreateWithoutEnrollmentsInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseCreateNestedManyWithoutTeacherInput
@@ -1119,7 +1119,7 @@ export type UserUncheckedCreateWithoutEnrollmentsInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutTeacherInput
@@ -1158,7 +1158,7 @@ export type UserUpdateWithoutEnrollmentsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUpdateManyWithoutTeacherNestedInput
@@ -1181,7 +1181,7 @@ export type UserUncheckedUpdateWithoutEnrollmentsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutTeacherNestedInput
@@ -1204,7 +1204,7 @@ export type UserCreateWithoutTimetableSlotsInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseCreateNestedManyWithoutTeacherInput
@@ -1227,7 +1227,7 @@ export type UserUncheckedCreateWithoutTimetableSlotsInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutTeacherInput
@@ -1255,7 +1255,7 @@ export type UserCreateWithoutCoTeachingSlotsInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseCreateNestedManyWithoutTeacherInput
@@ -1278,7 +1278,7 @@ export type UserUncheckedCreateWithoutCoTeachingSlotsInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutTeacherInput
@@ -1317,7 +1317,7 @@ export type UserUpdateWithoutTimetableSlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUpdateManyWithoutTeacherNestedInput
@@ -1340,7 +1340,7 @@ export type UserUncheckedUpdateWithoutTimetableSlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutTeacherNestedInput
@@ -1382,7 +1382,7 @@ export type UserScalarWhereInput = {
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
   emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  avatarData?: Prisma.StringNullableFilter<"User"> | string | null
+  image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
 
@@ -1396,7 +1396,7 @@ export type UserCreateWithoutAvailabilitySlotsInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseCreateNestedManyWithoutTeacherInput
@@ -1419,7 +1419,7 @@ export type UserUncheckedCreateWithoutAvailabilitySlotsInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutTeacherInput
@@ -1458,7 +1458,7 @@ export type UserUpdateWithoutAvailabilitySlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUpdateManyWithoutTeacherNestedInput
@@ -1481,7 +1481,7 @@ export type UserUncheckedUpdateWithoutAvailabilitySlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutTeacherNestedInput
@@ -1504,7 +1504,7 @@ export type UserCreateWithoutStudentAppointmentsInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseCreateNestedManyWithoutTeacherInput
@@ -1527,7 +1527,7 @@ export type UserUncheckedCreateWithoutStudentAppointmentsInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutTeacherInput
@@ -1555,7 +1555,7 @@ export type UserCreateWithoutTeacherAppointmentsInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseCreateNestedManyWithoutTeacherInput
@@ -1578,7 +1578,7 @@ export type UserUncheckedCreateWithoutTeacherAppointmentsInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutTeacherInput
@@ -1617,7 +1617,7 @@ export type UserUpdateWithoutStudentAppointmentsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUpdateManyWithoutTeacherNestedInput
@@ -1640,7 +1640,7 @@ export type UserUncheckedUpdateWithoutStudentAppointmentsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutTeacherNestedInput
@@ -1674,7 +1674,7 @@ export type UserUpdateWithoutTeacherAppointmentsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUpdateManyWithoutTeacherNestedInput
@@ -1697,7 +1697,7 @@ export type UserUncheckedUpdateWithoutTeacherAppointmentsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutTeacherNestedInput
@@ -1720,7 +1720,7 @@ export type UserCreateWithoutAnnouncementsCreatedInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseCreateNestedManyWithoutTeacherInput
@@ -1743,7 +1743,7 @@ export type UserUncheckedCreateWithoutAnnouncementsCreatedInput = {
   department?: string | null
   semester?: number | null
   emailVerifiedAt?: Date | string | null
-  avatarData?: string | null
+  image?: string | null
   createdAt?: Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedCreateNestedOneWithoutUserInput
   courses?: Prisma.CourseUncheckedCreateNestedManyWithoutTeacherInput
@@ -1782,7 +1782,7 @@ export type UserUpdateWithoutAnnouncementsCreatedInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUpdateManyWithoutTeacherNestedInput
@@ -1805,7 +1805,7 @@ export type UserUncheckedUpdateWithoutAnnouncementsCreatedInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutTeacherNestedInput
@@ -1828,7 +1828,7 @@ export type UserUpdateWithoutCoTeachingSlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUpdateManyWithoutTeacherNestedInput
@@ -1851,7 +1851,7 @@ export type UserUncheckedUpdateWithoutCoTeachingSlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerificationCode?: Prisma.EmailVerificationCodeUncheckedUpdateOneWithoutUserNestedInput
   courses?: Prisma.CourseUncheckedUpdateManyWithoutTeacherNestedInput
@@ -1874,7 +1874,7 @@ export type UserUncheckedUpdateManyWithoutCoTeachingSlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  avatarData?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1991,7 +1991,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   department?: boolean
   semester?: boolean
   emailVerifiedAt?: boolean
-  avatarData?: boolean
+  image?: boolean
   createdAt?: boolean
   emailVerificationCode?: boolean | Prisma.User$emailVerificationCodeArgs<ExtArgs>
   courses?: boolean | Prisma.User$coursesArgs<ExtArgs>
@@ -2016,7 +2016,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   department?: boolean
   semester?: boolean
   emailVerifiedAt?: boolean
-  avatarData?: boolean
+  image?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -2030,7 +2030,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   department?: boolean
   semester?: boolean
   emailVerifiedAt?: boolean
-  avatarData?: boolean
+  image?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -2044,11 +2044,11 @@ export type UserSelectScalar = {
   department?: boolean
   semester?: boolean
   emailVerifiedAt?: boolean
-  avatarData?: boolean
+  image?: boolean
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "status" | "department" | "semester" | "emailVerifiedAt" | "avatarData" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "status" | "department" | "semester" | "emailVerifiedAt" | "image" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   emailVerificationCode?: boolean | Prisma.User$emailVerificationCodeArgs<ExtArgs>
   courses?: boolean | Prisma.User$coursesArgs<ExtArgs>
@@ -2089,7 +2089,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     department: string | null
     semester: number | null
     emailVerifiedAt: Date | null
-    avatarData: string | null
+    image: string | null
     createdAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -2533,7 +2533,7 @@ export interface UserFieldRefs {
   readonly department: Prisma.FieldRef<"User", 'String'>
   readonly semester: Prisma.FieldRef<"User", 'Int'>
   readonly emailVerifiedAt: Prisma.FieldRef<"User", 'DateTime'>
-  readonly avatarData: Prisma.FieldRef<"User", 'String'>
+  readonly image: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     

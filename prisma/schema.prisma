@@ -52,7 +52,7 @@ model User {
   department           String?
   semester             Int?
   emailVerifiedAt      DateTime?
-  avatarData           String?            @db.Text
+  image                String?            @db.Text
   createdAt            DateTime           @default(now())
   emailVerificationCode EmailVerificationCode?
   courses              Course[]           @relation("CourseTeacher")

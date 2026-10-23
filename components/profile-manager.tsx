@@ -1,7 +1,14 @@
 "use client";
 
-import { useEffect, useState, useTransition, type FormEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+  type FormEvent,
+} from "react";
 import type { UserRole } from "@/generated/prisma/enums";
+import { useDashboardUserImage } from "@/components/dashboard-shell";
 import {
   updateProfileAction,
   type ProfileActionResult,
@@ -13,7 +20,7 @@ type ProfileData = {
   role: UserRole;
   department: string;
   semester: number | null;
-  avatarData: string | null;
+  image: string | null;
 };
 
 type ProfileTarget = {
@@ -33,8 +40,10 @@ export function ProfileManager({
 }) {
   const [isPending, startTransition] = useTransition();
   const [notice, setNotice] = useState<ProfileActionResult | null>(null);
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(profile.avatarData);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(profile.image);
   const [removeAvatar, setRemoveAvatar] = useState(false);
+  const avatarInput = useRef<HTMLInputElement>(null);
+  const { setImage } = useDashboardUserImage();
   const [department, setDepartment] = useState(profile.department);
   const [semester, setSemester] = useState(
     profile.semester === null ? "" : String(profile.semester),
@@ -56,7 +65,7 @@ export function ProfileManager({
 
   function onAvatarChange(file: File | undefined) {
     if (!file) {
-      setAvatarPreview(profile.avatarData);
+      setAvatarPreview(profile.image);
       setRemoveAvatar(false);
       return;
     }
@@ -73,6 +82,11 @@ export function ProfileManager({
       const result = await updateProfileAction(data);
       setNotice(result);
       if (result.ok) {
+        const updatedImage = result.image ?? null;
+        setImage(updatedImage);
+        setAvatarPreview(updatedImage);
+        setRemoveAvatar(false);
+        if (avatarInput.current) avatarInput.current.value = "";
         const passwordInput = form.elements.namedItem("password");
         if (passwordInput instanceof HTMLInputElement) passwordInput.value = "";
       }
@@ -84,7 +98,7 @@ export function ProfileManager({
       <form className="grid min-w-0 gap-5 sm:grid-cols-2" onSubmit={submit}>
         <div className="flex min-w-0 flex-col items-center gap-3 rounded-xl border border-slate-800 bg-slate-900/40 p-5 sm:col-span-2 sm:flex-row">
           {avatarPreview ? (
-            // Avatar files are validated as raster images before they are persisted.
+            // Uploaded images are validated as raster images before persistence.
             // eslint-disable-next-line @next/next/no-img-element
             <img
               alt="Profile avatar preview"
@@ -114,6 +128,7 @@ export function ProfileManager({
                   className="sr-only"
                   name="avatar"
                   onChange={(event) => onAvatarChange(event.target.files?.[0])}
+                  ref={avatarInput}
                   type="file"
                 />
               </label>
@@ -123,10 +138,7 @@ export function ProfileManager({
                   onClick={() => {
                     setAvatarPreview(null);
                     setRemoveAvatar(true);
-                    const input = document.querySelector<HTMLInputElement>(
-                      'input[name="avatar"]',
-                    );
-                    if (input) input.value = "";
+                    if (avatarInput.current) avatarInput.current.value = "";
                   }}
                   type="button"
                 >
