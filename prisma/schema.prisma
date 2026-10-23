@@ -51,6 +51,11 @@ model User {
   status               UserStatus         @default(APPROVED)
   department           String?
   semester             Int?
+  phone                String?
+  bloodGroup           String?
+  emergencyContact     String?
+  linkedinUrl          String?
+  githubUrl             String?
   emailVerifiedAt      DateTime?
   image                String?            @db.Text
   createdAt            DateTime           @default(now())

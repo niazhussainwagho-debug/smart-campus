@@ -15,6 +15,11 @@ export default async function ProfilePage() {
         role: true,
         department: true,
         semester: true,
+        phone: true,
+        bloodGroup: true,
+        emergencyContact: true,
+        linkedinUrl: true,
+        githubUrl: true,
         image: true,
       },
     }),
@@ -48,6 +53,11 @@ export default async function ProfilePage() {
           role: profile.role,
           department: profile.department ?? "",
           semester: profile.semester,
+          phone: profile.phone ?? "",
+          bloodGroup: profile.bloodGroup ?? "",
+          emergencyContact: profile.emergencyContact ?? "",
+          linkedinUrl: profile.linkedinUrl ?? "",
+          githubUrl: profile.githubUrl ?? "",
           image: profile.image,
         }}
       />

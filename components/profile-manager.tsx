@@ -20,6 +20,11 @@ type ProfileData = {
   role: UserRole;
   department: string;
   semester: number | null;
+  phone: string;
+  bloodGroup: string;
+  emergencyContact: string;
+  linkedinUrl: string;
+  githubUrl: string;
   image: string | null;
 };
 
@@ -30,6 +35,11 @@ type ProfileTarget = {
 
 const inputClass =
   "mt-1.5 min-h-11 w-full rounded-xl border border-slate-700/80 bg-slate-900/80 px-3.5 py-2.5 text-base text-white outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-500/15 sm:text-sm";
+
+const barcodeBars = [
+  2, 1, 3, 1, 1, 2, 2, 1, 3, 1, 2, 1,
+  1, 3, 2, 1, 2, 3, 1, 1, 2, 1, 3, 2,
+];
 
 export function ProfileManager({
   profile,
@@ -44,6 +54,7 @@ export function ProfileManager({
   const [removeAvatar, setRemoveAvatar] = useState(false);
   const avatarInput = useRef<HTMLInputElement>(null);
   const { setImage } = useDashboardUserImage();
+  const [name, setName] = useState(profile.name);
   const [department, setDepartment] = useState(profile.department);
   const [semester, setSemester] = useState(
     profile.semester === null ? "" : String(profile.semester),
@@ -96,6 +107,83 @@ export function ProfileManager({
   return (
     <section className="min-w-0 rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl sm:p-6">
       <form className="grid min-w-0 gap-5 sm:grid-cols-2" onSubmit={submit}>
+        <aside
+          aria-label="Digital campus ID card preview"
+          className="relative isolate overflow-hidden rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-slate-900 via-[#102b3a] to-cyan-950/80 p-5 shadow-lg shadow-cyan-950/30 transition-colors hover:border-cyan-400/40 sm:col-span-2"
+        >
+          <div className="absolute -right-12 -top-16 -z-10 h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl" />
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-cyan-300">
+                CAMPUS.OS
+              </p>
+              <h2 className="mt-1 text-sm font-semibold text-white">
+                Digital Campus ID
+              </h2>
+            </div>
+            <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-300">
+              Active
+            </span>
+          </div>
+          <div className="mt-5 flex min-w-0 items-center gap-4">
+            {avatarPreview ? (
+              // Uploaded images are validated as raster images before persistence.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                alt=""
+                className="h-16 w-16 shrink-0 rounded-xl border border-cyan-300/30 object-cover shadow-md"
+                src={avatarPreview}
+              />
+            ) : (
+              <span className="grid h-16 w-16 shrink-0 place-items-center rounded-xl border border-cyan-300/30 bg-cyan-400/10 text-xl font-bold text-cyan-200">
+                {name
+                  .split(/\s+/)
+                  .map((part) => part[0])
+                  .join("")
+                  .slice(0, 2)
+                  .toUpperCase() || "U"}
+              </span>
+            )}
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-lg font-bold text-white">
+                {name || "Full Name"}
+              </p>
+              <p className="mt-1 text-xs font-medium text-cyan-100/70">
+                {profile.role === "STUDENT" ? "STUDENT" : "FACULTY"}
+              </p>
+              <p className="mt-2 truncate text-xs text-slate-300">
+                {department || "Department not selected"}
+                {profile.role === "STUDENT" && semester
+                  ? ` · Semester ${semester}`
+                  : ""}
+              </p>
+            </div>
+          </div>
+          <div className="mt-5 flex items-end justify-between gap-4 border-t border-white/10 pt-3">
+            <span className="text-[9px] uppercase tracking-[0.18em] text-slate-400">
+              Smart Campus Identity
+            </span>
+            <svg
+              aria-label="Simulated campus identification barcode"
+              className="h-8 w-28 rounded bg-white p-1"
+              role="img"
+              viewBox={`0 0 ${barcodeBars.reduce((sum, width) => sum + width + 1, 0)} 24`}
+            >
+              {barcodeBars.map((width, index) => (
+                <rect
+                  fill="#102431"
+                  height={index % 5 === 0 ? 24 : 20}
+                  key={index}
+                  width={width}
+                  x={barcodeBars
+                    .slice(0, index)
+                    .reduce((sum, previousWidth) => sum + previousWidth + 1, 0)}
+                  y={index % 5 === 0 ? 0 : 2}
+                />
+              ))}
+            </svg>
+          </div>
+        </aside>
         <div className="flex min-w-0 flex-col items-center gap-3 rounded-xl border border-slate-800 bg-slate-900/40 p-5 sm:col-span-2 sm:flex-row">
           {avatarPreview ? (
             // Uploaded images are validated as raster images before persistence.
@@ -107,7 +195,7 @@ export function ProfileManager({
             />
           ) : (
             <span className="grid h-20 w-20 place-items-center rounded-full border border-cyan-500/30 bg-cyan-500/10 text-2xl font-bold text-cyan-300">
-              {profile.name
+              {name
                 .split(/\s+/)
                 .map((part) => part[0])
                 .join("")
@@ -149,68 +237,144 @@ export function ProfileManager({
           </div>
         </div>
 
-        <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
-          Full name
-          <input
-            autoComplete="name"
-            className={inputClass}
-            defaultValue={profile.name}
-            maxLength={120}
-            name="name"
-            required
-          />
-        </label>
-        <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
-          Email
-          <input
-            className={`${inputClass} opacity-70`}
-            readOnly
-            value={profile.email}
-          />
-        </label>
-        <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
-          Department
-          <select
-            className={inputClass}
-            onChange={(event) => {
-              setDepartment(event.target.value);
-              setSemester("");
-            }}
-            name="department"
-            required
-            value={department}
-          >
-            <option value="">Select department</option>
-            {departments.map((department) => (
-              <option key={department} value={department}>
-                {department}
-              </option>
-            ))}
-          </select>
-        </label>
-        {profile.role === "STUDENT" ? (
+        <div className="grid min-w-0 gap-4 rounded-xl border border-slate-800 bg-slate-900/30 p-4 sm:col-span-2 sm:grid-cols-2">
+          <h2 className="text-sm font-semibold text-white sm:col-span-2">
+            Personal details
+          </h2>
           <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
-            Semester
+            Full name
+            <input
+              autoComplete="name"
+              className={inputClass}
+              maxLength={120}
+              name="name"
+              onChange={(event) => setName(event.target.value)}
+              required
+              value={name}
+            />
+          </label>
+          <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+            Email
+            <input
+              className={`${inputClass} opacity-70`}
+              readOnly
+              value={profile.email}
+            />
+          </label>
+          <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+            Phone number
+            <input
+              autoComplete="tel"
+              className={inputClass}
+              maxLength={32}
+              name="phone"
+              placeholder="+1 555 123 4567"
+              type="tel"
+              defaultValue={profile.phone}
+            />
+          </label>
+          <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+            Blood group
             <select
               className={inputClass}
-              onChange={(event) => setSemester(event.target.value)}
-              name="semester"
-              required
-              value={semester}
+              defaultValue={profile.bloodGroup}
+              name="bloodGroup"
             >
-              <option value="">Select semester</option>
-              {semesters.map((semester) => (
-                <option key={semester} value={semester}>
-                  Semester {semester}
+              <option value="">Select blood group</option>
+              {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(
+                (bloodGroup) => (
+                  <option key={bloodGroup} value={bloodGroup}>
+                    {bloodGroup}
+                  </option>
+                ),
+              )}
+            </select>
+          </label>
+          <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+            Emergency contact number
+            <input
+              autoComplete="tel"
+              className={inputClass}
+              maxLength={32}
+              name="emergencyContact"
+              placeholder="+1 555 987 6543"
+              type="tel"
+              defaultValue={profile.emergencyContact}
+            />
+          </label>
+          <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+            Department
+            <select
+              className={inputClass}
+              onChange={(event) => {
+                setDepartment(event.target.value);
+                setSemester("");
+              }}
+              name="department"
+              required
+              value={department}
+            >
+              <option value="">Select department</option>
+              {departments.map((department) => (
+                <option key={department} value={department}>
+                  {department}
                 </option>
               ))}
             </select>
           </label>
-        ) : (
-          <p className="self-center text-sm text-slate-400">
-            Teacher profiles do not have a semester.
-          </p>
-        )}
+          {profile.role === "STUDENT" ? (
+            <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+              Semester
+              <select
+                className={inputClass}
+                onChange={(event) => setSemester(event.target.value)}
+                name="semester"
+                required
+                value={semester}
+              >
+                <option value="">Select semester</option>
+                {semesters.map((semester) => (
+                  <option key={semester} value={semester}>
+                    Semester {semester}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ) : (
+            <p className="self-center text-sm text-slate-400">
+              Teacher profiles do not have a semester.
+            </p>
+          )}
+        </div>
+        <div className="grid min-w-0 gap-4 rounded-xl border border-slate-800 bg-slate-900/30 p-4 sm:col-span-2 sm:grid-cols-2">
+          <h2 className="text-sm font-semibold text-white sm:col-span-2">
+            Social links
+          </h2>
+          <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+            LinkedIn profile URL
+            <input
+              autoComplete="url"
+              className={inputClass}
+              maxLength={2048}
+              name="linkedinUrl"
+              placeholder="https://www.linkedin.com/in/your-profile"
+              type="url"
+              defaultValue={profile.linkedinUrl}
+            />
+          </label>
+          <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+            GitHub profile URL
+            <input
+              autoComplete="url"
+              className={inputClass}
+              maxLength={2048}
+              name="githubUrl"
+              placeholder="https://github.com/username"
+              type="url"
+              defaultValue={profile.githubUrl}
+            />
+          </label>
+        </div>
         <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400 sm:col-span-2">
           New password (leave blank to keep current)
           <input

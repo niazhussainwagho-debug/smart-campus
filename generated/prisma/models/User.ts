@@ -43,6 +43,11 @@ export type UserMinAggregateOutputType = {
   status: $Enums.UserStatus | null
   department: string | null
   semester: number | null
+  phone: string | null
+  bloodGroup: string | null
+  emergencyContact: string | null
+  linkedinUrl: string | null
+  githubUrl: string | null
   emailVerifiedAt: Date | null
   image: string | null
   createdAt: Date | null
@@ -57,6 +62,11 @@ export type UserMaxAggregateOutputType = {
   status: $Enums.UserStatus | null
   department: string | null
   semester: number | null
+  phone: string | null
+  bloodGroup: string | null
+  emergencyContact: string | null
+  linkedinUrl: string | null
+  githubUrl: string | null
   emailVerifiedAt: Date | null
   image: string | null
   createdAt: Date | null
@@ -71,6 +81,11 @@ export type UserCountAggregateOutputType = {
   status: number
   department: number
   semester: number
+  phone: number
+  bloodGroup: number
+  emergencyContact: number
+  linkedinUrl: number
+  githubUrl: number
   emailVerifiedAt: number
   image: number
   createdAt: number
@@ -95,6 +110,11 @@ export type UserMinAggregateInputType = {
   status?: true
   department?: true
   semester?: true
+  phone?: true
+  bloodGroup?: true
+  emergencyContact?: true
+  linkedinUrl?: true
+  githubUrl?: true
   emailVerifiedAt?: true
   image?: true
   createdAt?: true
@@ -109,6 +129,11 @@ export type UserMaxAggregateInputType = {
   status?: true
   department?: true
   semester?: true
+  phone?: true
+  bloodGroup?: true
+  emergencyContact?: true
+  linkedinUrl?: true
+  githubUrl?: true
   emailVerifiedAt?: true
   image?: true
   createdAt?: true
@@ -123,6 +148,11 @@ export type UserCountAggregateInputType = {
   status?: true
   department?: true
   semester?: true
+  phone?: true
+  bloodGroup?: true
+  emergencyContact?: true
+  linkedinUrl?: true
+  githubUrl?: true
   emailVerifiedAt?: true
   image?: true
   createdAt?: true
@@ -224,6 +254,11 @@ export type UserGroupByOutputType = {
   status: $Enums.UserStatus
   department: string | null
   semester: number | null
+  phone: string | null
+  bloodGroup: string | null
+  emergencyContact: string | null
+  linkedinUrl: string | null
+  githubUrl: string | null
   emailVerifiedAt: Date | null
   image: string | null
   createdAt: Date
@@ -261,6 +296,11 @@ export type UserWhereInput = {
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
+  bloodGroup?: Prisma.StringNullableFilter<"User"> | string | null
+  emergencyContact?: Prisma.StringNullableFilter<"User"> | string | null
+  linkedinUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  githubUrl?: Prisma.StringNullableFilter<"User"> | string | null
   emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -285,6 +325,11 @@ export type UserOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   department?: Prisma.SortOrderInput | Prisma.SortOrder
   semester?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  bloodGroup?: Prisma.SortOrderInput | Prisma.SortOrder
+  emergencyContact?: Prisma.SortOrderInput | Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   emailVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -312,6 +357,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
+  bloodGroup?: Prisma.StringNullableFilter<"User"> | string | null
+  emergencyContact?: Prisma.StringNullableFilter<"User"> | string | null
+  linkedinUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  githubUrl?: Prisma.StringNullableFilter<"User"> | string | null
   emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -336,6 +386,11 @@ export type UserOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   department?: Prisma.SortOrderInput | Prisma.SortOrder
   semester?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  bloodGroup?: Prisma.SortOrderInput | Prisma.SortOrder
+  emergencyContact?: Prisma.SortOrderInput | Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   emailVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -358,6 +413,11 @@ export type UserScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
   department?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   semester?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
+  phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  bloodGroup?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  emergencyContact?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  linkedinUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  githubUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   emailVerifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -372,6 +432,11 @@ export type UserCreateInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -396,6 +461,11 @@ export type UserUncheckedCreateInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -420,6 +490,11 @@ export type UserUpdateInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -444,6 +519,11 @@ export type UserUncheckedUpdateInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -468,6 +548,11 @@ export type UserCreateManyInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -482,6 +567,11 @@ export type UserUpdateManyMutationInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -496,6 +586,11 @@ export type UserUncheckedUpdateManyInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -510,6 +605,11 @@ export type UserCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   department?: Prisma.SortOrder
   semester?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  bloodGroup?: Prisma.SortOrder
+  emergencyContact?: Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrder
+  githubUrl?: Prisma.SortOrder
   emailVerifiedAt?: Prisma.SortOrder
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -528,6 +628,11 @@ export type UserMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   department?: Prisma.SortOrder
   semester?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  bloodGroup?: Prisma.SortOrder
+  emergencyContact?: Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrder
+  githubUrl?: Prisma.SortOrder
   emailVerifiedAt?: Prisma.SortOrder
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -542,6 +647,11 @@ export type UserMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   department?: Prisma.SortOrder
   semester?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  bloodGroup?: Prisma.SortOrder
+  emergencyContact?: Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrder
+  githubUrl?: Prisma.SortOrder
   emailVerifiedAt?: Prisma.SortOrder
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -771,6 +881,11 @@ export type UserCreateWithoutEmailVerificationCodeInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -794,6 +909,11 @@ export type UserUncheckedCreateWithoutEmailVerificationCodeInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -833,6 +953,11 @@ export type UserUpdateWithoutEmailVerificationCodeInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -856,6 +981,11 @@ export type UserUncheckedUpdateWithoutEmailVerificationCodeInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -879,6 +1009,11 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -902,6 +1037,11 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -941,6 +1081,11 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -964,6 +1109,11 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -987,6 +1137,11 @@ export type UserCreateWithoutCoursesInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1010,6 +1165,11 @@ export type UserUncheckedCreateWithoutCoursesInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1049,6 +1209,11 @@ export type UserUpdateWithoutCoursesInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1072,6 +1237,11 @@ export type UserUncheckedUpdateWithoutCoursesInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1095,6 +1265,11 @@ export type UserCreateWithoutEnrollmentsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1118,6 +1293,11 @@ export type UserUncheckedCreateWithoutEnrollmentsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1157,6 +1337,11 @@ export type UserUpdateWithoutEnrollmentsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1180,6 +1365,11 @@ export type UserUncheckedUpdateWithoutEnrollmentsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1203,6 +1393,11 @@ export type UserCreateWithoutTimetableSlotsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1226,6 +1421,11 @@ export type UserUncheckedCreateWithoutTimetableSlotsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1254,6 +1454,11 @@ export type UserCreateWithoutCoTeachingSlotsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1277,6 +1482,11 @@ export type UserUncheckedCreateWithoutCoTeachingSlotsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1316,6 +1526,11 @@ export type UserUpdateWithoutTimetableSlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1339,6 +1554,11 @@ export type UserUncheckedUpdateWithoutTimetableSlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1381,6 +1601,11 @@ export type UserScalarWhereInput = {
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
+  bloodGroup?: Prisma.StringNullableFilter<"User"> | string | null
+  emergencyContact?: Prisma.StringNullableFilter<"User"> | string | null
+  linkedinUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  githubUrl?: Prisma.StringNullableFilter<"User"> | string | null
   emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -1395,6 +1620,11 @@ export type UserCreateWithoutAvailabilitySlotsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1418,6 +1648,11 @@ export type UserUncheckedCreateWithoutAvailabilitySlotsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1457,6 +1692,11 @@ export type UserUpdateWithoutAvailabilitySlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1480,6 +1720,11 @@ export type UserUncheckedUpdateWithoutAvailabilitySlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1503,6 +1748,11 @@ export type UserCreateWithoutStudentAppointmentsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1526,6 +1776,11 @@ export type UserUncheckedCreateWithoutStudentAppointmentsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1554,6 +1809,11 @@ export type UserCreateWithoutTeacherAppointmentsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1577,6 +1837,11 @@ export type UserUncheckedCreateWithoutTeacherAppointmentsInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1616,6 +1881,11 @@ export type UserUpdateWithoutStudentAppointmentsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1639,6 +1909,11 @@ export type UserUncheckedUpdateWithoutStudentAppointmentsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1673,6 +1948,11 @@ export type UserUpdateWithoutTeacherAppointmentsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1696,6 +1976,11 @@ export type UserUncheckedUpdateWithoutTeacherAppointmentsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1719,6 +2004,11 @@ export type UserCreateWithoutAnnouncementsCreatedInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1742,6 +2032,11 @@ export type UserUncheckedCreateWithoutAnnouncementsCreatedInput = {
   status?: $Enums.UserStatus
   department?: string | null
   semester?: number | null
+  phone?: string | null
+  bloodGroup?: string | null
+  emergencyContact?: string | null
+  linkedinUrl?: string | null
+  githubUrl?: string | null
   emailVerifiedAt?: Date | string | null
   image?: string | null
   createdAt?: Date | string
@@ -1781,6 +2076,11 @@ export type UserUpdateWithoutAnnouncementsCreatedInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1804,6 +2104,11 @@ export type UserUncheckedUpdateWithoutAnnouncementsCreatedInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1827,6 +2132,11 @@ export type UserUpdateWithoutCoTeachingSlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1850,6 +2160,11 @@ export type UserUncheckedUpdateWithoutCoTeachingSlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1873,6 +2188,11 @@ export type UserUncheckedUpdateManyWithoutCoTeachingSlotsInput = {
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloodGroup?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1990,6 +2310,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   status?: boolean
   department?: boolean
   semester?: boolean
+  phone?: boolean
+  bloodGroup?: boolean
+  emergencyContact?: boolean
+  linkedinUrl?: boolean
+  githubUrl?: boolean
   emailVerifiedAt?: boolean
   image?: boolean
   createdAt?: boolean
@@ -2015,6 +2340,11 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   status?: boolean
   department?: boolean
   semester?: boolean
+  phone?: boolean
+  bloodGroup?: boolean
+  emergencyContact?: boolean
+  linkedinUrl?: boolean
+  githubUrl?: boolean
   emailVerifiedAt?: boolean
   image?: boolean
   createdAt?: boolean
@@ -2029,6 +2359,11 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   status?: boolean
   department?: boolean
   semester?: boolean
+  phone?: boolean
+  bloodGroup?: boolean
+  emergencyContact?: boolean
+  linkedinUrl?: boolean
+  githubUrl?: boolean
   emailVerifiedAt?: boolean
   image?: boolean
   createdAt?: boolean
@@ -2043,12 +2378,17 @@ export type UserSelectScalar = {
   status?: boolean
   department?: boolean
   semester?: boolean
+  phone?: boolean
+  bloodGroup?: boolean
+  emergencyContact?: boolean
+  linkedinUrl?: boolean
+  githubUrl?: boolean
   emailVerifiedAt?: boolean
   image?: boolean
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "status" | "department" | "semester" | "emailVerifiedAt" | "image" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "status" | "department" | "semester" | "phone" | "bloodGroup" | "emergencyContact" | "linkedinUrl" | "githubUrl" | "emailVerifiedAt" | "image" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   emailVerificationCode?: boolean | Prisma.User$emailVerificationCodeArgs<ExtArgs>
   courses?: boolean | Prisma.User$coursesArgs<ExtArgs>
@@ -2088,6 +2428,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     status: $Enums.UserStatus
     department: string | null
     semester: number | null
+    phone: string | null
+    bloodGroup: string | null
+    emergencyContact: string | null
+    linkedinUrl: string | null
+    githubUrl: string | null
     emailVerifiedAt: Date | null
     image: string | null
     createdAt: Date
@@ -2532,6 +2877,11 @@ export interface UserFieldRefs {
   readonly status: Prisma.FieldRef<"User", 'UserStatus'>
   readonly department: Prisma.FieldRef<"User", 'String'>
   readonly semester: Prisma.FieldRef<"User", 'Int'>
+  readonly phone: Prisma.FieldRef<"User", 'String'>
+  readonly bloodGroup: Prisma.FieldRef<"User", 'String'>
+  readonly emergencyContact: Prisma.FieldRef<"User", 'String'>
+  readonly linkedinUrl: Prisma.FieldRef<"User", 'String'>
+  readonly githubUrl: Prisma.FieldRef<"User", 'String'>
   readonly emailVerifiedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly image: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>

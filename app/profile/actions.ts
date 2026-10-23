@@ -47,6 +47,38 @@ function avatarMimeType(bytes: Uint8Array): string | null {
   return null;
 }
 
+const validBloodGroups = [
+  "A+",
+  "A-",
+  "B+",
+  "B-",
+  "AB+",
+  "AB-",
+  "O+",
+  "O-",
+];
+
+function isValidPhoneNumber(value: string): boolean {
+  const digits = value.replace(/\D/g, "");
+  return (
+    value.length <= 32 &&
+    /^[+()\d\s.-]+$/.test(value) &&
+    digits.length >= 7 &&
+    digits.length <= 15
+  );
+}
+
+function isValidProfileUrl(value: string): boolean {
+  if (!value) return true;
+  if (value.length > 2048) return false;
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
 export async function updateProfileAction(
   formData: FormData,
 ): Promise<ProfileActionResult> {
@@ -54,6 +86,11 @@ export async function updateProfileAction(
   const name = field(formData, "name");
   const department = field(formData, "department");
   const semesterText = field(formData, "semester");
+  const phone = field(formData, "phone");
+  const bloodGroup = field(formData, "bloodGroup");
+  const emergencyContact = field(formData, "emergencyContact");
+  const linkedinUrl = field(formData, "linkedinUrl");
+  const githubUrl = field(formData, "githubUrl");
   const passwordValue = formData.get("password");
   const password = typeof passwordValue === "string" ? passwordValue : "";
   const removeAvatar = field(formData, "removeAvatar") === "true";
@@ -64,6 +101,21 @@ export async function updateProfileAction(
   }
   if (!department) {
     return { ok: false, message: "Select a department." };
+  }
+  if (phone && !isValidPhoneNumber(phone)) {
+    return { ok: false, message: "Enter a valid phone number." };
+  }
+  if (emergencyContact && !isValidPhoneNumber(emergencyContact)) {
+    return { ok: false, message: "Enter a valid emergency contact number." };
+  }
+  if (bloodGroup && !validBloodGroups.includes(bloodGroup)) {
+    return { ok: false, message: "Select a valid blood group." };
+  }
+  if (!isValidProfileUrl(linkedinUrl) || !isValidProfileUrl(githubUrl)) {
+    return {
+      ok: false,
+      message: "Social profile links must be valid HTTP or HTTPS URLs.",
+    };
   }
   if (password && !isValidNewPassword(password)) {
     return {
@@ -124,6 +176,11 @@ export async function updateProfileAction(
         name,
         department,
         semester,
+        phone: phone || null,
+        bloodGroup: bloodGroup || null,
+        emergencyContact: emergencyContact || null,
+        linkedinUrl: linkedinUrl || null,
+        githubUrl: githubUrl || null,
         ...(passwordHash ? { passwordHash } : {}),
         ...(removeAvatar ? { image: null } : {}),
         ...(image ? { image } : {}),
