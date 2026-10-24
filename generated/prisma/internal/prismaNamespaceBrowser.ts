@@ -52,7 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  AdminVerificationDocument: 'AdminVerificationDocument',
+  UserVerificationDocument: 'UserVerificationDocument',
   EmailVerificationCode: 'EmailVerificationCode',
   PasswordResetToken: 'PasswordResetToken',
   Course: 'Course',
@@ -92,7 +92,7 @@ export const UserScalarFieldEnum = {
   role: 'role',
   status: 'status',
   adminStatus: 'adminStatus',
-  adminDocuments: 'adminDocuments',
+  verificationDocuments: 'verificationDocuments',
   department: 'department',
   semester: 'semester',
   rollNo: 'rollNo',
@@ -114,7 +114,7 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const AdminVerificationDocumentScalarFieldEnum = {
+export const UserVerificationDocumentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   documentType: 'documentType',
@@ -124,7 +124,7 @@ export const AdminVerificationDocumentScalarFieldEnum = {
   createdAt: 'createdAt'
 } as const
 
-export type AdminVerificationDocumentScalarFieldEnum = (typeof AdminVerificationDocumentScalarFieldEnum)[keyof typeof AdminVerificationDocumentScalarFieldEnum]
+export type UserVerificationDocumentScalarFieldEnum = (typeof UserVerificationDocumentScalarFieldEnum)[keyof typeof UserVerificationDocumentScalarFieldEnum]
 
 
 export const EmailVerificationCodeScalarFieldEnum = {

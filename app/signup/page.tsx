@@ -7,27 +7,23 @@ import { prisma } from "@/lib/prisma";
 
 export const metadata = {
   title: "Create Account · CAMPUS.OS",
-  description: "Register as a student or request a teacher account.",
+  description: "Create a student, teacher, or Admin account for verification.",
 };
 
 export default async function SignupPage() {
   const session = await auth();
   if (session?.user) {
+    if (session.user.status === "PENDING_VERIFICATION") {
+      redirect("/verification");
+    }
     redirect(getDashboardPath(session.user.role));
   }
 
   const sections = await prisma.section.findMany({
-    select: { department: true, semester: true },
-    orderBy: [{ department: "asc" }, { semester: "asc" }],
+    select: { department: true },
+    distinct: ["department"],
+    orderBy: { department: "asc" },
   });
-  const targets = [
-    ...new Map(
-      sections.map((section) => [
-        `${section.department}:${section.semester}`,
-        section,
-      ]),
-    ).values(),
-  ];
 
   return (
     <main className="relative flex min-h-screen max-w-full items-center justify-center overflow-x-clip bg-[#0B0F19] px-4 py-8 text-slate-100">
@@ -50,9 +46,9 @@ export default async function SignupPage() {
           Create your account
         </h1>
         <p className="mt-2 text-sm text-slate-400">
-          Students can register immediately. Teacher accounts require admin approval.
+          Submit your official documents during registration. An administrator must verify your account before dashboard access.
         </p>
-        <SignupForm targets={targets} />
+        <SignupForm targets={sections} />
         <p className="mt-6 text-center text-sm text-slate-400">
           Already registered?{" "}
           <Link

@@ -3,29 +3,24 @@
 import { useState, useTransition, type FormEvent } from "react";
 import { registerAccountAction } from "@/app/signup/actions";
 import type { RegistrationResult } from "@/app/signup/actions";
+import {
+  verificationDocumentGroupsByRole,
+  verificationDocumentsByRole,
+} from "@/lib/verification-documents";
 
 type SignupTarget = {
   department: string;
-  semester: number;
 };
 
 const fieldClass =
   "mt-1.5 min-h-11 w-full rounded-xl border border-slate-700/80 bg-slate-900/80 px-3.5 py-2.5 text-base text-white outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-500/15 sm:text-sm";
 
 export function SignupForm({ targets }: { targets: SignupTarget[] }) {
-  const [role, setRole] = useState<"STUDENT" | "TEACHER">("STUDENT");
+  const [role, setRole] = useState<"STUDENT" | "TEACHER" | "ADMIN">("STUDENT");
   const [department, setDepartment] = useState("");
-  const [semester, setSemester] = useState("");
   const [result, setResult] = useState<RegistrationResult | null>(null);
   const [isPending, startTransition] = useTransition();
   const departments = [...new Set(targets.map((target) => target.department))];
-  const semesters = [
-    ...new Set(
-      targets
-        .filter((target) => target.department === department)
-        .map((target) => target.semester),
-    ),
-  ].sort((first, second) => first - second);
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -38,7 +33,6 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
       if (response.ok) {
         form.reset();
         setDepartment("");
-        setSemester("");
       }
     });
   }
@@ -47,10 +41,10 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
     <>
       <div
         aria-label="Account type"
-        className="mt-6 grid grid-cols-2 gap-2 rounded-xl border border-slate-800 bg-slate-900/70 p-1"
+        className="mt-6 grid grid-cols-3 gap-2 rounded-xl border border-slate-800 bg-slate-900/70 p-1"
         role="tablist"
       >
-        {(["STUDENT", "TEACHER"] as const).map((item) => (
+        {(["STUDENT", "TEACHER", "ADMIN"] as const).map((item) => (
           <button
             aria-selected={role === item}
             className={`min-h-10 rounded-lg px-3 py-2 text-sm font-semibold transition ${
@@ -66,7 +60,11 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
             role="tab"
             type="button"
           >
-            {item === "STUDENT" ? "Student" : "Teacher"}
+            {item === "STUDENT"
+              ? "Student"
+              : item === "TEACHER"
+                ? "Teacher"
+                : "Admin"}
           </button>
         ))}
       </div>
@@ -115,7 +113,6 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
             name="department"
             onChange={(event) => {
               setDepartment(event.target.value);
-              setSemester("");
             }}
             required
             value={department}
@@ -128,30 +125,35 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
             ))}
           </select>
         </label>
-        {role === "STUDENT" ? (
-          <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
-            Semester
-            <select
-              className={fieldClass}
-              disabled={!department}
-              name="semester"
-              onChange={(event) => setSemester(event.target.value)}
-              required
-              value={semester}
-            >
-              <option value="">Select semester</option>
-              {semesters.map((semester) => (
-                <option key={semester} value={semester}>
-                  Semester {semester}
-                </option>
-              ))}
-            </select>
-          </label>
-        ) : (
-          <p className="self-center text-xs leading-relaxed text-slate-400">
-            Teacher registration requests remain pending until an administrator approves them.
+        <div className="space-y-3 sm:col-span-2">
+          <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            Required verification documents
           </p>
-        )}
+          <p className="text-xs leading-relaxed text-slate-500">
+            Upload a PDF, JPEG, or PNG file (maximum 2 MB each). Students and
+            teachers must provide at least one listed document; Admin
+            applicants must provide all three. Dashboard access follows
+            administrator verification.
+          </p>
+          {verificationDocumentsByRole[role].map((document) => (
+            <label
+              className="block min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400"
+              key={document.field}
+            >
+              {document.label}
+              <input
+                accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
+                className={fieldClass}
+                name={document.field}
+                required={verificationDocumentGroupsByRole[role].some(
+                  (group) =>
+                    group.length === 1 && group[0] === document.type,
+                )}
+                type="file"
+              />
+            </label>
+          ))}
+        </div>
         {result && (
           <p
             aria-live="polite"
@@ -174,7 +176,9 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
             ? "Submitting…"
             : role === "STUDENT"
               ? "Create student account"
-              : "Submit teacher request"}
+              : role === "TEACHER"
+                ? "Submit teacher request"
+                : "Submit Admin request"}
         </button>
       </form>
       {departments.length === 0 && (

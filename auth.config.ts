@@ -1,5 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
-import { UserRole } from "@/generated/prisma/enums";
+import { UserRole, UserStatus } from "@/generated/prisma/enums";
 import { getDashboardPath } from "@/lib/roles";
 
 const protectedPaths = [
@@ -28,6 +28,7 @@ export const authConfig = {
       if (user) {
         token.id = user.id;
         token.role = user.role;
+        token.status = user.status;
       }
 
       return token;
@@ -40,6 +41,12 @@ export const authConfig = {
       ) {
         session.user.id = token.id;
         session.user.role = token.role;
+        if (
+          token.status === UserStatus.PENDING_VERIFICATION ||
+          token.status === UserStatus.APPROVED
+        ) {
+          session.user.status = token.status;
+        }
       }
 
       return session;
@@ -47,6 +54,21 @@ export const authConfig = {
     authorized({ auth, request }) {
       const pathname = request.nextUrl.pathname;
       const user = auth?.user;
+
+      if (pathname === "/verification") {
+        if (!user) return false;
+        if (user.status === UserStatus.PENDING_VERIFICATION) return true;
+        if (user.status === UserStatus.APPROVED) {
+          return Response.redirect(
+            new URL(getDashboardPath(user.role), request.nextUrl),
+          );
+        }
+        return false;
+      }
+
+      if (user?.status === UserStatus.PENDING_VERIFICATION) {
+        return Response.redirect(new URL("/verification", request.nextUrl));
+      }
 
       if (pathname === "/login" && user) {
         return Response.redirect(new URL(getDashboardPath(user.role), request.nextUrl));

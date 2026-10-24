@@ -6,25 +6,21 @@ import {
   reviewAdminRequestAction,
   type AdminReviewResult,
 } from "@/app/admin/requests/actions";
-import type { AdminVerificationDocumentType } from "@/generated/prisma/enums";
-import { adminVerificationDocuments } from "@/lib/admin-verification";
+import { UserRole, type VerificationDocumentType } from "@/generated/prisma/enums";
+import { verificationDocumentLabels } from "@/lib/verification-documents";
 
 type AdminRequest = {
   id: string;
   name: string;
   email: string;
   department: string | null;
-  role: "STUDENT" | "TEACHER";
+  role: UserRole;
   createdAt: string;
   documents: {
     url: string;
-    type: AdminVerificationDocumentType;
+    type: VerificationDocumentType;
   }[];
 };
-
-const documentLabels = new Map(
-  adminVerificationDocuments.map(({ type, label }) => [type, label]),
-);
 
 export function AdminRequestReview({
   requests,
@@ -51,10 +47,10 @@ export function AdminRequestReview({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-bold text-foreground">
-            Pending Admin requests
+            Pending account verification
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Verify the submitted appointment letter and identity documents.
+            Verify the role-specific official documents submitted during signup.
           </p>
         </div>
         <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-800 dark:text-amber-300">
@@ -129,7 +125,7 @@ export function AdminRequestReview({
                       target="_blank"
                     >
                       View{" "}
-                      {documentLabels.get(document.type) ??
+                      {verificationDocumentLabels.get(document.type) ??
                         "Official verification document"}
                     </a>
                   </li>

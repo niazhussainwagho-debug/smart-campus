@@ -9,7 +9,7 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
-export type * from './models/AdminVerificationDocument'
+export type * from './models/UserVerificationDocument'
 export type * from './models/EmailVerificationCode'
 export type * from './models/PasswordResetToken'
 export type * from './models/Course'

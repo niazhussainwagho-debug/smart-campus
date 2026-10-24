@@ -2,7 +2,7 @@
 
 import { hash } from "bcryptjs";
 import { Prisma } from "@/generated/prisma/client";
-import { UserRole, UserStatus } from "@/generated/prisma/enums";
+import { AdminStatus, UserRole, UserStatus } from "@/generated/prisma/enums";
 import {
   createVerificationCode,
   hasTooManyVerificationAttempts,
@@ -13,6 +13,7 @@ import {
 } from "@/lib/email-verification";
 import { sendCampusEmail } from "@/lib/password-reset-email";
 import { isValidNewPassword } from "@/lib/password-reset";
+import { parseVerificationDocumentFiles } from "@/lib/verification-document-upload";
 import { prisma } from "@/lib/prisma";
 
 export type RegistrationResult = {
@@ -76,8 +77,15 @@ export async function registerAccountAction(
   formData: FormData,
 ): Promise<RegistrationResult> {
   const roleText = field(formData, "role");
-  if (roleText !== UserRole.STUDENT && roleText !== UserRole.TEACHER) {
-    return { ok: false, message: "Choose Student or Teacher registration." };
+  if (
+    roleText !== UserRole.STUDENT &&
+    roleText !== UserRole.TEACHER &&
+    roleText !== UserRole.ADMIN
+  ) {
+    return {
+      ok: false,
+      message: "Choose Student, Teacher, or Admin registration.",
+    };
   }
 
   const role = roleText;
@@ -85,7 +93,6 @@ export async function registerAccountAction(
   const email = field(formData, "email").toLowerCase();
   const password = rawField(formData, "password");
   const department = field(formData, "department");
-  const semesterText = field(formData, "semester");
 
   if (!name || name.length > 120) {
     return { ok: false, message: "Enter a name between 1 and 120 characters." };
@@ -116,53 +123,52 @@ export async function registerAccountAction(
     return { ok: false, message: "Select a department." };
   }
 
-  const semester =
-    role === UserRole.STUDENT && semesterText
-      ? Number(semesterText)
-      : null;
-  if (
-    role === UserRole.STUDENT &&
-    (!semesterText ||
-      !Number.isSafeInteger(semester) ||
-      semester === null ||
-      semester < 1)
-  ) {
-    return { ok: false, message: "Select a valid semester." };
-  }
-
   const validDepartment = await prisma.section.findFirst({
-    where: {
-      department,
-      ...(semester === null ? {} : { semester }),
-    },
+    where: { department },
     select: { id: true },
   });
   if (!validDepartment) {
     return {
       ok: false,
-      message:
-        role === UserRole.STUDENT
-          ? "The selected department and semester are not available."
-          : "The selected department is not available.",
+      message: "The selected department is not available.",
     };
   }
 
+  const documentParseResult = await parseVerificationDocumentFiles(
+    formData,
+    role,
+  );
+  if (!documentParseResult.ok) {
+    return { ok: false, message: documentParseResult.message };
+  }
+  const uploadedDocuments = documentParseResult.documents;
+
   const passwordHash = await hash(password, 12);
   try {
-    await prisma.user.create({
-      data: {
-        name,
-        email,
-        passwordHash,
-        role,
-        department,
-        semester,
-        emailVerifiedAt: new Date(),
-        status:
-          role === UserRole.STUDENT
-            ? UserStatus.APPROVED
-            : UserStatus.PENDING,
-      },
+    await prisma.$transaction(async (transaction) => {
+      const user = await transaction.user.create({
+        data: {
+          name,
+          email,
+          passwordHash,
+          role,
+          department,
+          emailVerifiedAt: new Date(),
+          status: UserStatus.PENDING_VERIFICATION,
+          adminStatus:
+            role === UserRole.ADMIN ? AdminStatus.PENDING : AdminStatus.NONE,
+          verificationDocuments: uploadedDocuments.map(
+            ({ id }) => `/api/admin-documents/${id}`,
+          ),
+        },
+        select: { id: true },
+      });
+      await transaction.userVerificationDocument.createMany({
+        data: uploadedDocuments.map((document) => ({
+          ...document,
+          userId: user.id,
+        })),
+      });
     });
   } catch (error) {
     if (isDuplicateEmail(error)) {
@@ -187,9 +193,7 @@ export async function registerAccountAction(
   return {
     ok: true,
     message:
-      role === UserRole.STUDENT
-        ? "Your account has been created. You can now sign in."
-        : "Your request has been submitted and is pending admin approval.",
+      "Your account and verification documents have been submitted. Sign in to check your verification status; dashboard access is enabled after approval.",
   };
 }
 

@@ -94,7 +94,7 @@ export type UserCountAggregateOutputType = {
   role: number
   status: number
   adminStatus: number
-  adminDocuments: number
+  verificationDocuments: number
   department: number
   semester: number
   rollNo: number
@@ -183,7 +183,7 @@ export type UserCountAggregateInputType = {
   role?: true
   status?: true
   adminStatus?: true
-  adminDocuments?: true
+  verificationDocuments?: true
   department?: true
   semester?: true
   rollNo?: true
@@ -297,7 +297,7 @@ export type UserGroupByOutputType = {
   role: $Enums.UserRole
   status: $Enums.UserStatus
   adminStatus: $Enums.AdminStatus
-  adminDocuments: string[]
+  verificationDocuments: string[]
   department: string | null
   semester: number | null
   rollNo: string | null
@@ -347,7 +347,7 @@ export type UserWhereInput = {
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFilter<"User"> | $Enums.AdminStatus
-  adminDocuments?: Prisma.StringNullableListFilter<"User">
+  verificationDocuments?: Prisma.StringNullableListFilter<"User">
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
   rollNo?: Prisma.StringNullableFilter<"User"> | string | null
@@ -377,7 +377,7 @@ export type UserWhereInput = {
   notifications?: Prisma.NotificationListRelationFilter
   studentAttendance?: Prisma.AttendanceListRelationFilter
   attendanceMarked?: Prisma.AttendanceListRelationFilter
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentListRelationFilter
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -388,7 +388,7 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
   adminStatus?: Prisma.SortOrder
-  adminDocuments?: Prisma.SortOrder
+  verificationDocuments?: Prisma.SortOrder
   department?: Prisma.SortOrderInput | Prisma.SortOrder
   semester?: Prisma.SortOrderInput | Prisma.SortOrder
   rollNo?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -418,7 +418,7 @@ export type UserOrderByWithRelationInput = {
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   studentAttendance?: Prisma.AttendanceOrderByRelationAggregateInput
   attendanceMarked?: Prisma.AttendanceOrderByRelationAggregateInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentOrderByRelationAggregateInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -433,7 +433,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFilter<"User"> | $Enums.AdminStatus
-  adminDocuments?: Prisma.StringNullableListFilter<"User">
+  verificationDocuments?: Prisma.StringNullableListFilter<"User">
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
   fatherName?: Prisma.StringNullableFilter<"User"> | string | null
@@ -462,7 +462,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   notifications?: Prisma.NotificationListRelationFilter
   studentAttendance?: Prisma.AttendanceListRelationFilter
   attendanceMarked?: Prisma.AttendanceListRelationFilter
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentListRelationFilter
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentListRelationFilter
 }, "id" | "email" | "rollNo">
 
 export type UserOrderByWithAggregationInput = {
@@ -473,7 +473,7 @@ export type UserOrderByWithAggregationInput = {
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
   adminStatus?: Prisma.SortOrder
-  adminDocuments?: Prisma.SortOrder
+  verificationDocuments?: Prisma.SortOrder
   department?: Prisma.SortOrderInput | Prisma.SortOrder
   semester?: Prisma.SortOrderInput | Prisma.SortOrder
   rollNo?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -508,7 +508,7 @@ export type UserScalarWhereWithAggregatesInput = {
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
   status?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusWithAggregatesFilter<"User"> | $Enums.AdminStatus
-  adminDocuments?: Prisma.StringNullableListFilter<"User">
+  verificationDocuments?: Prisma.StringNullableListFilter<"User">
   department?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   semester?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
   rollNo?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -535,7 +535,7 @@ export type UserCreateInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -565,7 +565,7 @@ export type UserCreateInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -576,7 +576,7 @@ export type UserUncheckedCreateInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -606,7 +606,7 @@ export type UserUncheckedCreateInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -617,7 +617,7 @@ export type UserUpdateInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -647,7 +647,7 @@ export type UserUpdateInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -658,7 +658,7 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -688,7 +688,7 @@ export type UserUncheckedUpdateInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUncheckedUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -699,7 +699,7 @@ export type UserCreateManyInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -726,7 +726,7 @@ export type UserUpdateManyMutationInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -753,7 +753,7 @@ export type UserUncheckedUpdateManyInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -788,7 +788,7 @@ export type UserCountOrderByAggregateInput = {
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
   adminStatus?: Prisma.SortOrder
-  adminDocuments?: Prisma.SortOrder
+  verificationDocuments?: Prisma.SortOrder
   department?: Prisma.SortOrder
   semester?: Prisma.SortOrder
   rollNo?: Prisma.SortOrder
@@ -882,7 +882,7 @@ export type UserOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type UserCreateadminDocumentsInput = {
+export type UserCreateverificationDocumentsInput = {
   set: string[]
 }
 
@@ -902,7 +902,7 @@ export type EnumAdminStatusFieldUpdateOperationsInput = {
   set?: $Enums.AdminStatus
 }
 
-export type UserUpdateadminDocumentsInput = {
+export type UserUpdateverificationDocumentsInput = {
   set?: string[]
   push?: string | string[]
 }
@@ -927,18 +927,18 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
-export type UserCreateNestedOneWithoutAdminVerificationDocumentsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAdminVerificationDocumentsInput, Prisma.UserUncheckedCreateWithoutAdminVerificationDocumentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdminVerificationDocumentsInput
+export type UserCreateNestedOneWithoutVerificationDocumentFilesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVerificationDocumentFilesInput, Prisma.UserUncheckedCreateWithoutVerificationDocumentFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVerificationDocumentFilesInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutAdminVerificationDocumentsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAdminVerificationDocumentsInput, Prisma.UserUncheckedCreateWithoutAdminVerificationDocumentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdminVerificationDocumentsInput
-  upsert?: Prisma.UserUpsertWithoutAdminVerificationDocumentsInput
+export type UserUpdateOneRequiredWithoutVerificationDocumentFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVerificationDocumentFilesInput, Prisma.UserUncheckedCreateWithoutVerificationDocumentFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVerificationDocumentFilesInput
+  upsert?: Prisma.UserUpsertWithoutVerificationDocumentFilesInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAdminVerificationDocumentsInput, Prisma.UserUpdateWithoutAdminVerificationDocumentsInput>, Prisma.UserUncheckedUpdateWithoutAdminVerificationDocumentsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVerificationDocumentFilesInput, Prisma.UserUpdateWithoutVerificationDocumentFilesInput>, Prisma.UserUncheckedUpdateWithoutVerificationDocumentFilesInput>
 }
 
 export type UserCreateNestedOneWithoutEmailVerificationCodeInput = {
@@ -1147,7 +1147,7 @@ export type UserUpdateOneRequiredWithoutAttendanceMarkedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAttendanceMarkedInput, Prisma.UserUpdateWithoutAttendanceMarkedInput>, Prisma.UserUncheckedUpdateWithoutAttendanceMarkedInput>
 }
 
-export type UserCreateWithoutAdminVerificationDocumentsInput = {
+export type UserCreateWithoutVerificationDocumentFilesInput = {
   id?: string
   name: string
   email: string
@@ -1155,7 +1155,7 @@ export type UserCreateWithoutAdminVerificationDocumentsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -1187,7 +1187,7 @@ export type UserCreateWithoutAdminVerificationDocumentsInput = {
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
 }
 
-export type UserUncheckedCreateWithoutAdminVerificationDocumentsInput = {
+export type UserUncheckedCreateWithoutVerificationDocumentFilesInput = {
   id?: string
   name: string
   email: string
@@ -1195,7 +1195,7 @@ export type UserUncheckedCreateWithoutAdminVerificationDocumentsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -1227,23 +1227,23 @@ export type UserUncheckedCreateWithoutAdminVerificationDocumentsInput = {
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
 }
 
-export type UserCreateOrConnectWithoutAdminVerificationDocumentsInput = {
+export type UserCreateOrConnectWithoutVerificationDocumentFilesInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutAdminVerificationDocumentsInput, Prisma.UserUncheckedCreateWithoutAdminVerificationDocumentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutVerificationDocumentFilesInput, Prisma.UserUncheckedCreateWithoutVerificationDocumentFilesInput>
 }
 
-export type UserUpsertWithoutAdminVerificationDocumentsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutAdminVerificationDocumentsInput, Prisma.UserUncheckedUpdateWithoutAdminVerificationDocumentsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutAdminVerificationDocumentsInput, Prisma.UserUncheckedCreateWithoutAdminVerificationDocumentsInput>
+export type UserUpsertWithoutVerificationDocumentFilesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutVerificationDocumentFilesInput, Prisma.UserUncheckedUpdateWithoutVerificationDocumentFilesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutVerificationDocumentFilesInput, Prisma.UserUncheckedCreateWithoutVerificationDocumentFilesInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutAdminVerificationDocumentsInput = {
+export type UserUpdateToOneWithWhereWithoutVerificationDocumentFilesInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutAdminVerificationDocumentsInput, Prisma.UserUncheckedUpdateWithoutAdminVerificationDocumentsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutVerificationDocumentFilesInput, Prisma.UserUncheckedUpdateWithoutVerificationDocumentFilesInput>
 }
 
-export type UserUpdateWithoutAdminVerificationDocumentsInput = {
+export type UserUpdateWithoutVerificationDocumentFilesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1251,7 +1251,7 @@ export type UserUpdateWithoutAdminVerificationDocumentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1283,7 +1283,7 @@ export type UserUpdateWithoutAdminVerificationDocumentsInput = {
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
 }
 
-export type UserUncheckedUpdateWithoutAdminVerificationDocumentsInput = {
+export type UserUncheckedUpdateWithoutVerificationDocumentFilesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1291,7 +1291,7 @@ export type UserUncheckedUpdateWithoutAdminVerificationDocumentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1331,7 +1331,7 @@ export type UserCreateWithoutEmailVerificationCodeInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -1360,7 +1360,7 @@ export type UserCreateWithoutEmailVerificationCodeInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailVerificationCodeInput = {
@@ -1371,7 +1371,7 @@ export type UserUncheckedCreateWithoutEmailVerificationCodeInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -1400,7 +1400,7 @@ export type UserUncheckedCreateWithoutEmailVerificationCodeInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailVerificationCodeInput = {
@@ -1427,7 +1427,7 @@ export type UserUpdateWithoutEmailVerificationCodeInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1456,7 +1456,7 @@ export type UserUpdateWithoutEmailVerificationCodeInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailVerificationCodeInput = {
@@ -1467,7 +1467,7 @@ export type UserUncheckedUpdateWithoutEmailVerificationCodeInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1496,7 +1496,7 @@ export type UserUncheckedUpdateWithoutEmailVerificationCodeInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUncheckedUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -1507,7 +1507,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -1536,7 +1536,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -1547,7 +1547,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -1576,7 +1576,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -1603,7 +1603,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1632,7 +1632,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -1643,7 +1643,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1672,7 +1672,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUncheckedUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCoursesInput = {
@@ -1683,7 +1683,7 @@ export type UserCreateWithoutCoursesInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -1712,7 +1712,7 @@ export type UserCreateWithoutCoursesInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoursesInput = {
@@ -1723,7 +1723,7 @@ export type UserUncheckedCreateWithoutCoursesInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -1752,7 +1752,7 @@ export type UserUncheckedCreateWithoutCoursesInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoursesInput = {
@@ -1779,7 +1779,7 @@ export type UserUpdateWithoutCoursesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1808,7 +1808,7 @@ export type UserUpdateWithoutCoursesInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoursesInput = {
@@ -1819,7 +1819,7 @@ export type UserUncheckedUpdateWithoutCoursesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1848,7 +1848,7 @@ export type UserUncheckedUpdateWithoutCoursesInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUncheckedUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEnrollmentsInput = {
@@ -1859,7 +1859,7 @@ export type UserCreateWithoutEnrollmentsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -1888,7 +1888,7 @@ export type UserCreateWithoutEnrollmentsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEnrollmentsInput = {
@@ -1899,7 +1899,7 @@ export type UserUncheckedCreateWithoutEnrollmentsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -1928,7 +1928,7 @@ export type UserUncheckedCreateWithoutEnrollmentsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEnrollmentsInput = {
@@ -1955,7 +1955,7 @@ export type UserUpdateWithoutEnrollmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1984,7 +1984,7 @@ export type UserUpdateWithoutEnrollmentsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEnrollmentsInput = {
@@ -1995,7 +1995,7 @@ export type UserUncheckedUpdateWithoutEnrollmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2024,7 +2024,7 @@ export type UserUncheckedUpdateWithoutEnrollmentsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUncheckedUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTimetableSlotsInput = {
@@ -2035,7 +2035,7 @@ export type UserCreateWithoutTimetableSlotsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -2064,7 +2064,7 @@ export type UserCreateWithoutTimetableSlotsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTimetableSlotsInput = {
@@ -2075,7 +2075,7 @@ export type UserUncheckedCreateWithoutTimetableSlotsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -2104,7 +2104,7 @@ export type UserUncheckedCreateWithoutTimetableSlotsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTimetableSlotsInput = {
@@ -2120,7 +2120,7 @@ export type UserCreateWithoutCoTeachingSlotsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -2149,7 +2149,7 @@ export type UserCreateWithoutCoTeachingSlotsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCoTeachingSlotsInput = {
@@ -2160,7 +2160,7 @@ export type UserUncheckedCreateWithoutCoTeachingSlotsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -2189,7 +2189,7 @@ export type UserUncheckedCreateWithoutCoTeachingSlotsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCoTeachingSlotsInput = {
@@ -2216,7 +2216,7 @@ export type UserUpdateWithoutTimetableSlotsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2245,7 +2245,7 @@ export type UserUpdateWithoutTimetableSlotsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTimetableSlotsInput = {
@@ -2256,7 +2256,7 @@ export type UserUncheckedUpdateWithoutTimetableSlotsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2285,7 +2285,7 @@ export type UserUncheckedUpdateWithoutTimetableSlotsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUncheckedUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutCoTeachingSlotsInput = {
@@ -2315,7 +2315,7 @@ export type UserScalarWhereInput = {
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFilter<"User"> | $Enums.AdminStatus
-  adminDocuments?: Prisma.StringNullableListFilter<"User">
+  verificationDocuments?: Prisma.StringNullableListFilter<"User">
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
   rollNo?: Prisma.StringNullableFilter<"User"> | string | null
@@ -2342,7 +2342,7 @@ export type UserCreateWithoutAvailabilitySlotsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -2371,7 +2371,7 @@ export type UserCreateWithoutAvailabilitySlotsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAvailabilitySlotsInput = {
@@ -2382,7 +2382,7 @@ export type UserUncheckedCreateWithoutAvailabilitySlotsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -2411,7 +2411,7 @@ export type UserUncheckedCreateWithoutAvailabilitySlotsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAvailabilitySlotsInput = {
@@ -2438,7 +2438,7 @@ export type UserUpdateWithoutAvailabilitySlotsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2467,7 +2467,7 @@ export type UserUpdateWithoutAvailabilitySlotsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAvailabilitySlotsInput = {
@@ -2478,7 +2478,7 @@ export type UserUncheckedUpdateWithoutAvailabilitySlotsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2507,7 +2507,7 @@ export type UserUncheckedUpdateWithoutAvailabilitySlotsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUncheckedUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStudentAppointmentsInput = {
@@ -2518,7 +2518,7 @@ export type UserCreateWithoutStudentAppointmentsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -2547,7 +2547,7 @@ export type UserCreateWithoutStudentAppointmentsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStudentAppointmentsInput = {
@@ -2558,7 +2558,7 @@ export type UserUncheckedCreateWithoutStudentAppointmentsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -2587,7 +2587,7 @@ export type UserUncheckedCreateWithoutStudentAppointmentsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStudentAppointmentsInput = {
@@ -2603,7 +2603,7 @@ export type UserCreateWithoutTeacherAppointmentsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -2632,7 +2632,7 @@ export type UserCreateWithoutTeacherAppointmentsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTeacherAppointmentsInput = {
@@ -2643,7 +2643,7 @@ export type UserUncheckedCreateWithoutTeacherAppointmentsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -2672,7 +2672,7 @@ export type UserUncheckedCreateWithoutTeacherAppointmentsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTeacherAppointmentsInput = {
@@ -2699,7 +2699,7 @@ export type UserUpdateWithoutStudentAppointmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2728,7 +2728,7 @@ export type UserUpdateWithoutStudentAppointmentsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudentAppointmentsInput = {
@@ -2739,7 +2739,7 @@ export type UserUncheckedUpdateWithoutStudentAppointmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2768,7 +2768,7 @@ export type UserUncheckedUpdateWithoutStudentAppointmentsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUncheckedUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutTeacherAppointmentsInput = {
@@ -2790,7 +2790,7 @@ export type UserUpdateWithoutTeacherAppointmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2819,7 +2819,7 @@ export type UserUpdateWithoutTeacherAppointmentsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeacherAppointmentsInput = {
@@ -2830,7 +2830,7 @@ export type UserUncheckedUpdateWithoutTeacherAppointmentsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2859,7 +2859,7 @@ export type UserUncheckedUpdateWithoutTeacherAppointmentsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUncheckedUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAnnouncementsCreatedInput = {
@@ -2870,7 +2870,7 @@ export type UserCreateWithoutAnnouncementsCreatedInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -2899,7 +2899,7 @@ export type UserCreateWithoutAnnouncementsCreatedInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAnnouncementsCreatedInput = {
@@ -2910,7 +2910,7 @@ export type UserUncheckedCreateWithoutAnnouncementsCreatedInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -2939,7 +2939,7 @@ export type UserUncheckedCreateWithoutAnnouncementsCreatedInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAnnouncementsCreatedInput = {
@@ -2966,7 +2966,7 @@ export type UserUpdateWithoutAnnouncementsCreatedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2995,7 +2995,7 @@ export type UserUpdateWithoutAnnouncementsCreatedInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAnnouncementsCreatedInput = {
@@ -3006,7 +3006,7 @@ export type UserUncheckedUpdateWithoutAnnouncementsCreatedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3035,7 +3035,7 @@ export type UserUncheckedUpdateWithoutAnnouncementsCreatedInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUncheckedUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -3046,7 +3046,7 @@ export type UserCreateWithoutNotificationsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -3075,7 +3075,7 @@ export type UserCreateWithoutNotificationsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -3086,7 +3086,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -3115,7 +3115,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -3142,7 +3142,7 @@ export type UserUpdateWithoutNotificationsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3171,7 +3171,7 @@ export type UserUpdateWithoutNotificationsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -3182,7 +3182,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3211,7 +3211,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUncheckedUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStudentAttendanceInput = {
@@ -3222,7 +3222,7 @@ export type UserCreateWithoutStudentAttendanceInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -3251,7 +3251,7 @@ export type UserCreateWithoutStudentAttendanceInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   attendanceMarked?: Prisma.AttendanceCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStudentAttendanceInput = {
@@ -3262,7 +3262,7 @@ export type UserUncheckedCreateWithoutStudentAttendanceInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -3291,7 +3291,7 @@ export type UserUncheckedCreateWithoutStudentAttendanceInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   attendanceMarked?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTeacherInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStudentAttendanceInput = {
@@ -3307,7 +3307,7 @@ export type UserCreateWithoutAttendanceMarkedInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -3336,7 +3336,7 @@ export type UserCreateWithoutAttendanceMarkedInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceCreateNestedManyWithoutStudentInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAttendanceMarkedInput = {
@@ -3347,7 +3347,7 @@ export type UserUncheckedCreateWithoutAttendanceMarkedInput = {
   role: $Enums.UserRole
   status?: $Enums.UserStatus
   adminStatus?: $Enums.AdminStatus
-  adminDocuments?: Prisma.UserCreateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserCreateverificationDocumentsInput | string[]
   department?: string | null
   semester?: number | null
   rollNo?: string | null
@@ -3376,7 +3376,7 @@ export type UserUncheckedCreateWithoutAttendanceMarkedInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   studentAttendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStudentInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAttendanceMarkedInput = {
@@ -3403,7 +3403,7 @@ export type UserUpdateWithoutStudentAttendanceInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3432,7 +3432,7 @@ export type UserUpdateWithoutStudentAttendanceInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStudentAttendanceInput = {
@@ -3443,7 +3443,7 @@ export type UserUncheckedUpdateWithoutStudentAttendanceInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3472,7 +3472,7 @@ export type UserUncheckedUpdateWithoutStudentAttendanceInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   attendanceMarked?: Prisma.AttendanceUncheckedUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutAttendanceMarkedInput = {
@@ -3494,7 +3494,7 @@ export type UserUpdateWithoutAttendanceMarkedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3523,7 +3523,7 @@ export type UserUpdateWithoutAttendanceMarkedInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttendanceMarkedInput = {
@@ -3534,7 +3534,7 @@ export type UserUncheckedUpdateWithoutAttendanceMarkedInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3563,7 +3563,7 @@ export type UserUncheckedUpdateWithoutAttendanceMarkedInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpdateWithoutCoTeachingSlotsInput = {
@@ -3574,7 +3574,7 @@ export type UserUpdateWithoutCoTeachingSlotsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3603,7 +3603,7 @@ export type UserUpdateWithoutCoTeachingSlotsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCoTeachingSlotsInput = {
@@ -3614,7 +3614,7 @@ export type UserUncheckedUpdateWithoutCoTeachingSlotsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3643,7 +3643,7 @@ export type UserUncheckedUpdateWithoutCoTeachingSlotsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   studentAttendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStudentNestedInput
   attendanceMarked?: Prisma.AttendanceUncheckedUpdateManyWithoutTeacherNestedInput
-  adminVerificationDocuments?: Prisma.AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
+  verificationDocumentFiles?: Prisma.UserVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutCoTeachingSlotsInput = {
@@ -3654,7 +3654,7 @@ export type UserUncheckedUpdateManyWithoutCoTeachingSlotsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
   adminStatus?: Prisma.EnumAdminStatusFieldUpdateOperationsInput | $Enums.AdminStatus
-  adminDocuments?: Prisma.UserUpdateadminDocumentsInput | string[]
+  verificationDocuments?: Prisma.UserUpdateverificationDocumentsInput | string[]
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3691,7 +3691,7 @@ export type UserCountOutputType = {
   notifications: number
   studentAttendance: number
   attendanceMarked: number
-  adminVerificationDocuments: number
+  verificationDocumentFiles: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3707,7 +3707,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   studentAttendance?: boolean | UserCountOutputTypeCountStudentAttendanceArgs
   attendanceMarked?: boolean | UserCountOutputTypeCountAttendanceMarkedArgs
-  adminVerificationDocuments?: boolean | UserCountOutputTypeCountAdminVerificationDocumentsArgs
+  verificationDocumentFiles?: boolean | UserCountOutputTypeCountVerificationDocumentFilesArgs
 }
 
 /**
@@ -3807,8 +3807,8 @@ export type UserCountOutputTypeCountAttendanceMarkedArgs<ExtArgs extends runtime
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountAdminVerificationDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AdminVerificationDocumentWhereInput
+export type UserCountOutputTypeCountVerificationDocumentFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserVerificationDocumentWhereInput
 }
 
 
@@ -3820,7 +3820,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   status?: boolean
   adminStatus?: boolean
-  adminDocuments?: boolean
+  verificationDocuments?: boolean
   department?: boolean
   semester?: boolean
   rollNo?: boolean
@@ -3850,7 +3850,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   studentAttendance?: boolean | Prisma.User$studentAttendanceArgs<ExtArgs>
   attendanceMarked?: boolean | Prisma.User$attendanceMarkedArgs<ExtArgs>
-  adminVerificationDocuments?: boolean | Prisma.User$adminVerificationDocumentsArgs<ExtArgs>
+  verificationDocumentFiles?: boolean | Prisma.User$verificationDocumentFilesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -3862,7 +3862,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   status?: boolean
   adminStatus?: boolean
-  adminDocuments?: boolean
+  verificationDocuments?: boolean
   department?: boolean
   semester?: boolean
   rollNo?: boolean
@@ -3889,7 +3889,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   status?: boolean
   adminStatus?: boolean
-  adminDocuments?: boolean
+  verificationDocuments?: boolean
   department?: boolean
   semester?: boolean
   rollNo?: boolean
@@ -3916,7 +3916,7 @@ export type UserSelectScalar = {
   role?: boolean
   status?: boolean
   adminStatus?: boolean
-  adminDocuments?: boolean
+  verificationDocuments?: boolean
   department?: boolean
   semester?: boolean
   rollNo?: boolean
@@ -3935,7 +3935,7 @@ export type UserSelectScalar = {
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "status" | "adminStatus" | "adminDocuments" | "department" | "semester" | "rollNo" | "fatherName" | "surname" | "category" | "academicYear" | "validUpto" | "phone" | "bloodGroup" | "emergencyContact" | "linkedinUrl" | "githubUrl" | "emailVerifiedAt" | "image" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "status" | "adminStatus" | "verificationDocuments" | "department" | "semester" | "rollNo" | "fatherName" | "surname" | "category" | "academicYear" | "validUpto" | "phone" | "bloodGroup" | "emergencyContact" | "linkedinUrl" | "githubUrl" | "emailVerifiedAt" | "image" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   emailVerificationCode?: boolean | Prisma.User$emailVerificationCodeArgs<ExtArgs>
   courses?: boolean | Prisma.User$coursesArgs<ExtArgs>
@@ -3950,7 +3950,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   studentAttendance?: boolean | Prisma.User$studentAttendanceArgs<ExtArgs>
   attendanceMarked?: boolean | Prisma.User$attendanceMarkedArgs<ExtArgs>
-  adminVerificationDocuments?: boolean | Prisma.User$adminVerificationDocumentsArgs<ExtArgs>
+  verificationDocumentFiles?: boolean | Prisma.User$verificationDocumentFilesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3972,7 +3972,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     studentAttendance: Prisma.$AttendancePayload<ExtArgs>[]
     attendanceMarked: Prisma.$AttendancePayload<ExtArgs>[]
-    adminVerificationDocuments: Prisma.$AdminVerificationDocumentPayload<ExtArgs>[]
+    verificationDocumentFiles: Prisma.$UserVerificationDocumentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3982,7 +3982,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     role: $Enums.UserRole
     status: $Enums.UserStatus
     adminStatus: $Enums.AdminStatus
-    adminDocuments: string[]
+    verificationDocuments: string[]
     department: string | null
     semester: number | null
     rollNo: string | null
@@ -4406,7 +4406,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   studentAttendance<T extends Prisma.User$studentAttendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$studentAttendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attendanceMarked<T extends Prisma.User$attendanceMarkedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$attendanceMarkedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  adminVerificationDocuments<T extends Prisma.User$adminVerificationDocumentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$adminVerificationDocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdminVerificationDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  verificationDocumentFiles<T extends Prisma.User$verificationDocumentFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$verificationDocumentFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserVerificationDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4443,7 +4443,7 @@ export interface UserFieldRefs {
   readonly role: Prisma.FieldRef<"User", 'UserRole'>
   readonly status: Prisma.FieldRef<"User", 'UserStatus'>
   readonly adminStatus: Prisma.FieldRef<"User", 'AdminStatus'>
-  readonly adminDocuments: Prisma.FieldRef<"User", 'String[]'>
+  readonly verificationDocuments: Prisma.FieldRef<"User", 'String[]'>
   readonly department: Prisma.FieldRef<"User", 'String'>
   readonly semester: Prisma.FieldRef<"User", 'Int'>
   readonly rollNo: Prisma.FieldRef<"User", 'String'>
@@ -5160,27 +5160,27 @@ export type User$attendanceMarkedArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * User.adminVerificationDocuments
+ * User.verificationDocumentFiles
  */
-export type User$adminVerificationDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$verificationDocumentFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the AdminVerificationDocument
+   * Select specific fields to fetch from the UserVerificationDocument
    */
-  select?: Prisma.AdminVerificationDocumentSelect<ExtArgs> | null
+  select?: Prisma.UserVerificationDocumentSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the AdminVerificationDocument
+   * Omit specific fields from the UserVerificationDocument
    */
-  omit?: Prisma.AdminVerificationDocumentOmit<ExtArgs> | null
+  omit?: Prisma.UserVerificationDocumentOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.AdminVerificationDocumentInclude<ExtArgs> | null
-  where?: Prisma.AdminVerificationDocumentWhereInput
-  orderBy?: Prisma.AdminVerificationDocumentOrderByWithRelationInput | Prisma.AdminVerificationDocumentOrderByWithRelationInput[]
-  cursor?: Prisma.AdminVerificationDocumentWhereUniqueInput
+  include?: Prisma.UserVerificationDocumentInclude<ExtArgs> | null
+  where?: Prisma.UserVerificationDocumentWhereInput
+  orderBy?: Prisma.UserVerificationDocumentOrderByWithRelationInput | Prisma.UserVerificationDocumentOrderByWithRelationInput[]
+  cursor?: Prisma.UserVerificationDocumentWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.AdminVerificationDocumentScalarFieldEnum | Prisma.AdminVerificationDocumentScalarFieldEnum[]
+  distinct?: Prisma.UserVerificationDocumentScalarFieldEnum | Prisma.UserVerificationDocumentScalarFieldEnum[]
 }
 
 /**

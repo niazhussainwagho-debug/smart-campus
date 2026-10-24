@@ -295,22 +295,13 @@ export function DashboardShell({
     ...(role === "ADMIN"
       ? [
           {
-            href: "/admin/teachers",
-            label: "Teacher Management",
+            href: "/admin/requests",
+            label: "Verification Requests",
             icon: (active: boolean) => <IconUsers active={active} />,
           },
           {
             href: "/admin/requests",
             label: "Admin Requests",
-            icon: (active: boolean) => <IconUsers active={active} />,
-          },
-        ]
-      : []),
-    ...(role === "STUDENT" || role === "TEACHER"
-      ? [
-          {
-            href: "/admin-request",
-            label: "Request Admin Access",
             icon: (active: boolean) => <IconUsers active={active} />,
           },
         ]

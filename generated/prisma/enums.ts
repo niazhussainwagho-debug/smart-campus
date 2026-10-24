@@ -20,6 +20,7 @@ export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 export const UserStatus = {
   PENDING: 'PENDING',
+  PENDING_VERIFICATION: 'PENDING_VERIFICATION',
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED'
 } as const
@@ -37,13 +38,18 @@ export const AdminStatus = {
 export type AdminStatus = (typeof AdminStatus)[keyof typeof AdminStatus]
 
 
-export const AdminVerificationDocumentType = {
+export const VerificationDocumentType = {
+  STUDENT_ID_CARD: 'STUDENT_ID_CARD',
+  COLLEGE_ADMISSION_LETTER: 'COLLEGE_ADMISSION_LETTER',
+  INTERMEDIATE_MARKS_SHEET: 'INTERMEDIATE_MARKS_SHEET',
+  APPOINTMENT_ORDER: 'APPOINTMENT_ORDER',
+  FACULTY_JOINING_LETTER: 'FACULTY_JOINING_LETTER',
   DEGREE: 'DEGREE',
   GAZETTE_NOTIFICATION: 'GAZETTE_NOTIFICATION',
   AUTHORIZATION_LETTER: 'AUTHORIZATION_LETTER'
 } as const
 
-export type AdminVerificationDocumentType = (typeof AdminVerificationDocumentType)[keyof typeof AdminVerificationDocumentType]
+export type VerificationDocumentType = (typeof VerificationDocumentType)[keyof typeof VerificationDocumentType]
 
 
 export const DayOfWeek = {

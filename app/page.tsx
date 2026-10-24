@@ -9,5 +9,8 @@ export default async function Home() {
     redirect("/login");
   }
 
+  if (session.user.status === "PENDING_VERIFICATION") {
+    redirect("/verification");
+  }
   redirect(getDashboardPath(session.user.role));
 }

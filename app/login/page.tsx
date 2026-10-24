@@ -12,6 +12,9 @@ export default async function LoginPage() {
   const session = await auth();
 
   if (session?.user) {
+    if (session.user.status === "PENDING_VERIFICATION") {
+      redirect("/verification");
+    }
     redirect(getDashboardPath(session.user.role));
   }
 

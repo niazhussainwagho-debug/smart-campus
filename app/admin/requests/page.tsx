@@ -1,10 +1,6 @@
 import { AdminRequestReview } from "@/components/admin-request-review";
 import { DashboardShell } from "@/components/dashboard-shell";
-import {
-  AdminStatus,
-  UserRole,
-  UserStatus,
-} from "@/generated/prisma/enums";
+import { UserRole, UserStatus } from "@/generated/prisma/enums";
 import { requireApprovedAdmin } from "@/lib/auth-helpers";
 import { prisma } from "@/lib/prisma";
 
@@ -12,9 +8,7 @@ export default async function AdminRequestsPage() {
   const admin = await requireApprovedAdmin();
   const requests = await prisma.user.findMany({
     where: {
-      adminStatus: AdminStatus.PENDING,
-      status: UserStatus.APPROVED,
-      role: { in: [UserRole.STUDENT, UserRole.TEACHER] },
+      status: UserStatus.PENDING_VERIFICATION,
     },
     select: {
       id: true,
@@ -23,7 +17,7 @@ export default async function AdminRequestsPage() {
       department: true,
       role: true,
       createdAt: true,
-      adminVerificationDocuments: {
+      verificationDocumentFiles: {
         select: { id: true, documentType: true },
       },
     },
@@ -34,8 +28,8 @@ export default async function AdminRequestsPage() {
     <DashboardShell
       badge="Admin Operations"
       role={UserRole.ADMIN}
-      subtitle="Review HEC-verified degree, government appointment, and signed university authorization documents before granting Admin access."
-      title="Admin Verification Requests"
+      subtitle="Review student, faculty, and Admin verification documents submitted during account registration."
+      title="Account Verification Requests"
       user={admin}
     >
       <AdminRequestReview
@@ -44,10 +38,9 @@ export default async function AdminRequestsPage() {
           name: request.name,
           email: request.email,
           department: request.department,
-          role:
-            request.role === UserRole.TEACHER ? UserRole.TEACHER : UserRole.STUDENT,
+          role: request.role,
           createdAt: request.createdAt.toISOString(),
-          documents: request.adminVerificationDocuments.map((document) => ({
+          documents: request.verificationDocumentFiles.map((document) => ({
             url: `/api/admin-documents/${document.id}`,
             type: document.documentType,
           })),

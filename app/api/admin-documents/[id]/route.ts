@@ -26,12 +26,12 @@ export async function GET(
 
   const { id } = await params;
   const url = `/api/admin-documents/${id}`;
-  const document = await prisma.adminVerificationDocument.findFirst({
+  const document = await prisma.userVerificationDocument.findFirst({
     where: {
       id,
       user: {
         is: {
-          adminDocuments: { has: url },
+          verificationDocuments: { has: url },
         },
       },
     },

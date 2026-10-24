@@ -2,12 +2,12 @@
 
 import {
   AdminStatus,
-  AdminVerificationDocumentType,
   UserRole,
   UserStatus,
 } from "@/generated/prisma/enums";
 import { revalidatePath } from "next/cache";
 import { requireApprovedAdmin } from "@/lib/auth-helpers";
+import { isValidVerificationDocumentSet } from "@/lib/verification-documents";
 import { prisma } from "@/lib/prisma";
 
 export type AdminReviewResult = {
@@ -38,12 +38,11 @@ export async function reviewAdminRequestAction(
   const candidate = await prisma.user.findFirst({
     where: {
       id,
-      role: { in: [UserRole.STUDENT, UserRole.TEACHER] },
-      status: UserStatus.APPROVED,
-      adminStatus: AdminStatus.PENDING,
+      status: UserStatus.PENDING_VERIFICATION,
     },
     select: {
-      adminVerificationDocuments: {
+      role: true,
+      verificationDocumentFiles: {
         select: { documentType: true },
       },
     },
@@ -51,38 +50,39 @@ export async function reviewAdminRequestAction(
   if (!candidate) {
     return {
       ok: false,
-      message: "This admin request is no longer pending.",
+      message: "This account is no longer pending verification.",
     };
   }
-  if (
-    decisionValue === AdminStatus.APPROVED &&
-    !Object.values(AdminVerificationDocumentType).every((documentType) =>
-      candidate.adminVerificationDocuments.some(
-        (document) => document.documentType === documentType,
-      ),
-    )
-  ) {
+  const documentTypes = candidate.verificationDocumentFiles.map(
+    ({ documentType }) => documentType,
+  );
+  if (!isValidVerificationDocumentSet(candidate.role, documentTypes)) {
     return {
       ok: false,
-      message: "This request does not have all required documents.",
+      message: "This request is missing required verification documents.",
     };
   }
 
   const update = await prisma.user.updateMany({
     where: {
       id,
-      role: { in: [UserRole.STUDENT, UserRole.TEACHER] },
-      status: UserStatus.APPROVED,
-      adminStatus: AdminStatus.PENDING,
+      status: UserStatus.PENDING_VERIFICATION,
+      role: candidate.role,
     },
     data:
       decisionValue === AdminStatus.APPROVED
         ? {
-            role: UserRole.ADMIN,
             status: UserStatus.APPROVED,
-            adminStatus: AdminStatus.APPROVED,
+            ...(candidate.role === UserRole.ADMIN
+              ? { adminStatus: AdminStatus.APPROVED }
+              : {}),
           }
-        : { adminStatus: AdminStatus.REJECTED },
+        : {
+            status: UserStatus.REJECTED,
+            ...(candidate.role === UserRole.ADMIN
+              ? { adminStatus: AdminStatus.REJECTED }
+              : {}),
+          },
   });
   if (update.count === 0) {
     return {
@@ -94,12 +94,12 @@ export async function reviewAdminRequestAction(
   revalidatePath("/admin/requests");
   revalidatePath("/admin");
   revalidatePath("/admin/timetable");
-  revalidatePath("/admin-request");
+  revalidatePath("/verification");
   return {
     ok: true,
     message:
       decisionValue === AdminStatus.APPROVED
-        ? "Admin request approved."
-        : "Admin request rejected.",
+        ? "Account verification approved."
+        : "Account verification rejected.",
   };
 }

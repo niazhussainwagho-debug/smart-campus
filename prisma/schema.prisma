@@ -15,6 +15,7 @@ enum UserRole {
 
 enum UserStatus {
   PENDING
+  PENDING_VERIFICATION
   APPROVED
   REJECTED
 }
@@ -26,7 +27,12 @@ enum AdminStatus {
   REJECTED
 }
 
-enum AdminVerificationDocumentType {
+enum VerificationDocumentType {
+  STUDENT_ID_CARD
+  COLLEGE_ADMISSION_LETTER
+  INTERMEDIATE_MARKS_SHEET
+  APPOINTMENT_ORDER
+  FACULTY_JOINING_LETTER
   DEGREE
   GAZETTE_NOTIFICATION
   AUTHORIZATION_LETTER
@@ -72,9 +78,9 @@ model User {
   email                String             @unique
   passwordHash         String
   role                 UserRole
-  status               UserStatus         @default(APPROVED)
+  status               UserStatus         @default(PENDING_VERIFICATION)
   adminStatus          AdminStatus        @default(NONE)
-  adminDocuments       String[]           @default([])
+  verificationDocuments String[]          @default([])
   department           String?
   semester             Int?
   rollNo               String?            @unique
@@ -104,21 +110,21 @@ model User {
   notifications        Notification[]
   studentAttendance    Attendance[]       @relation("AttendanceStudent")
   attendanceMarked     Attendance[]       @relation("AttendanceMarker")
-  adminVerificationDocuments AdminVerificationDocument[]
+  verificationDocumentFiles  UserVerificationDocument[]
 
   @@index([role])
   @@index([adminStatus])
 }
 
-model AdminVerificationDocument {
-  id           String                        @id
+model UserVerificationDocument {
+  id           String                  @id
   userId       String
-  documentType AdminVerificationDocumentType
+  documentType VerificationDocumentType
   filename     String
   mimeType     String
-  content      Bytes                         @db.ByteA
-  createdAt    DateTime                      @default(now())
-  user         User                          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content      Bytes                   @db.ByteA
+  createdAt    DateTime                @default(now())
+  user         User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, documentType])
   @@index([userId])

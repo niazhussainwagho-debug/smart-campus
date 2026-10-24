@@ -398,7 +398,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  AdminVerificationDocument: 'AdminVerificationDocument',
+  UserVerificationDocument: 'UserVerificationDocument',
   EmailVerificationCode: 'EmailVerificationCode',
   PasswordResetToken: 'PasswordResetToken',
   Course: 'Course',
@@ -427,7 +427,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "adminVerificationDocument" | "emailVerificationCode" | "passwordResetToken" | "course" | "section" | "enrollment" | "room" | "timetableSlot" | "availabilitySlot" | "appointment" | "deadline" | "announcement" | "notification" | "attendance"
+    modelProps: "user" | "userVerificationDocument" | "emailVerificationCode" | "passwordResetToken" | "course" | "section" | "enrollment" | "room" | "timetableSlot" | "availabilitySlot" | "appointment" | "deadline" | "announcement" | "notification" | "attendance"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -505,77 +505,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    AdminVerificationDocument: {
-      payload: Prisma.$AdminVerificationDocumentPayload<ExtArgs>
-      fields: Prisma.AdminVerificationDocumentFieldRefs
+    UserVerificationDocument: {
+      payload: Prisma.$UserVerificationDocumentPayload<ExtArgs>
+      fields: Prisma.UserVerificationDocumentFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.AdminVerificationDocumentFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminVerificationDocumentPayload> | null
+          args: Prisma.UserVerificationDocumentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserVerificationDocumentPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.AdminVerificationDocumentFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminVerificationDocumentPayload>
+          args: Prisma.UserVerificationDocumentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserVerificationDocumentPayload>
         }
         findFirst: {
-          args: Prisma.AdminVerificationDocumentFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminVerificationDocumentPayload> | null
+          args: Prisma.UserVerificationDocumentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserVerificationDocumentPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.AdminVerificationDocumentFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminVerificationDocumentPayload>
+          args: Prisma.UserVerificationDocumentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserVerificationDocumentPayload>
         }
         findMany: {
-          args: Prisma.AdminVerificationDocumentFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminVerificationDocumentPayload>[]
+          args: Prisma.UserVerificationDocumentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserVerificationDocumentPayload>[]
         }
         create: {
-          args: Prisma.AdminVerificationDocumentCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminVerificationDocumentPayload>
+          args: Prisma.UserVerificationDocumentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserVerificationDocumentPayload>
         }
         createMany: {
-          args: Prisma.AdminVerificationDocumentCreateManyArgs<ExtArgs>
+          args: Prisma.UserVerificationDocumentCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.AdminVerificationDocumentCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminVerificationDocumentPayload>[]
+          args: Prisma.UserVerificationDocumentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserVerificationDocumentPayload>[]
         }
         delete: {
-          args: Prisma.AdminVerificationDocumentDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminVerificationDocumentPayload>
+          args: Prisma.UserVerificationDocumentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserVerificationDocumentPayload>
         }
         update: {
-          args: Prisma.AdminVerificationDocumentUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminVerificationDocumentPayload>
+          args: Prisma.UserVerificationDocumentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserVerificationDocumentPayload>
         }
         deleteMany: {
-          args: Prisma.AdminVerificationDocumentDeleteManyArgs<ExtArgs>
+          args: Prisma.UserVerificationDocumentDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.AdminVerificationDocumentUpdateManyArgs<ExtArgs>
+          args: Prisma.UserVerificationDocumentUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.AdminVerificationDocumentUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminVerificationDocumentPayload>[]
+          args: Prisma.UserVerificationDocumentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserVerificationDocumentPayload>[]
         }
         upsert: {
-          args: Prisma.AdminVerificationDocumentUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdminVerificationDocumentPayload>
+          args: Prisma.UserVerificationDocumentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserVerificationDocumentPayload>
         }
         aggregate: {
-          args: Prisma.AdminVerificationDocumentAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateAdminVerificationDocument>
+          args: Prisma.UserVerificationDocumentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserVerificationDocument>
         }
         groupBy: {
-          args: Prisma.AdminVerificationDocumentGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AdminVerificationDocumentGroupByOutputType>[]
+          args: Prisma.UserVerificationDocumentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserVerificationDocumentGroupByOutputType>[]
         }
         count: {
-          args: Prisma.AdminVerificationDocumentCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AdminVerificationDocumentCountAggregateOutputType> | number
+          args: Prisma.UserVerificationDocumentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserVerificationDocumentCountAggregateOutputType> | number
         }
       }
     }
@@ -1588,7 +1588,7 @@ export const UserScalarFieldEnum = {
   role: 'role',
   status: 'status',
   adminStatus: 'adminStatus',
-  adminDocuments: 'adminDocuments',
+  verificationDocuments: 'verificationDocuments',
   department: 'department',
   semester: 'semester',
   rollNo: 'rollNo',
@@ -1610,7 +1610,7 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const AdminVerificationDocumentScalarFieldEnum = {
+export const UserVerificationDocumentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   documentType: 'documentType',
@@ -1620,7 +1620,7 @@ export const AdminVerificationDocumentScalarFieldEnum = {
   createdAt: 'createdAt'
 } as const
 
-export type AdminVerificationDocumentScalarFieldEnum = (typeof AdminVerificationDocumentScalarFieldEnum)[keyof typeof AdminVerificationDocumentScalarFieldEnum]
+export type UserVerificationDocumentScalarFieldEnum = (typeof UserVerificationDocumentScalarFieldEnum)[keyof typeof UserVerificationDocumentScalarFieldEnum]
 
 
 export const EmailVerificationCodeScalarFieldEnum = {
@@ -1891,16 +1891,16 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
- * Reference to a field of type 'AdminVerificationDocumentType'
+ * Reference to a field of type 'VerificationDocumentType'
  */
-export type EnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdminVerificationDocumentType'>
+export type EnumVerificationDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationDocumentType'>
 
 
 
 /**
- * Reference to a field of type 'AdminVerificationDocumentType[]'
+ * Reference to a field of type 'VerificationDocumentType[]'
  */
-export type ListEnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdminVerificationDocumentType[]'>
+export type ListEnumVerificationDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerificationDocumentType[]'>
 
 
 
@@ -2160,7 +2160,7 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
-  adminVerificationDocument?: Prisma.AdminVerificationDocumentOmit
+  userVerificationDocument?: Prisma.UserVerificationDocumentOmit
   emailVerificationCode?: Prisma.EmailVerificationCodeOmit
   passwordResetToken?: Prisma.PasswordResetTokenOmit
   course?: Prisma.CourseOmit

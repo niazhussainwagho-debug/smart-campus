@@ -231,7 +231,7 @@ function QuickLinks({ role }: { role: UserRole }) {
     ...(role === "ADMIN"
       ? [
           {
-            href: "/admin/teachers",
+            href: "/admin/requests",
             title: "Teacher requests",
             detail: "Approve pending teacher registrations",
             icon: "♙",

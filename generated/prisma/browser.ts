@@ -23,10 +23,10 @@ export * from './enums';
  */
 export type User = Prisma.UserModel
 /**
- * Model AdminVerificationDocument
+ * Model UserVerificationDocument
  *
  */
-export type AdminVerificationDocument = Prisma.AdminVerificationDocumentModel
+export type UserVerificationDocument = Prisma.UserVerificationDocumentModel
 /**
  * Model EmailVerificationCode
  *

@@ -1,5 +1,9 @@
 import { redirect } from "next/navigation";
-import { AdminStatus, UserRole, UserStatus } from "@/generated/prisma/enums";
+import {
+  AdminStatus,
+  UserRole,
+  UserStatus,
+} from "@/generated/prisma/enums";
 import { auth } from "@/auth";
 import { getDashboardPath } from "@/lib/roles";
 import { prisma } from "@/lib/prisma";
@@ -14,6 +18,17 @@ export async function requireRole(role: UserRole | UserRole[]) {
   const allowedRoles = Array.isArray(role) ? role : [role];
   if (!allowedRoles.includes(session.user.role)) {
     redirect(getDashboardPath(session.user.role));
+  }
+
+  const account = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { status: true },
+  });
+  if (account?.status === UserStatus.PENDING_VERIFICATION) {
+    redirect("/verification");
+  }
+  if (!account || account.status !== UserStatus.APPROVED) {
+    redirect("/login");
   }
 
   return session.user;

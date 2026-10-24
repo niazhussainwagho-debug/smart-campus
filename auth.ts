@@ -27,9 +27,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.role = token.role;
         const user = await prisma.user.findUnique({
           where: { id: token.id },
-          select: { image: true },
+          select: { image: true, role: true, status: true },
         });
-        session.user.image = user?.image ?? null;
+        if (user) {
+          session.user.image = user.image;
+          session.user.role = user.role;
+          session.user.status = user.status;
+        }
       }
 
       return session;
@@ -66,7 +70,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (user.status === UserStatus.PENDING) {
           throw new PendingApprovalError();
         }
-        if (user.status !== UserStatus.APPROVED) {
+        if (
+          user.status !== UserStatus.APPROVED &&
+          user.status !== UserStatus.PENDING_VERIFICATION
+        ) {
           return null;
         }
 
@@ -75,6 +82,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           name: user.name,
           email: user.email,
           role: user.role,
+          status: user.status,
         };
       },
     }),
