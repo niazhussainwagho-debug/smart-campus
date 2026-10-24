@@ -121,12 +121,14 @@ const timetableButtonClass =
   "rounded-lg bg-gradient-to-r from-[#49d5d8] via-[#6af0cc] to-[#47d9c7] px-3 py-2 text-xs font-bold text-[#06141d] shadow-md shadow-cyan-500/15 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50";
 
 export function AdminTimetableManager({
+  canCreateCourses,
   courses,
   sections,
   rooms,
   teachers,
   slots,
 }: {
+  canCreateCourses: boolean;
   courses: CourseOption[];
   sections: SectionOption[];
   rooms: RoomOption[];
@@ -269,37 +271,58 @@ export function AdminTimetableManager({
 
         <div className="border-t border-[#233246] p-4 sm:p-5">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          <form
-            className="min-w-0 rounded-[22px] border border-[#2b3c4b] bg-[#101b2a] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] sm:p-5"
-            onSubmit={(event) =>
-              submitAction(event, createCourseAction, setCourseNotice, true)
-            }
-          >
-            <h3 className="break-words text-xl font-bold text-white sm:text-2xl">Add Course</h3>
-            <label className={labelClass}>
-              Course code
-              <input className={inputClass} name="code" placeholder="e.g. CS-301" required />
-            </label>
-            <label className={labelClass}>
-              Course name
-              <input className={inputClass} name="name" placeholder="e.g. Data Structures" required />
-            </label>
-            <label className={labelClass}>
-              Assigned Teacher
-              <select className={`${inputClass} appearance-none`} name="teacherId" required>
-                <option value="">Select teacher</option>
-                {teachers.map((teacher) => (
-                  <option key={teacher.id} value={teacher.id}>
-                    {teacher.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <button className={`${buttonClass} mt-6 w-full`} disabled={isPending || !teachers.length}>
-              Save Course
-            </button>
-            <Notice notice={courseNotice} />
-          </form>
+          {canCreateCourses ? (
+            <form
+              className="min-w-0 rounded-[22px] border border-[#2b3c4b] bg-[#101b2a] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] sm:p-5"
+              onSubmit={(event) =>
+                submitAction(event, createCourseAction, setCourseNotice, true)
+              }
+            >
+              <h3 className="break-words text-xl font-bold text-white sm:text-2xl">
+                Add Course
+              </h3>
+              <label className={labelClass}>
+                Course code
+                <input
+                  className={inputClass}
+                  name="code"
+                  placeholder="e.g. CS-301"
+                  required
+                />
+              </label>
+              <label className={labelClass}>
+                Course name
+                <input
+                  className={inputClass}
+                  name="name"
+                  placeholder="e.g. Data Structures"
+                  required
+                />
+              </label>
+              <label className={labelClass}>
+                Assigned Teacher
+                <select
+                  className={`${inputClass} appearance-none`}
+                  name="teacherId"
+                  required
+                >
+                  <option value="">Select teacher</option>
+                  {teachers.map((teacher) => (
+                    <option key={teacher.id} value={teacher.id}>
+                      {teacher.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                className={`${buttonClass} mt-6 w-full`}
+                disabled={isPending || !teachers.length}
+              >
+                Save Course
+              </button>
+              <Notice notice={courseNotice} />
+            </form>
+          ) : null}
 
           <form
             className="min-w-0 rounded-[22px] border border-[#2b3c4b] bg-[#101b2a] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] sm:p-5"

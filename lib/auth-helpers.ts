@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
-import { UserRole } from "@/generated/prisma/enums";
+import { AdminStatus, UserRole, UserStatus } from "@/generated/prisma/enums";
 import { auth } from "@/auth";
 import { getDashboardPath } from "@/lib/roles";
+import { prisma } from "@/lib/prisma";
 
 export async function requireRole(role: UserRole | UserRole[]) {
   const session = await auth();
@@ -16,4 +17,23 @@ export async function requireRole(role: UserRole | UserRole[]) {
   }
 
   return session.user;
+}
+
+export async function requireApprovedAdmin() {
+  const user = await requireRole(UserRole.ADMIN);
+  const approvedAdmin = await prisma.user.findFirst({
+    where: {
+      id: user.id,
+      role: UserRole.ADMIN,
+      status: UserStatus.APPROVED,
+      adminStatus: AdminStatus.APPROVED,
+    },
+    select: { id: true },
+  });
+
+  if (!approvedAdmin) {
+    throw new Error("Approved administrator access is required.");
+  }
+
+  return user;
 }

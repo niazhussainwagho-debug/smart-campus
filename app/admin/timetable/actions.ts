@@ -7,7 +7,7 @@ import {
   checkTimetableClashes,
   type TimetableSlotForClash,
 } from "@/lib/clash";
-import { requireRole } from "@/lib/auth-helpers";
+import { requireApprovedAdmin, requireRole } from "@/lib/auth-helpers";
 import { prisma } from "@/lib/prisma";
 import type { TimetableActionResult } from "@/lib/timetable-action-result";
 
@@ -54,7 +54,7 @@ function revalidateTimetables(): void {
 export async function createCourseAction(
   formData: FormData,
 ): Promise<TimetableActionResult> {
-  await requireRole([UserRole.ADMIN, UserRole.TEACHER]);
+  await requireApprovedAdmin();
 
   const code = field(formData, "code").toUpperCase();
   const name = field(formData, "name");

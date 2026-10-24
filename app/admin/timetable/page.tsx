@@ -1,6 +1,6 @@
 import { AdminTimetableManager } from "@/components/admin-timetable-manager";
 import { DashboardShell } from "@/components/dashboard-shell";
-import { UserRole, UserStatus } from "@/generated/prisma/enums";
+import { AdminStatus, UserRole, UserStatus } from "@/generated/prisma/enums";
 import { requireRole } from "@/lib/auth-helpers";
 import { prisma } from "@/lib/prisma";
 
@@ -14,7 +14,17 @@ function formatTime(value: Date): string {
 
 export default async function AdminTimetablePage() {
   const user = await requireRole([UserRole.ADMIN, UserRole.TEACHER]);
-  const isAdmin = user.role === UserRole.ADMIN;
+  const isAdmin =
+    user.role === UserRole.ADMIN &&
+    (await prisma.user.findFirst({
+      where: {
+        id: user.id,
+        role: UserRole.ADMIN,
+        status: UserStatus.APPROVED,
+        adminStatus: AdminStatus.APPROVED,
+      },
+      select: { id: true },
+    })) !== null;
 
   const [courses, sections, rooms, teachers, slots] = await Promise.all([
     prisma.course.findMany({
@@ -51,6 +61,7 @@ export default async function AdminTimetablePage() {
       user={user}
     >
       <AdminTimetableManager
+        canCreateCourses={isAdmin}
         courses={courses.map((course) => ({
           id: course.id,
           code: course.code,

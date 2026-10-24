@@ -19,6 +19,13 @@ enum UserStatus {
   REJECTED
 }
 
+enum AdminStatus {
+  NONE
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 enum DayOfWeek {
   MON
   TUE
@@ -60,6 +67,8 @@ model User {
   passwordHash         String
   role                 UserRole
   status               UserStatus         @default(APPROVED)
+  adminStatus          AdminStatus        @default(NONE)
+  adminDocuments       String[]           @default([])
   department           String?
   semester             Int?
   rollNo               String?            @unique
@@ -89,8 +98,22 @@ model User {
   notifications        Notification[]
   studentAttendance    Attendance[]       @relation("AttendanceStudent")
   attendanceMarked     Attendance[]       @relation("AttendanceMarker")
+  adminVerificationDocuments AdminVerificationDocument[]
 
   @@index([role])
+  @@index([adminStatus])
+}
+
+model AdminVerificationDocument {
+  id        String   @id
+  userId    String
+  filename  String
+  mimeType  String
+  content   Bytes    @db.ByteA
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model EmailVerificationCode {

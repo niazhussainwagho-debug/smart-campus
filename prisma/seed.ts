@@ -49,6 +49,7 @@ async function main() {
       name: "Campus Admin",
       role: "ADMIN",
       status: "APPROVED",
+      adminStatus: "APPROVED",
       emailVerifiedAt: new Date(),
       passwordHash: adminPasswordHash,
     },
@@ -58,6 +59,7 @@ async function main() {
       passwordHash: adminPasswordHash,
       role: "ADMIN",
       status: "APPROVED",
+      adminStatus: "APPROVED",
       emailVerifiedAt: new Date(),
     },
   });
