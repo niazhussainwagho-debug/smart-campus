@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+  type FormEvent,
+} from "react";
 import { useRouter } from "next/navigation";
 import { AttendanceStatus } from "@/generated/prisma/enums";
 import {
@@ -61,7 +67,25 @@ export function TeacherAttendanceManager({
   const [loadingRoster, setLoadingRoster] = useState(false);
   const [loadingError, setLoadingError] = useState("");
   const [result, setResult] = useState<AttendanceActionResult | null>(null);
+  const [quickEntryFeedback, setQuickEntryFeedback] = useState<{
+    ok: boolean;
+    message: string;
+  } | null>(null);
+  const [highlightedStudentId, setHighlightedStudentId] = useState<string | null>(
+    null,
+  );
   const [isPending, startTransition] = useTransition();
+  const quickEntryInput = useRef<HTMLInputElement>(null);
+  const highlightTimeout = useRef<number | null>(null);
+
+  useEffect(
+    () => () => {
+      if (highlightTimeout.current !== null) {
+        window.clearTimeout(highlightTimeout.current);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     if (!selectedSlotId || !date) return;
@@ -111,6 +135,67 @@ export function TeacherAttendanceManager({
         status: AttendanceStatus.PRESENT,
       })),
     );
+  }
+
+  function submitQuickEntry(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const input = quickEntryInput.current;
+    const entry = input?.value.trim() ?? "";
+    if (!entry) {
+      input?.focus();
+      return;
+    }
+
+    const normalizedEntry = entry.toUpperCase().replace(/[^A-Z0-9]/g, "");
+    const matches = students.filter((student) => {
+      if (!student.rollNo) return false;
+      const normalizedRollNo = student.rollNo
+        .toUpperCase()
+        .replace(/[^A-Z0-9]/g, "");
+      const lastRollNumberPart = student.rollNo
+        .split(/[\\/.-]/)
+        .filter(Boolean)
+        .at(-1)
+        ?.toUpperCase()
+        .replace(/[^A-Z0-9]/g, "");
+      return (
+        normalizedRollNo === normalizedEntry ||
+        lastRollNumberPart === normalizedEntry
+      );
+    });
+
+    if (input) input.value = "";
+    input?.focus();
+
+    if (matches.length === 0) {
+      setQuickEntryFeedback({
+        ok: false,
+        message: `No student with roll number "${entry}" was found in this section.`,
+      });
+      return;
+    }
+    if (matches.length > 1) {
+      setQuickEntryFeedback({
+        ok: false,
+        message: `More than one student matches "${entry}". Enter the full roll number.`,
+      });
+      return;
+    }
+
+    const [student] = matches;
+    updateStatus(student.id, AttendanceStatus.PRESENT);
+    setQuickEntryFeedback({
+      ok: true,
+      message: `${student.name} (${student.rollNo}) marked present.`,
+    });
+    setHighlightedStudentId(student.id);
+    if (highlightTimeout.current !== null) {
+      window.clearTimeout(highlightTimeout.current);
+    }
+    highlightTimeout.current = window.setTimeout(() => {
+      setHighlightedStudentId(null);
+      highlightTimeout.current = null;
+    }, 1200);
   }
 
   function saveAttendance() {
@@ -244,6 +329,46 @@ export function TeacherAttendanceManager({
           </button>
         </div>
 
+        {!loadingRoster && students.length > 0 ? (
+          <div className="border-b border-border bg-muted/30 p-4 sm:px-6">
+            <form
+              className="flex flex-col gap-2 sm:flex-row sm:items-end"
+              onSubmit={submitQuickEntry}
+            >
+              <label className="grid flex-1 gap-1.5 text-sm font-semibold text-foreground">
+                Quick entry by roll number
+                <input
+                  autoComplete="off"
+                  className="min-h-11 rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
+                  onChange={() => setQuickEntryFeedback(null)}
+                  placeholder="Scan or enter roll number, then press Enter"
+                  ref={quickEntryInput}
+                  type="text"
+                />
+              </label>
+              <button
+                className="min-h-11 rounded-xl border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm font-semibold text-cyan-800 transition hover:bg-cyan-500/15 dark:text-cyan-200"
+                type="submit"
+              >
+                Mark Present
+              </button>
+            </form>
+            {quickEntryFeedback ? (
+              <p
+                aria-live="polite"
+                className={`mt-2 text-sm ${
+                  quickEntryFeedback.ok
+                    ? "text-emerald-700 dark:text-emerald-300"
+                    : "text-rose-700 dark:text-rose-300"
+                }`}
+                role={quickEntryFeedback.ok ? "status" : "alert"}
+              >
+                {quickEntryFeedback.message}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
+
         {classes.length === 0 ? (
           <p className="p-6 text-sm text-muted-foreground">
             No assigned timetable classes are available for attendance yet.
@@ -260,12 +385,19 @@ export function TeacherAttendanceManager({
           <ul className="divide-y divide-border">
             {students.map((student) => (
               <li
-                className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:px-6"
+                className={`flex flex-col gap-3 p-4 transition-colors duration-300 sm:flex-row sm:items-center sm:justify-between sm:px-6 ${
+                  highlightedStudentId === student.id
+                    ? "bg-emerald-500/15"
+                    : ""
+                }`}
                 key={student.id}
               >
                 <div className="min-w-0">
                   <p className="truncate font-semibold text-foreground">
                     {student.name}
+                  </p>
+                  <p className="mt-0.5 truncate text-xs font-medium text-muted-foreground">
+                    Roll No: {student.rollNo || "Not provided"}
                   </p>
                   <p className="mt-0.5 truncate text-sm text-muted-foreground">
                     {student.email}

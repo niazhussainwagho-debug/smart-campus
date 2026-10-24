@@ -10,6 +10,7 @@ export type AttendanceStudentRow = {
   id: string;
   name: string;
   email: string;
+  rollNo: string | null;
   status: AttendanceStatus | null;
 };
 
@@ -81,7 +82,9 @@ export async function loadAttendanceRosterAction(
           student: { role: UserRole.STUDENT },
         },
         select: {
-          student: { select: { id: true, name: true, email: true } },
+          student: {
+            select: { id: true, name: true, email: true, rollNo: true },
+          },
         },
         orderBy: { student: { name: "asc" } },
       }),
