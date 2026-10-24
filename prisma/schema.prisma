@@ -66,6 +66,8 @@ model User {
   fatherName           String?
   surname              String?
   category             String?
+  academicYear         String?
+  validUpto            String?
   phone                String?
   bloodGroup           String?
   emergencyContact     String?

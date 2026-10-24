@@ -1518,6 +1518,8 @@ export const UserScalarFieldEnum = {
   fatherName: 'fatherName',
   surname: 'surname',
   category: 'category',
+  academicYear: 'academicYear',
+  validUpto: 'validUpto',
   phone: 'phone',
   bloodGroup: 'bloodGroup',
   emergencyContact: 'emergencyContact',
@@ -1846,10 +1848,12 @@ export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputT
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
 
 
+
 /**
  * Reference to a field of type 'AttendanceStatus'
  */
 export type EnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus'>
+
 
 
 /**
@@ -1858,10 +1862,12 @@ export type EnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
 export type ListEnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus[]'>
 
 
+
 /**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+
 
 
 /**

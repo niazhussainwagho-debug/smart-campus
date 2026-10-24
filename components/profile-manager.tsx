@@ -26,6 +26,8 @@ type ProfileData = {
   fatherName: string;
   surname: string;
   category: string;
+  academicYear: string;
+  validUpto: string;
   phone: string;
   bloodGroup: string;
   emergencyContact: string;
@@ -71,6 +73,8 @@ export function ProfileManager({
   const [fatherName, setFatherName] = useState(profile.fatherName);
   const [rollNo, setRollNo] = useState(profile.rollNo);
   const [category, setCategory] = useState(profile.category);
+  const [academicYear, setAcademicYear] = useState(profile.academicYear);
+  const [validUpto, setValidUpto] = useState(profile.validUpto);
   const [bloodGroup, setBloodGroup] = useState(profile.bloodGroup);
   const [department, setDepartment] = useState(profile.department);
   const [semester, setSemester] = useState(
@@ -136,6 +140,9 @@ export function ProfileManager({
     setIsExportingId(true);
     setIdCardError(null);
     try {
+      await Promise.all(
+        Array.from(card.querySelectorAll("img"), (image) => image.decode()),
+      );
       await document.fonts.ready;
       const dataUrl = await toPng(card, {
         cacheBust: true,
@@ -161,34 +168,40 @@ export function ProfileManager({
       <form className="grid min-w-0 gap-5 sm:grid-cols-2" onSubmit={submit}>
         <aside
           ref={idCardRef}
-          aria-label="Digital campus ID card preview"
-          className="campusIdCardPrint relative isolate overflow-hidden rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-slate-900 via-[#102b3a] to-cyan-950/80 p-5 shadow-lg shadow-cyan-950/30 transition-colors hover:border-cyan-400/40 sm:col-span-2"
+          aria-label="University of Sindh student identity card preview"
+          className="campusIdCardPrint relative isolate overflow-hidden rounded-xl border border-slate-300 bg-white p-4 text-slate-900 shadow-lg sm:col-span-2 sm:p-5"
         >
-          <div className="absolute -right-12 -top-16 -z-10 h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl" />
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-cyan-300">
-                CAMPUS.OS
-              </p>
-              <h2 className="mt-1 text-sm font-semibold text-white">
-                Digital Campus ID
+          <div className="flex min-w-0 items-center gap-3 border-b-2 border-amber-500 pb-3">
+            {/* The logo is a local asset so it also renders in PNG and print exports. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              alt="University of Sindh emblem"
+              className="h-14 w-14 shrink-0 object-contain sm:h-16 sm:w-16"
+              src="/images/university-sindh-logo.png"
+            />
+            <div className="min-w-0 flex-1">
+              <h2 className="text-sm font-black leading-tight tracking-wide text-[#12365a] sm:text-lg">
+                UNIVERSITY OF SINDH
               </h2>
+              <p className="mt-1 text-[8px] font-semibold leading-tight text-slate-700 sm:text-[10px]">
+                JAMSHORO, SINDH, PAKISTAN • ALLAMA I.I. KAZI CAMPUS
+              </p>
             </div>
-            <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-emerald-300">
-              Active
-            </span>
+            <p className="max-w-20 text-right text-[9px] font-extrabold uppercase leading-tight tracking-wide text-[#12365a] sm:max-w-32 sm:text-xs">
+              Student Identity Card
+            </p>
           </div>
-          <div className="mt-5 flex min-w-0 items-center gap-4">
+          <div className="mt-4 flex min-w-0 items-start gap-4">
             {avatarPreview ? (
               // Uploaded images are validated as raster images before persistence.
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                alt=""
-                className="h-16 w-16 shrink-0 rounded-xl border border-cyan-300/30 object-cover shadow-md"
+                alt={`Photo of ${studentName || "student"}`}
+                className="h-24 w-20 shrink-0 rounded border border-slate-300 object-cover shadow-sm sm:h-28 sm:w-24"
                 src={avatarPreview}
               />
             ) : (
-              <span className="grid h-16 w-16 shrink-0 place-items-center rounded-xl border border-cyan-300/30 bg-cyan-400/10 text-xl font-bold text-cyan-200">
+              <span className="grid h-24 w-20 shrink-0 place-items-center rounded border border-slate-300 bg-slate-100 text-xl font-bold text-[#12365a] sm:h-28 sm:w-24">
                 {name
                   .split(/\s+/)
                   .map((part) => part[0])
@@ -197,99 +210,93 @@ export function ProfileManager({
                   .toUpperCase() || "U"}
               </span>
             )}
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-lg font-bold text-white">
-                {studentName || "Full Name"}
-              </p>
-              <p className="mt-1 text-xs font-medium text-cyan-100/70">
-                {profile.role === "STUDENT" ? "STUDENT" : "FACULTY"}
-              </p>
-              <p className="mt-1 truncate text-[10px] font-medium text-slate-300">
-                ID #{profile.id}
-              </p>
-              <p className="mt-2 truncate text-xs text-slate-300">
-                {department || "Department not selected"}
-                {profile.role === "STUDENT" && semester
-                  ? ` · Semester ${semester}`
-                  : ""}
-              </p>
+            <div className="grid min-w-0 flex-1 grid-cols-2 gap-x-3 gap-y-2 text-[10px] sm:gap-x-5 sm:text-xs">
+              <div className="col-span-2 min-w-0 border-b border-slate-200 pb-1">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-slate-500">
+                  Student Name
+                </p>
+                <p className="truncate text-sm font-extrabold uppercase text-[#12365a] sm:text-base">
+                  {studentName || "Full Name"}
+                </p>
+              </div>
+              <div className="min-w-0">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-slate-500">
+                  Father&apos;s Name
+                </p>
+                <p className="truncate font-semibold text-slate-900">
+                  {fatherName || "Not provided"}
+                </p>
+              </div>
+              <div className="min-w-0">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-slate-500">
+                  Surname
+                </p>
+                <p className="truncate font-semibold text-slate-900">
+                  {surname || "Not provided"}
+                </p>
+              </div>
+              <div className="min-w-0">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-slate-500">
+                  Roll No
+                </p>
+                <p className="truncate font-semibold text-slate-900">
+                  {rollNo || "Not provided"}
+                </p>
+                <p className="mt-1 text-[8px] font-bold uppercase tracking-wider text-slate-500">
+                  Valid Upto : {validUpto || "Not provided"}
+                </p>
+              </div>
+              <div className="min-w-0">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-slate-500">
+                  Blood Group
+                </p>
+                <p className="truncate font-semibold text-slate-900">
+                  {bloodGroup || "Not provided"}
+                </p>
+              </div>
+              <div className="col-span-2 min-w-0">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-slate-500">
+                  Department
+                </p>
+                <p className="truncate font-semibold text-slate-900">
+                  {department || "Not provided"}
+                </p>
+              </div>
             </div>
           </div>
-          {profile.role === "STUDENT" ? (
-            <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-white/10 pt-3 text-xs">
-              <div className="min-w-0">
-                <dt className="text-[9px] uppercase tracking-wider text-slate-400">
-                  Roll No
-                </dt>
-                <dd className="truncate font-semibold text-white">
-                  {rollNo || "Not provided"}
-                </dd>
-              </div>
-              <div className="min-w-0">
-                <dt className="text-[9px] uppercase tracking-wider text-slate-400">
-                  Father&apos;s Name
-                </dt>
-                <dd className="truncate font-semibold text-white">
-                  {fatherName || "Not provided"}
-                </dd>
-              </div>
-              <div className="min-w-0">
-                <dt className="text-[9px] uppercase tracking-wider text-slate-400">
-                  Surname
-                </dt>
-                <dd className="truncate font-semibold text-white">
-                  {surname || "Not provided"}
-                </dd>
-              </div>
-              <div className="min-w-0">
-                <dt className="text-[9px] uppercase tracking-wider text-slate-400">
-                  Blood Group
-                </dt>
-                <dd className="truncate font-semibold text-white">
-                  {bloodGroup || "Not provided"}
-                </dd>
-              </div>
-              <div className="min-w-0">
-                <dt className="text-[9px] uppercase tracking-wider text-slate-400">
-                  Category
-                </dt>
-                <dd className="truncate font-semibold text-white">
-                  {category || "Not provided"}
-                </dd>
-              </div>
-              <div className="min-w-0">
-                <dt className="text-[9px] uppercase tracking-wider text-slate-400">
-                  Department
-                </dt>
-                <dd className="truncate font-semibold text-white">
-                  {department || "Not provided"}
-                </dd>
-              </div>
-            </dl>
-          ) : null}
-          <div className="mt-5 flex items-end justify-between gap-4 border-t border-white/10 pt-3">
-            <span className="text-[9px] uppercase tracking-[0.18em] text-slate-400">
-              Smart Campus Identity
-            </span>
-            <svg
-              aria-label="Simulated campus identification barcode"
-              className="h-8 w-28 rounded bg-white p-1"
-              role="img"
-              viewBox={`0 0 ${barcodeBars.reduce((sum, width) => sum + width + 1, 0)} 24`}
-            >
-              {barcodeBars.map((width, index) => (
-                <rect
-                  fill="#102431"
-                  height={index % 5 === 0 ? 24 : 20}
-                  key={index}
-                  width={width}
-                  x={barcodeBars
-                    .slice(0, index)
-                    .reduce((sum, previousWidth) => sum + previousWidth + 1, 0)}
-                  y={index % 5 === 0 ? 0 : 2}
-                />
-              ))}
-            </svg>
+          <div className="mt-3 flex items-center justify-between gap-3 rounded-b-md bg-[#12365a] px-3 py-2 text-white">
+            <div className="min-w-0">
+              <p className="text-[8px] font-bold uppercase tracking-[0.16em] text-amber-300">
+                Academic Year
+              </p>
+              <p className="truncate text-xs font-extrabold uppercase tracking-wide sm:text-sm">
+                {academicYear || "Not provided"}
+              </p>
+            </div>
+            <div className="shrink-0 border-l border-white/30 pl-3 text-right">
+              <p className="text-[8px] font-bold uppercase tracking-wider text-white/70">
+                Category: {category || "Not provided"}
+              </p>
+              <svg
+                aria-label="Simulated campus identification barcode"
+                className="mt-1 h-6 w-24 rounded bg-white p-1"
+                role="img"
+                viewBox={`0 0 ${barcodeBars.reduce((sum, width) => sum + width + 1, 0)} 24`}
+              >
+                {barcodeBars.map((width, index) => (
+                  <rect
+                    fill="#102431"
+                    height={index % 5 === 0 ? 24 : 20}
+                    key={index}
+                    width={width}
+                    x={barcodeBars
+                      .slice(0, index)
+                      .reduce((sum, previousWidth) => sum + previousWidth + 1, 0)}
+                    y={index % 5 === 0 ? 0 : 2}
+                  />
+                ))}
+              </svg>
+            </div>
           </div>
         </aside>
         <div className="campusIdCardActions flex flex-wrap items-center gap-3 sm:col-span-2">
@@ -393,7 +400,7 @@ export function ProfileManager({
 
         <div className="grid min-w-0 gap-4 rounded-xl border border-slate-800 bg-slate-900/30 p-4 sm:col-span-2 sm:grid-cols-2">
           <h2 className="text-sm font-semibold text-white sm:col-span-2">
-            Personal details
+            Personal and academic details
           </h2>
           <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
             Full name
@@ -463,6 +470,38 @@ export function ProfileManager({
                   value={category}
                 />
               </label>
+              <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Academic year / year of study
+                <input
+                  autoComplete="off"
+                  className={inputClass}
+                  list="academic-year-options"
+                  maxLength={100}
+                  name="academicYear"
+                  onChange={(event) => setAcademicYear(event.target.value)}
+                  placeholder="SECOND YEAR - ACADEMIC YEAR 2025"
+                  value={academicYear}
+                />
+                <datalist id="academic-year-options">
+                  <option value="FIRST YEAR" />
+                  <option value="SECOND YEAR" />
+                  <option value="SECOND YEAR - ACADEMIC YEAR 2025" />
+                  <option value="THIRD YEAR" />
+                  <option value="FINAL YEAR" />
+                </datalist>
+              </label>
+              <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Valid upto
+                <input
+                  autoComplete="off"
+                  className={inputClass}
+                  maxLength={40}
+                  name="validUpto"
+                  onChange={(event) => setValidUpto(event.target.value)}
+                  placeholder="DECEMBER 2026"
+                  value={validUpto}
+                />
+              </label>
             </>
           ) : null}
           <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
@@ -529,7 +568,7 @@ export function ProfileManager({
           </label>
           {profile.role === "STUDENT" ? (
             <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Semester
+              Semester (enrollment)
               <select
                 className={inputClass}
                 onChange={(event) => setSemester(event.target.value)}

@@ -90,6 +90,8 @@ export async function updateProfileAction(
   const fatherName = field(formData, "fatherName");
   const surname = field(formData, "surname");
   const category = field(formData, "category");
+  const academicYear = field(formData, "academicYear");
+  const validUpto = field(formData, "validUpto");
   const phone = field(formData, "phone");
   const bloodGroup = field(formData, "bloodGroup");
   const emergencyContact = field(formData, "emergencyContact");
@@ -111,7 +113,9 @@ export async function updateProfileAction(
     (rollNo.length > 64 ||
       fatherName.length > 120 ||
       surname.length > 120 ||
-      category.length > 40)
+      category.length > 40 ||
+      academicYear.length > 100 ||
+      validUpto.length > 40)
   ) {
     return {
       ok: false,
@@ -207,6 +211,8 @@ export async function updateProfileAction(
               fatherName: fatherName || null,
               surname: surname || null,
               category: category || null,
+              academicYear: academicYear ? academicYear.toUpperCase() : null,
+              validUpto: validUpto ? validUpto.toUpperCase() : null,
             }
           : {}),
         phone: phone || null,

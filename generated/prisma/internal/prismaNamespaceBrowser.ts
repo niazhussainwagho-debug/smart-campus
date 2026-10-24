@@ -96,6 +96,8 @@ export const UserScalarFieldEnum = {
   fatherName: 'fatherName',
   surname: 'surname',
   category: 'category',
+  academicYear: 'academicYear',
+  validUpto: 'validUpto',
   phone: 'phone',
   bloodGroup: 'bloodGroup',
   emergencyContact: 'emergencyContact',
