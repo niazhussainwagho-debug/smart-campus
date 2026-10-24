@@ -1,4 +1,5 @@
 import { DashboardShell } from "@/components/dashboard-shell";
+import { StudentAttendanceBreakdown } from "@/components/student-attendance-breakdown";
 import { AttendanceStatus, UserRole } from "@/generated/prisma/enums";
 import { requireRole } from "@/lib/auth-helpers";
 import { getAttendancePercentage } from "@/lib/attendance";
@@ -15,22 +16,30 @@ function formatDate(value: Date): string {
 
 export default async function StudentAttendancePage() {
   const student = await requireRole(UserRole.STUDENT);
-  const records = await prisma.attendance.findMany({
-    where: { studentId: student.id },
-    include: {
-      timetableSlot: {
-        select: {
-          course: { select: { name: true } },
-          section: { select: { name: true, department: true, semester: true } },
-          room: { select: { name: true } },
-          startTime: true,
-          endTime: true,
-          dayOfWeek: true,
+  const [records, studentProfile] = await Promise.all([
+    prisma.attendance.findMany({
+      where: { studentId: student.id },
+      include: {
+        timetableSlot: {
+          select: {
+            course: { select: { name: true } },
+            section: {
+              select: { name: true, department: true, semester: true },
+            },
+            room: { select: { name: true } },
+            startTime: true,
+            endTime: true,
+            dayOfWeek: true,
+          },
         },
       },
-    },
-    orderBy: [{ date: "desc" }, { timetableSlot: { startTime: "desc" } }],
-  });
+      orderBy: [{ date: "desc" }, { timetableSlot: { startTime: "desc" } }],
+    }),
+    prisma.user.findUnique({
+      where: { id: student.id },
+      select: { semester: true },
+    }),
+  ]);
 
   const percentage = getAttendancePercentage(records);
   const presentCount = records.filter(
@@ -42,20 +51,60 @@ export default async function StudentAttendancePage() {
   const absentCount = records.filter(
     ({ status }) => status === AttendanceStatus.ABSENT,
   ).length;
-  const subjects = new Map<
-    string,
-    { name: string; section: string; records: { status: AttendanceStatus }[] }
+  const subjectsBySemester = new Map<
+    number,
+    Map<
+      string,
+      {
+        courseCode: string;
+        name: string;
+        records: { status: AttendanceStatus }[];
+      }
+    >
   >();
   for (const record of records) {
+    const semester = record.timetableSlot.section.semester;
+    const subjects =
+      subjectsBySemester.get(semester) ?? new Map<
+        string,
+        {
+          courseCode: string;
+          name: string;
+          records: { status: AttendanceStatus }[];
+        }
+      >();
     const key = `${record.courseCode}:${record.sectionId}`;
     const current = subjects.get(key) ?? {
+      courseCode: record.courseCode,
       name: record.timetableSlot.course.name,
-      section: `${record.timetableSlot.section.department} · ${record.timetableSlot.section.name}`,
       records: [],
     };
     current.records.push({ status: record.status });
     subjects.set(key, current);
+    subjectsBySemester.set(semester, subjects);
   }
+  const breakdownRows = [...subjectsBySemester.entries()].flatMap(
+    ([semester, subjects]) =>
+      [...subjects.entries()].map(([key, subject]) => ({
+        key: `${semester}:${key}`,
+        semester,
+        courseCode: subject.courseCode,
+        name: subject.name,
+        totalClasses: subject.records.length,
+        present: subject.records.filter(
+          ({ status }) =>
+            status === AttendanceStatus.PRESENT ||
+            status === AttendanceStatus.LATE,
+        ).length,
+        percentage: getAttendancePercentage(subject.records),
+      })),
+  );
+  const activeSemester =
+    studentProfile?.semester &&
+    studentProfile.semester >= 1 &&
+    studentProfile.semester <= 10
+      ? studentProfile.semester
+      : 1;
 
   return (
     <DashboardShell
@@ -130,65 +179,11 @@ export default async function StudentAttendancePage() {
           ))}
         </section>
 
-        <section className="rounded-2xl border border-border bg-card p-4 shadow-lg sm:p-6">
-          <div className="mb-4">
-            <h2 className="text-lg font-bold text-foreground">
-              Subject-wise attendance
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Late arrivals count as attended; absences lower the rate.
-            </p>
-          </div>
-          {subjects.size === 0 ? (
-            <p className="rounded-xl bg-muted p-4 text-sm text-muted-foreground">
-              No attendance has been recorded yet.
-            </p>
-          ) : (
-            <div className="space-y-4">
-              {[...subjects.entries()].map(([key, subject]) => {
-                const rate = getAttendancePercentage(subject.records);
-                return (
-                  <article className="space-y-2" key={key}>
-                    <div className="flex flex-wrap items-baseline justify-between gap-2">
-                      <div>
-                        <h3 className="font-semibold text-foreground">
-                          {subject.name}
-                        </h3>
-                        <p className="text-xs text-muted-foreground">
-                          {subject.section}
-                        </p>
-                      </div>
-                      <span
-                        className={`text-sm font-bold ${
-                          rate < 75
-                            ? "text-amber-700 dark:text-amber-300"
-                            : "text-foreground"
-                        }`}
-                      >
-                        {rate}%
-                      </span>
-                    </div>
-                    <div
-                      aria-label={`${subject.name} attendance ${rate}%`}
-                      aria-valuemax={100}
-                      aria-valuemin={0}
-                      aria-valuenow={rate}
-                      className="h-2.5 overflow-hidden rounded-full bg-muted"
-                      role="progressbar"
-                    >
-                      <div
-                        className={`h-full rounded-full ${
-                          rate < 75 ? "bg-amber-500" : "bg-cyan-500"
-                        }`}
-                        style={{ width: `${rate}%` }}
-                      />
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          )}
-        </section>
+        <StudentAttendanceBreakdown
+          activeSemester={activeSemester}
+          currentDate={formatDate(new Date())}
+          rows={breakdownRows}
+        />
 
         <section className="overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
           <div className="border-b border-border p-4 sm:px-6">
