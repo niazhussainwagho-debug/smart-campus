@@ -213,11 +213,28 @@ export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
 }
 
+export type EnumAdminVerificationDocumentTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.AdminVerificationDocumentType | Prisma.EnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.AdminVerificationDocumentType[] | Prisma.ListEnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AdminVerificationDocumentType[] | Prisma.ListEnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAdminVerificationDocumentTypeFilter<$PrismaModel> | $Enums.AdminVerificationDocumentType
+}
+
 export type BytesFilter<$PrismaModel = never> = {
   equals?: runtime.Bytes | Prisma.BytesFieldRefInput<$PrismaModel>
   in?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel>
   notIn?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel>
   not?: Prisma.NestedBytesFilter<$PrismaModel> | runtime.Bytes
+}
+
+export type EnumAdminVerificationDocumentTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AdminVerificationDocumentType | Prisma.EnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.AdminVerificationDocumentType[] | Prisma.ListEnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AdminVerificationDocumentType[] | Prisma.ListEnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAdminVerificationDocumentTypeWithAggregatesFilter<$PrismaModel> | $Enums.AdminVerificationDocumentType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAdminVerificationDocumentTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAdminVerificationDocumentTypeFilter<$PrismaModel>
 }
 
 export type BytesWithAggregatesFilter<$PrismaModel = never> = {
@@ -567,11 +584,28 @@ export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
 }
 
+export type NestedEnumAdminVerificationDocumentTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.AdminVerificationDocumentType | Prisma.EnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.AdminVerificationDocumentType[] | Prisma.ListEnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AdminVerificationDocumentType[] | Prisma.ListEnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAdminVerificationDocumentTypeFilter<$PrismaModel> | $Enums.AdminVerificationDocumentType
+}
+
 export type NestedBytesFilter<$PrismaModel = never> = {
   equals?: runtime.Bytes | Prisma.BytesFieldRefInput<$PrismaModel>
   in?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel>
   notIn?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel>
   not?: Prisma.NestedBytesFilter<$PrismaModel> | runtime.Bytes
+}
+
+export type NestedEnumAdminVerificationDocumentTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.AdminVerificationDocumentType | Prisma.EnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.AdminVerificationDocumentType[] | Prisma.ListEnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.AdminVerificationDocumentType[] | Prisma.ListEnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumAdminVerificationDocumentTypeWithAggregatesFilter<$PrismaModel> | $Enums.AdminVerificationDocumentType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumAdminVerificationDocumentTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumAdminVerificationDocumentTypeFilter<$PrismaModel>
 }
 
 export type NestedBytesWithAggregatesFilter<$PrismaModel = never> = {

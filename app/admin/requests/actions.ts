@@ -1,6 +1,11 @@
 "use server";
 
-import { AdminStatus, UserRole, UserStatus } from "@/generated/prisma/enums";
+import {
+  AdminStatus,
+  AdminVerificationDocumentType,
+  UserRole,
+  UserStatus,
+} from "@/generated/prisma/enums";
 import { revalidatePath } from "next/cache";
 import { requireApprovedAdmin } from "@/lib/auth-helpers";
 import { prisma } from "@/lib/prisma";
@@ -37,7 +42,11 @@ export async function reviewAdminRequestAction(
       status: UserStatus.APPROVED,
       adminStatus: AdminStatus.PENDING,
     },
-    select: { adminDocuments: true },
+    select: {
+      adminVerificationDocuments: {
+        select: { documentType: true },
+      },
+    },
   });
   if (!candidate) {
     return {
@@ -47,7 +56,11 @@ export async function reviewAdminRequestAction(
   }
   if (
     decisionValue === AdminStatus.APPROVED &&
-    candidate.adminDocuments.length < 3
+    !Object.values(AdminVerificationDocumentType).every((documentType) =>
+      candidate.adminVerificationDocuments.some(
+        (document) => document.documentType === documentType,
+      ),
+    )
   ) {
     return {
       ok: false,

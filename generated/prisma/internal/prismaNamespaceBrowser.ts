@@ -117,6 +117,7 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const AdminVerificationDocumentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  documentType: 'documentType',
   filename: 'filename',
   mimeType: 'mimeType',
   content: 'content',

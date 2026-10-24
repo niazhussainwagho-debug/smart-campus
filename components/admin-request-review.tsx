@@ -6,6 +6,8 @@ import {
   reviewAdminRequestAction,
   type AdminReviewResult,
 } from "@/app/admin/requests/actions";
+import type { AdminVerificationDocumentType } from "@/generated/prisma/enums";
+import { adminVerificationDocuments } from "@/lib/admin-verification";
 
 type AdminRequest = {
   id: string;
@@ -14,10 +16,15 @@ type AdminRequest = {
   department: string | null;
   role: "STUDENT" | "TEACHER";
   createdAt: string;
-  documents: string[];
+  documents: {
+    url: string;
+    type: AdminVerificationDocumentType;
+  }[];
 };
 
-const documentLabels = ["Appointment Letter", "CNIC", "ID Card"];
+const documentLabels = new Map(
+  adminVerificationDocuments.map(({ type, label }) => [type, label]),
+);
 
 export function AdminRequestReview({
   requests,
@@ -109,16 +116,21 @@ export function AdminRequestReview({
                   </button>
                 </div>
               </div>
-              <ul className="flex flex-wrap gap-2" aria-label="Submitted documents">
-                {request.documents.map((url, index) => (
-                  <li key={url}>
+              <ul
+                className="flex flex-wrap gap-2"
+                aria-label="Submitted official documents"
+              >
+                {request.documents.map((document) => (
+                  <li key={document.url}>
                     <a
                       className="inline-flex min-h-10 items-center rounded-lg border border-border px-3 py-2 text-sm font-medium text-primary underline-offset-4 hover:underline"
-                      href={url}
+                      href={document.url}
                       rel="noreferrer"
                       target="_blank"
                     >
-                      View {documentLabels[index] ?? `document ${index + 1}`}
+                      View{" "}
+                      {documentLabels.get(document.type) ??
+                        "Official verification document"}
                     </a>
                   </li>
                 ))}

@@ -27,6 +27,7 @@ export type AggregateAdminVerificationDocument = {
 export type AdminVerificationDocumentMinAggregateOutputType = {
   id: string | null
   userId: string | null
+  documentType: $Enums.AdminVerificationDocumentType | null
   filename: string | null
   mimeType: string | null
   content: runtime.Bytes | null
@@ -36,6 +37,7 @@ export type AdminVerificationDocumentMinAggregateOutputType = {
 export type AdminVerificationDocumentMaxAggregateOutputType = {
   id: string | null
   userId: string | null
+  documentType: $Enums.AdminVerificationDocumentType | null
   filename: string | null
   mimeType: string | null
   content: runtime.Bytes | null
@@ -45,6 +47,7 @@ export type AdminVerificationDocumentMaxAggregateOutputType = {
 export type AdminVerificationDocumentCountAggregateOutputType = {
   id: number
   userId: number
+  documentType: number
   filename: number
   mimeType: number
   content: number
@@ -56,6 +59,7 @@ export type AdminVerificationDocumentCountAggregateOutputType = {
 export type AdminVerificationDocumentMinAggregateInputType = {
   id?: true
   userId?: true
+  documentType?: true
   filename?: true
   mimeType?: true
   content?: true
@@ -65,6 +69,7 @@ export type AdminVerificationDocumentMinAggregateInputType = {
 export type AdminVerificationDocumentMaxAggregateInputType = {
   id?: true
   userId?: true
+  documentType?: true
   filename?: true
   mimeType?: true
   content?: true
@@ -74,6 +79,7 @@ export type AdminVerificationDocumentMaxAggregateInputType = {
 export type AdminVerificationDocumentCountAggregateInputType = {
   id?: true
   userId?: true
+  documentType?: true
   filename?: true
   mimeType?: true
   content?: true
@@ -156,6 +162,7 @@ export type AdminVerificationDocumentGroupByArgs<ExtArgs extends runtime.Types.E
 export type AdminVerificationDocumentGroupByOutputType = {
   id: string
   userId: string
+  documentType: $Enums.AdminVerificationDocumentType
   filename: string
   mimeType: string
   content: runtime.Bytes
@@ -186,6 +193,7 @@ export type AdminVerificationDocumentWhereInput = {
   NOT?: Prisma.AdminVerificationDocumentWhereInput | Prisma.AdminVerificationDocumentWhereInput[]
   id?: Prisma.StringFilter<"AdminVerificationDocument"> | string
   userId?: Prisma.StringFilter<"AdminVerificationDocument"> | string
+  documentType?: Prisma.EnumAdminVerificationDocumentTypeFilter<"AdminVerificationDocument"> | $Enums.AdminVerificationDocumentType
   filename?: Prisma.StringFilter<"AdminVerificationDocument"> | string
   mimeType?: Prisma.StringFilter<"AdminVerificationDocument"> | string
   content?: Prisma.BytesFilter<"AdminVerificationDocument"> | runtime.Bytes
@@ -196,6 +204,7 @@ export type AdminVerificationDocumentWhereInput = {
 export type AdminVerificationDocumentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  documentType?: Prisma.SortOrder
   filename?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -205,20 +214,23 @@ export type AdminVerificationDocumentOrderByWithRelationInput = {
 
 export type AdminVerificationDocumentWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  userId_documentType?: Prisma.AdminVerificationDocumentUserIdDocumentTypeCompoundUniqueInput
   AND?: Prisma.AdminVerificationDocumentWhereInput | Prisma.AdminVerificationDocumentWhereInput[]
   OR?: Prisma.AdminVerificationDocumentWhereInput[]
   NOT?: Prisma.AdminVerificationDocumentWhereInput | Prisma.AdminVerificationDocumentWhereInput[]
   userId?: Prisma.StringFilter<"AdminVerificationDocument"> | string
+  documentType?: Prisma.EnumAdminVerificationDocumentTypeFilter<"AdminVerificationDocument"> | $Enums.AdminVerificationDocumentType
   filename?: Prisma.StringFilter<"AdminVerificationDocument"> | string
   mimeType?: Prisma.StringFilter<"AdminVerificationDocument"> | string
   content?: Prisma.BytesFilter<"AdminVerificationDocument"> | runtime.Bytes
   createdAt?: Prisma.DateTimeFilter<"AdminVerificationDocument"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id">
+}, "id" | "userId_documentType">
 
 export type AdminVerificationDocumentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  documentType?: Prisma.SortOrder
   filename?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -234,6 +246,7 @@ export type AdminVerificationDocumentScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AdminVerificationDocumentScalarWhereWithAggregatesInput | Prisma.AdminVerificationDocumentScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"AdminVerificationDocument"> | string
   userId?: Prisma.StringWithAggregatesFilter<"AdminVerificationDocument"> | string
+  documentType?: Prisma.EnumAdminVerificationDocumentTypeWithAggregatesFilter<"AdminVerificationDocument"> | $Enums.AdminVerificationDocumentType
   filename?: Prisma.StringWithAggregatesFilter<"AdminVerificationDocument"> | string
   mimeType?: Prisma.StringWithAggregatesFilter<"AdminVerificationDocument"> | string
   content?: Prisma.BytesWithAggregatesFilter<"AdminVerificationDocument"> | runtime.Bytes
@@ -242,6 +255,7 @@ export type AdminVerificationDocumentScalarWhereWithAggregatesInput = {
 
 export type AdminVerificationDocumentCreateInput = {
   id: string
+  documentType: $Enums.AdminVerificationDocumentType
   filename: string
   mimeType: string
   content: runtime.Bytes
@@ -252,6 +266,7 @@ export type AdminVerificationDocumentCreateInput = {
 export type AdminVerificationDocumentUncheckedCreateInput = {
   id: string
   userId: string
+  documentType: $Enums.AdminVerificationDocumentType
   filename: string
   mimeType: string
   content: runtime.Bytes
@@ -260,6 +275,7 @@ export type AdminVerificationDocumentUncheckedCreateInput = {
 
 export type AdminVerificationDocumentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  documentType?: Prisma.EnumAdminVerificationDocumentTypeFieldUpdateOperationsInput | $Enums.AdminVerificationDocumentType
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
@@ -270,6 +286,7 @@ export type AdminVerificationDocumentUpdateInput = {
 export type AdminVerificationDocumentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  documentType?: Prisma.EnumAdminVerificationDocumentTypeFieldUpdateOperationsInput | $Enums.AdminVerificationDocumentType
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
@@ -279,6 +296,7 @@ export type AdminVerificationDocumentUncheckedUpdateInput = {
 export type AdminVerificationDocumentCreateManyInput = {
   id: string
   userId: string
+  documentType: $Enums.AdminVerificationDocumentType
   filename: string
   mimeType: string
   content: runtime.Bytes
@@ -287,6 +305,7 @@ export type AdminVerificationDocumentCreateManyInput = {
 
 export type AdminVerificationDocumentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  documentType?: Prisma.EnumAdminVerificationDocumentTypeFieldUpdateOperationsInput | $Enums.AdminVerificationDocumentType
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
@@ -296,6 +315,7 @@ export type AdminVerificationDocumentUpdateManyMutationInput = {
 export type AdminVerificationDocumentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  documentType?: Prisma.EnumAdminVerificationDocumentTypeFieldUpdateOperationsInput | $Enums.AdminVerificationDocumentType
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
@@ -312,9 +332,15 @@ export type AdminVerificationDocumentOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type AdminVerificationDocumentUserIdDocumentTypeCompoundUniqueInput = {
+  userId: string
+  documentType: $Enums.AdminVerificationDocumentType
+}
+
 export type AdminVerificationDocumentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  documentType?: Prisma.SortOrder
   filename?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -324,6 +350,7 @@ export type AdminVerificationDocumentCountOrderByAggregateInput = {
 export type AdminVerificationDocumentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  documentType?: Prisma.SortOrder
   filename?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -333,6 +360,7 @@ export type AdminVerificationDocumentMaxOrderByAggregateInput = {
 export type AdminVerificationDocumentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  documentType?: Prisma.SortOrder
   filename?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -381,12 +409,17 @@ export type AdminVerificationDocumentUncheckedUpdateManyWithoutUserNestedInput =
   deleteMany?: Prisma.AdminVerificationDocumentScalarWhereInput | Prisma.AdminVerificationDocumentScalarWhereInput[]
 }
 
+export type EnumAdminVerificationDocumentTypeFieldUpdateOperationsInput = {
+  set?: $Enums.AdminVerificationDocumentType
+}
+
 export type BytesFieldUpdateOperationsInput = {
   set?: runtime.Bytes
 }
 
 export type AdminVerificationDocumentCreateWithoutUserInput = {
   id: string
+  documentType: $Enums.AdminVerificationDocumentType
   filename: string
   mimeType: string
   content: runtime.Bytes
@@ -395,6 +428,7 @@ export type AdminVerificationDocumentCreateWithoutUserInput = {
 
 export type AdminVerificationDocumentUncheckedCreateWithoutUserInput = {
   id: string
+  documentType: $Enums.AdminVerificationDocumentType
   filename: string
   mimeType: string
   content: runtime.Bytes
@@ -433,6 +467,7 @@ export type AdminVerificationDocumentScalarWhereInput = {
   NOT?: Prisma.AdminVerificationDocumentScalarWhereInput | Prisma.AdminVerificationDocumentScalarWhereInput[]
   id?: Prisma.StringFilter<"AdminVerificationDocument"> | string
   userId?: Prisma.StringFilter<"AdminVerificationDocument"> | string
+  documentType?: Prisma.EnumAdminVerificationDocumentTypeFilter<"AdminVerificationDocument"> | $Enums.AdminVerificationDocumentType
   filename?: Prisma.StringFilter<"AdminVerificationDocument"> | string
   mimeType?: Prisma.StringFilter<"AdminVerificationDocument"> | string
   content?: Prisma.BytesFilter<"AdminVerificationDocument"> | runtime.Bytes
@@ -441,6 +476,7 @@ export type AdminVerificationDocumentScalarWhereInput = {
 
 export type AdminVerificationDocumentCreateManyUserInput = {
   id: string
+  documentType: $Enums.AdminVerificationDocumentType
   filename: string
   mimeType: string
   content: runtime.Bytes
@@ -449,6 +485,7 @@ export type AdminVerificationDocumentCreateManyUserInput = {
 
 export type AdminVerificationDocumentUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  documentType?: Prisma.EnumAdminVerificationDocumentTypeFieldUpdateOperationsInput | $Enums.AdminVerificationDocumentType
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
@@ -457,6 +494,7 @@ export type AdminVerificationDocumentUpdateWithoutUserInput = {
 
 export type AdminVerificationDocumentUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  documentType?: Prisma.EnumAdminVerificationDocumentTypeFieldUpdateOperationsInput | $Enums.AdminVerificationDocumentType
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
@@ -465,6 +503,7 @@ export type AdminVerificationDocumentUncheckedUpdateWithoutUserInput = {
 
 export type AdminVerificationDocumentUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  documentType?: Prisma.EnumAdminVerificationDocumentTypeFieldUpdateOperationsInput | $Enums.AdminVerificationDocumentType
   filename?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.BytesFieldUpdateOperationsInput | runtime.Bytes
@@ -476,6 +515,7 @@ export type AdminVerificationDocumentUncheckedUpdateManyWithoutUserInput = {
 export type AdminVerificationDocumentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  documentType?: boolean
   filename?: boolean
   mimeType?: boolean
   content?: boolean
@@ -486,6 +526,7 @@ export type AdminVerificationDocumentSelect<ExtArgs extends runtime.Types.Extens
 export type AdminVerificationDocumentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  documentType?: boolean
   filename?: boolean
   mimeType?: boolean
   content?: boolean
@@ -496,6 +537,7 @@ export type AdminVerificationDocumentSelectCreateManyAndReturn<ExtArgs extends r
 export type AdminVerificationDocumentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  documentType?: boolean
   filename?: boolean
   mimeType?: boolean
   content?: boolean
@@ -506,13 +548,14 @@ export type AdminVerificationDocumentSelectUpdateManyAndReturn<ExtArgs extends r
 export type AdminVerificationDocumentSelectScalar = {
   id?: boolean
   userId?: boolean
+  documentType?: boolean
   filename?: boolean
   mimeType?: boolean
   content?: boolean
   createdAt?: boolean
 }
 
-export type AdminVerificationDocumentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "filename" | "mimeType" | "content" | "createdAt", ExtArgs["result"]["adminVerificationDocument"]>
+export type AdminVerificationDocumentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "documentType" | "filename" | "mimeType" | "content" | "createdAt", ExtArgs["result"]["adminVerificationDocument"]>
 export type AdminVerificationDocumentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -531,6 +574,7 @@ export type $AdminVerificationDocumentPayload<ExtArgs extends runtime.Types.Exte
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
+    documentType: $Enums.AdminVerificationDocumentType
     filename: string
     mimeType: string
     content: runtime.Bytes
@@ -961,6 +1005,7 @@ export interface Prisma__AdminVerificationDocumentClient<T, Null = never, ExtArg
 export interface AdminVerificationDocumentFieldRefs {
   readonly id: Prisma.FieldRef<"AdminVerificationDocument", 'String'>
   readonly userId: Prisma.FieldRef<"AdminVerificationDocument", 'String'>
+  readonly documentType: Prisma.FieldRef<"AdminVerificationDocument", 'AdminVerificationDocumentType'>
   readonly filename: Prisma.FieldRef<"AdminVerificationDocument", 'String'>
   readonly mimeType: Prisma.FieldRef<"AdminVerificationDocument", 'String'>
   readonly content: Prisma.FieldRef<"AdminVerificationDocument", 'Bytes'>

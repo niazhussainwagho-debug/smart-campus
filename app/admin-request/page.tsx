@@ -8,7 +8,7 @@ const statusCopy: Record<AdminStatus, { title: string; description: string }> = 
   NONE: {
     title: "No request submitted",
     description:
-      "Submit the official documents below to request Admin verification.",
+      "Submit the required HEC-verified degree, government appointment or posting notification, and signed university authorization letter to request Admin verification.",
   },
   PENDING: {
     title: "Request pending review",
@@ -23,7 +23,7 @@ const statusCopy: Record<AdminStatus, { title: string; description: string }> = 
   REJECTED: {
     title: "Request not approved",
     description:
-      "Your previous request was rejected. You can submit updated documents for another review.",
+      "Your previous request was rejected. You can submit current official documents again for another review.",
   },
 };
 

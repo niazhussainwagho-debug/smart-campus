@@ -26,6 +26,12 @@ enum AdminStatus {
   REJECTED
 }
 
+enum AdminVerificationDocumentType {
+  DEGREE
+  GAZETTE_NOTIFICATION
+  AUTHORIZATION_LETTER
+}
+
 enum DayOfWeek {
   MON
   TUE
@@ -105,14 +111,16 @@ model User {
 }
 
 model AdminVerificationDocument {
-  id        String   @id
-  userId    String
-  filename  String
-  mimeType  String
-  content   Bytes    @db.ByteA
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String                        @id
+  userId       String
+  documentType AdminVerificationDocumentType
+  filename     String
+  mimeType     String
+  content      Bytes                         @db.ByteA
+  createdAt    DateTime                      @default(now())
+  user         User                          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@unique([userId, documentType])
   @@index([userId])
 }
 

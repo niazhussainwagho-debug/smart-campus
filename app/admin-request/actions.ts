@@ -1,8 +1,13 @@
 "use server";
 
 import { randomUUID } from "node:crypto";
-import { AdminStatus, UserRole, UserStatus } from "@/generated/prisma/enums";
+import {
+  AdminStatus,
+  UserRole,
+  UserStatus,
+} from "@/generated/prisma/enums";
 import { revalidatePath } from "next/cache";
+import { adminVerificationDocuments } from "@/lib/admin-verification";
 import { requireRole } from "@/lib/auth-helpers";
 import { prisma } from "@/lib/prisma";
 
@@ -11,11 +16,6 @@ export type AdminRequestResult = {
   message: string;
 };
 
-const documentFields = [
-  { field: "appointmentLetter", label: "Appointment Letter" },
-  { field: "cnic", label: "CNIC" },
-  { field: "idCard", label: "ID Card" },
-] as const;
 const maximumDocumentSize = 2 * 1024 * 1024;
 
 function detectDocumentMimeType(bytes: Uint8Array): string | null {
@@ -60,7 +60,11 @@ function safeFilename(value: string, mimeType: string): string {
     .replace(/[^\w.-]/g, "_")
     .replace(/^\.+/, "")
     .slice(0, 100);
-  return `${filename || "document"}${filename.toLowerCase().endsWith(extension) ? "" : extension}`;
+  const hasMatchingExtension =
+    (mimeType === "application/pdf" && /\.pdf$/i.test(filename)) ||
+    (mimeType === "image/jpeg" && /\.jpe?g$/i.test(filename)) ||
+    (mimeType === "image/png" && /\.png$/i.test(filename));
+  return `${filename || "document"}${hasMatchingExtension ? "" : extension}`;
 }
 
 export async function submitAdminRequestAction(
@@ -69,12 +73,13 @@ export async function submitAdminRequestAction(
   const user = await requireRole([UserRole.STUDENT, UserRole.TEACHER]);
   const uploadedDocuments: {
     id: string;
+    documentType: (typeof adminVerificationDocuments)[number]["type"];
     filename: string;
     mimeType: string;
     content: Uint8Array<ArrayBuffer>;
   }[] = [];
 
-  for (const documentField of documentFields) {
+  for (const documentField of adminVerificationDocuments) {
     const file = formData.get(documentField.field);
     if (!(file instanceof File) || file.size === 0) {
       return {
@@ -100,6 +105,7 @@ export async function submitAdminRequestAction(
 
     uploadedDocuments.push({
       id: randomUUID(),
+      documentType: documentField.type,
       filename: safeFilename(file.name, mimeType),
       mimeType,
       content,

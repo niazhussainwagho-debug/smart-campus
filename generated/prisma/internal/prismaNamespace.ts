@@ -1613,6 +1613,7 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const AdminVerificationDocumentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  documentType: 'documentType',
   filename: 'filename',
   mimeType: 'mimeType',
   content: 'content',
@@ -1886,6 +1887,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+
+
+
+/**
+ * Reference to a field of type 'AdminVerificationDocumentType'
+ */
+export type EnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdminVerificationDocumentType'>
+
+
+
+/**
+ * Reference to a field of type 'AdminVerificationDocumentType[]'
+ */
+export type ListEnumAdminVerificationDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AdminVerificationDocumentType[]'>
 
 
 

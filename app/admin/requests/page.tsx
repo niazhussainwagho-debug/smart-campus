@@ -1,6 +1,10 @@
 import { AdminRequestReview } from "@/components/admin-request-review";
 import { DashboardShell } from "@/components/dashboard-shell";
-import { AdminStatus, UserRole, UserStatus } from "@/generated/prisma/enums";
+import {
+  AdminStatus,
+  UserRole,
+  UserStatus,
+} from "@/generated/prisma/enums";
 import { requireApprovedAdmin } from "@/lib/auth-helpers";
 import { prisma } from "@/lib/prisma";
 
@@ -19,7 +23,9 @@ export default async function AdminRequestsPage() {
       department: true,
       role: true,
       createdAt: true,
-      adminDocuments: true,
+      adminVerificationDocuments: {
+        select: { id: true, documentType: true },
+      },
     },
     orderBy: { createdAt: "asc" },
   });
@@ -28,7 +34,7 @@ export default async function AdminRequestsPage() {
     <DashboardShell
       badge="Admin Operations"
       role={UserRole.ADMIN}
-      subtitle="Review identity and appointment documents before granting Admin access."
+      subtitle="Review HEC-verified degree, government appointment, and signed university authorization documents before granting Admin access."
       title="Admin Verification Requests"
       user={admin}
     >
@@ -41,7 +47,10 @@ export default async function AdminRequestsPage() {
           role:
             request.role === UserRole.TEACHER ? UserRole.TEACHER : UserRole.STUDENT,
           createdAt: request.createdAt.toISOString(),
-          documents: request.adminDocuments,
+          documents: request.adminVerificationDocuments.map((document) => ({
+            url: `/api/admin-documents/${document.id}`,
+            type: document.documentType,
+          })),
         }))}
       />
     </DashboardShell>

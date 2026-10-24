@@ -37,6 +37,15 @@ export const AdminStatus = {
 export type AdminStatus = (typeof AdminStatus)[keyof typeof AdminStatus]
 
 
+export const AdminVerificationDocumentType = {
+  DEGREE: 'DEGREE',
+  GAZETTE_NOTIFICATION: 'GAZETTE_NOTIFICATION',
+  AUTHORIZATION_LETTER: 'AUTHORIZATION_LETTER'
+} as const
+
+export type AdminVerificationDocumentType = (typeof AdminVerificationDocumentType)[keyof typeof AdminVerificationDocumentType]
+
+
 export const DayOfWeek = {
   MON: 'MON',
   TUE: 'TUE',

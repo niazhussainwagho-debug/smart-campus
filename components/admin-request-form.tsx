@@ -5,12 +5,7 @@ import {
   submitAdminRequestAction,
   type AdminRequestResult,
 } from "@/app/admin-request/actions";
-
-const documents = [
-  { name: "appointmentLetter", label: "Appointment Letter" },
-  { name: "cnic", label: "CNIC" },
-  { name: "idCard", label: "ID Card" },
-] as const;
+import { adminVerificationDocuments } from "@/lib/admin-verification";
 
 const inputClass =
   "mt-2 block min-h-11 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground file:mr-3 file:rounded-lg file:border-0 file:bg-muted file:px-3 file:py-2 file:text-sm file:font-semibold file:text-foreground";
@@ -43,16 +38,16 @@ export function AdminRequestForm() {
           Upload a clear PDF, JPEG, or PNG for each item. Maximum 2 MB per file.
         </p>
       </div>
-      {documents.map((document) => (
+      {adminVerificationDocuments.map((document) => (
         <label
           className="block text-sm font-semibold text-foreground"
-          key={document.name}
+          key={document.field}
         >
           {document.label}
           <input
             accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
             className={inputClass}
-            name={document.name}
+            name={document.field}
             required
             type="file"
           />
