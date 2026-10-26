@@ -43,7 +43,15 @@ export default async function AdminTimetablePage() {
     prisma.timetableSlot.findMany({
       include: {
         course: { select: { id: true, code: true, name: true } },
-        section: { select: { id: true, name: true, department: true } },
+        section: {
+          select: {
+            id: true,
+            name: true,
+            department: true,
+            program: true,
+            batchPart: true,
+          },
+        },
         room: { select: { id: true, name: true } },
         teacher: { select: { id: true, name: true } },
         teachers: { select: { id: true, name: true } },
@@ -78,6 +86,8 @@ export default async function AdminTimetablePage() {
           id: section.id,
           name: section.name,
           department: section.department,
+          program: section.program,
+          batchPart: section.batchPart,
           semester: section.semester,
         }))}
         slots={slots.map((slot) => ({
@@ -87,6 +97,7 @@ export default async function AdminTimetablePage() {
           roomId: slot.roomId,
           teacherId: slot.teacherId,
           dayOfWeek: slot.dayOfWeek,
+          slotNumber: slot.slotNumber,
           startTime: formatTime(slot.startTime),
           endTime: formatTime(slot.endTime),
           courseLabel: `${slot.course.code} · ${slot.course.name}`,

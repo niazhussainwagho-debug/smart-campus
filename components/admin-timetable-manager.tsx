@@ -25,6 +25,8 @@ type SectionOption = {
   id: string;
   name: string;
   department: string;
+  program: string;
+  batchPart: string;
   semester: number;
 };
 
@@ -46,6 +48,7 @@ type TimetableSlotRow = {
   roomId: string;
   teacherId: string;
   dayOfWeek: DayOfWeek;
+  slotNumber: number;
   startTime: string;
   endTime: string;
   courseLabel: string;
@@ -340,6 +343,25 @@ export function AdminTimetableManager({
               <input className={inputClass} name="department" placeholder="e.g. Computer Science" required />
             </label>
             <label className={labelClass}>
+              Program
+              <select className={inputClass} defaultValue="" name="program" required>
+                <option value="">Select program</option>
+                <option value="BSSW">Software Engineering (BSSW)</option>
+                <option value="BSIT">Information Technology (BSIT)</option>
+                <option value="BSDS">Data Science (BSDS)</option>
+              </select>
+            </label>
+            <label className={labelClass}>
+              Batch / Part
+              <select className={inputClass} defaultValue="" name="batchPart" required>
+                <option value="">Select part</option>
+                <option value="Part-I">Part-I</option>
+                <option value="Part-II">Part-II</option>
+                <option value="Part-III">Part-III</option>
+                <option value="Part-IV">Part-IV</option>
+              </select>
+            </label>
+            <label className={labelClass}>
               Semester
               <input
                 className={inputClass}
@@ -408,7 +430,7 @@ export function AdminTimetableManager({
                 {sections.map((section) => (
                   <li className="flex items-center justify-between rounded-lg bg-[#0c1422] p-2" key={section.id}>
                     <span className="font-bold text-white">{section.name}</span>
-                    <span className="text-slate-400">{section.department} (Sem {section.semester})</span>
+                    <span className="text-slate-400">{section.program} · {section.batchPart} · {section.department} (Sem {section.semester})</span>
                   </li>
                 ))}
               </ul>
@@ -587,6 +609,18 @@ export function AdminTimetableManager({
                 </option>
               ))}
             </select>
+          </label>
+          <label className={timetableLabelClass}>
+            Period
+            <input
+              className={timetableInputClass}
+              defaultValue={editingSlot?.slotNumber ?? 1}
+              max="7"
+              min="1"
+              name="slotNumber"
+              required
+              type="number"
+            />
           </label>
           <label className={timetableLabelClass}>
             Start Time

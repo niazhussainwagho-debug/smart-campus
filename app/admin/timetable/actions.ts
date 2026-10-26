@@ -95,18 +95,27 @@ export async function createSectionAction(
 
   const name = field(formData, "name");
   const department = field(formData, "department");
+  const program = field(formData, "program");
+  const batchPart = field(formData, "batchPart");
   const semester = Number(field(formData, "semester"));
 
-  if (!name || !department || !Number.isInteger(semester) || semester < 1) {
+  if (
+    !name ||
+    !department ||
+    !["BSIT", "BSSW", "BSDS"].includes(program) ||
+    !["Part-I", "Part-II", "Part-III", "Part-IV"].includes(batchPart) ||
+    !Number.isInteger(semester) ||
+    semester < 1
+  ) {
     return {
       ok: false,
-      message: "Section name, department, and a valid semester are required.",
+      message: "Section name, department, program, batch, and a valid semester are required.",
     };
   }
 
   try {
     await prisma.section.create({
-      data: { name, department, semester },
+      data: { name, department, program, batchPart, semester },
     });
   } catch (error) {
     logDatabaseError("Section creation", error);
@@ -160,6 +169,7 @@ export async function saveTimetableSlotAction(
   const roomId = field(formData, "roomId");
   const teacherId = field(formData, "teacherId");
   const dayOfWeek = field(formData, "dayOfWeek");
+  const slotNumber = Number(field(formData, "slotNumber"));
   const startTimeText = field(formData, "startTime");
   const endTimeText = field(formData, "endTime");
   const startTime = timeToDate(startTimeText);
@@ -171,12 +181,15 @@ export async function saveTimetableSlotAction(
     !roomId ||
     !teacherId ||
     !isDayOfWeek(dayOfWeek) ||
+    !Number.isInteger(slotNumber) ||
+    slotNumber < 1 ||
+    slotNumber > 7 ||
     !startTime ||
     !endTime
   ) {
     return {
       ok: false,
-      message: "Course, section, room, teacher, day, and valid times are required.",
+      message: "Course, section, room, teacher, day, period, and valid times are required.",
     };
   }
 
@@ -278,6 +291,7 @@ export async function saveTimetableSlotAction(
           roomId,
           teacherId,
           dayOfWeek,
+          slotNumber,
           startTime,
           endTime,
           teachers: { set: teacherIds.map((id) => ({ id })) },
@@ -291,6 +305,7 @@ export async function saveTimetableSlotAction(
           roomId,
           teacherId,
           dayOfWeek,
+          slotNumber,
           startTime,
           endTime,
           teachers: { connect: teacherIds.map((id) => ({ id })) },

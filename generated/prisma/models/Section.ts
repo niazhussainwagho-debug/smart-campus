@@ -38,6 +38,8 @@ export type SectionMinAggregateOutputType = {
   id: string | null
   name: string | null
   department: string | null
+  program: string | null
+  batchPart: string | null
   semester: number | null
 }
 
@@ -45,6 +47,8 @@ export type SectionMaxAggregateOutputType = {
   id: string | null
   name: string | null
   department: string | null
+  program: string | null
+  batchPart: string | null
   semester: number | null
 }
 
@@ -52,6 +56,8 @@ export type SectionCountAggregateOutputType = {
   id: number
   name: number
   department: number
+  program: number
+  batchPart: number
   semester: number
   _all: number
 }
@@ -69,6 +75,8 @@ export type SectionMinAggregateInputType = {
   id?: true
   name?: true
   department?: true
+  program?: true
+  batchPart?: true
   semester?: true
 }
 
@@ -76,6 +84,8 @@ export type SectionMaxAggregateInputType = {
   id?: true
   name?: true
   department?: true
+  program?: true
+  batchPart?: true
   semester?: true
 }
 
@@ -83,6 +93,8 @@ export type SectionCountAggregateInputType = {
   id?: true
   name?: true
   department?: true
+  program?: true
+  batchPart?: true
   semester?: true
   _all?: true
 }
@@ -177,6 +189,8 @@ export type SectionGroupByOutputType = {
   id: string
   name: string
   department: string
+  program: string
+  batchPart: string
   semester: number
   _count: SectionCountAggregateOutputType | null
   _avg: SectionAvgAggregateOutputType | null
@@ -207,6 +221,8 @@ export type SectionWhereInput = {
   id?: Prisma.StringFilter<"Section"> | string
   name?: Prisma.StringFilter<"Section"> | string
   department?: Prisma.StringFilter<"Section"> | string
+  program?: Prisma.StringFilter<"Section"> | string
+  batchPart?: Prisma.StringFilter<"Section"> | string
   semester?: Prisma.IntFilter<"Section"> | number
   enrollments?: Prisma.EnrollmentListRelationFilter
   timetableSlots?: Prisma.TimetableSlotListRelationFilter
@@ -217,6 +233,8 @@ export type SectionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   department?: Prisma.SortOrder
+  program?: Prisma.SortOrder
+  batchPart?: Prisma.SortOrder
   semester?: Prisma.SortOrder
   enrollments?: Prisma.EnrollmentOrderByRelationAggregateInput
   timetableSlots?: Prisma.TimetableSlotOrderByRelationAggregateInput
@@ -230,6 +248,8 @@ export type SectionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.SectionWhereInput | Prisma.SectionWhereInput[]
   name?: Prisma.StringFilter<"Section"> | string
   department?: Prisma.StringFilter<"Section"> | string
+  program?: Prisma.StringFilter<"Section"> | string
+  batchPart?: Prisma.StringFilter<"Section"> | string
   semester?: Prisma.IntFilter<"Section"> | number
   enrollments?: Prisma.EnrollmentListRelationFilter
   timetableSlots?: Prisma.TimetableSlotListRelationFilter
@@ -240,6 +260,8 @@ export type SectionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   department?: Prisma.SortOrder
+  program?: Prisma.SortOrder
+  batchPart?: Prisma.SortOrder
   semester?: Prisma.SortOrder
   _count?: Prisma.SectionCountOrderByAggregateInput
   _avg?: Prisma.SectionAvgOrderByAggregateInput
@@ -255,6 +277,8 @@ export type SectionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Section"> | string
   name?: Prisma.StringWithAggregatesFilter<"Section"> | string
   department?: Prisma.StringWithAggregatesFilter<"Section"> | string
+  program?: Prisma.StringWithAggregatesFilter<"Section"> | string
+  batchPart?: Prisma.StringWithAggregatesFilter<"Section"> | string
   semester?: Prisma.IntWithAggregatesFilter<"Section"> | number
 }
 
@@ -262,6 +286,8 @@ export type SectionCreateInput = {
   id?: string
   name: string
   department: string
+  program?: string
+  batchPart?: string
   semester: number
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutSectionInput
   timetableSlots?: Prisma.TimetableSlotCreateNestedManyWithoutSectionInput
@@ -272,6 +298,8 @@ export type SectionUncheckedCreateInput = {
   id?: string
   name: string
   department: string
+  program?: string
+  batchPart?: string
   semester: number
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutSectionInput
   timetableSlots?: Prisma.TimetableSlotUncheckedCreateNestedManyWithoutSectionInput
@@ -282,6 +310,8 @@ export type SectionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   department?: Prisma.StringFieldUpdateOperationsInput | string
+  program?: Prisma.StringFieldUpdateOperationsInput | string
+  batchPart?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   enrollments?: Prisma.EnrollmentUpdateManyWithoutSectionNestedInput
   timetableSlots?: Prisma.TimetableSlotUpdateManyWithoutSectionNestedInput
@@ -292,6 +322,8 @@ export type SectionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   department?: Prisma.StringFieldUpdateOperationsInput | string
+  program?: Prisma.StringFieldUpdateOperationsInput | string
+  batchPart?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutSectionNestedInput
   timetableSlots?: Prisma.TimetableSlotUncheckedUpdateManyWithoutSectionNestedInput
@@ -302,6 +334,8 @@ export type SectionCreateManyInput = {
   id?: string
   name: string
   department: string
+  program?: string
+  batchPart?: string
   semester: number
 }
 
@@ -309,6 +343,8 @@ export type SectionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   department?: Prisma.StringFieldUpdateOperationsInput | string
+  program?: Prisma.StringFieldUpdateOperationsInput | string
+  batchPart?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -316,6 +352,8 @@ export type SectionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   department?: Prisma.StringFieldUpdateOperationsInput | string
+  program?: Prisma.StringFieldUpdateOperationsInput | string
+  batchPart?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -323,6 +361,8 @@ export type SectionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   department?: Prisma.SortOrder
+  program?: Prisma.SortOrder
+  batchPart?: Prisma.SortOrder
   semester?: Prisma.SortOrder
 }
 
@@ -334,6 +374,8 @@ export type SectionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   department?: Prisma.SortOrder
+  program?: Prisma.SortOrder
+  batchPart?: Prisma.SortOrder
   semester?: Prisma.SortOrder
 }
 
@@ -341,6 +383,8 @@ export type SectionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   department?: Prisma.SortOrder
+  program?: Prisma.SortOrder
+  batchPart?: Prisma.SortOrder
   semester?: Prisma.SortOrder
 }
 
@@ -399,6 +443,8 @@ export type SectionCreateWithoutEnrollmentsInput = {
   id?: string
   name: string
   department: string
+  program?: string
+  batchPart?: string
   semester: number
   timetableSlots?: Prisma.TimetableSlotCreateNestedManyWithoutSectionInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutSectionInput
@@ -408,6 +454,8 @@ export type SectionUncheckedCreateWithoutEnrollmentsInput = {
   id?: string
   name: string
   department: string
+  program?: string
+  batchPart?: string
   semester: number
   timetableSlots?: Prisma.TimetableSlotUncheckedCreateNestedManyWithoutSectionInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutSectionInput
@@ -433,6 +481,8 @@ export type SectionUpdateWithoutEnrollmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   department?: Prisma.StringFieldUpdateOperationsInput | string
+  program?: Prisma.StringFieldUpdateOperationsInput | string
+  batchPart?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   timetableSlots?: Prisma.TimetableSlotUpdateManyWithoutSectionNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutSectionNestedInput
@@ -442,6 +492,8 @@ export type SectionUncheckedUpdateWithoutEnrollmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   department?: Prisma.StringFieldUpdateOperationsInput | string
+  program?: Prisma.StringFieldUpdateOperationsInput | string
+  batchPart?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   timetableSlots?: Prisma.TimetableSlotUncheckedUpdateManyWithoutSectionNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutSectionNestedInput
@@ -451,6 +503,8 @@ export type SectionCreateWithoutTimetableSlotsInput = {
   id?: string
   name: string
   department: string
+  program?: string
+  batchPart?: string
   semester: number
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutSectionInput
   attendance?: Prisma.AttendanceCreateNestedManyWithoutSectionInput
@@ -460,6 +514,8 @@ export type SectionUncheckedCreateWithoutTimetableSlotsInput = {
   id?: string
   name: string
   department: string
+  program?: string
+  batchPart?: string
   semester: number
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutSectionInput
   attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutSectionInput
@@ -485,6 +541,8 @@ export type SectionUpdateWithoutTimetableSlotsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   department?: Prisma.StringFieldUpdateOperationsInput | string
+  program?: Prisma.StringFieldUpdateOperationsInput | string
+  batchPart?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   enrollments?: Prisma.EnrollmentUpdateManyWithoutSectionNestedInput
   attendance?: Prisma.AttendanceUpdateManyWithoutSectionNestedInput
@@ -494,6 +552,8 @@ export type SectionUncheckedUpdateWithoutTimetableSlotsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   department?: Prisma.StringFieldUpdateOperationsInput | string
+  program?: Prisma.StringFieldUpdateOperationsInput | string
+  batchPart?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutSectionNestedInput
   attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutSectionNestedInput
@@ -503,6 +563,8 @@ export type SectionCreateWithoutAttendanceInput = {
   id?: string
   name: string
   department: string
+  program?: string
+  batchPart?: string
   semester: number
   enrollments?: Prisma.EnrollmentCreateNestedManyWithoutSectionInput
   timetableSlots?: Prisma.TimetableSlotCreateNestedManyWithoutSectionInput
@@ -512,6 +574,8 @@ export type SectionUncheckedCreateWithoutAttendanceInput = {
   id?: string
   name: string
   department: string
+  program?: string
+  batchPart?: string
   semester: number
   enrollments?: Prisma.EnrollmentUncheckedCreateNestedManyWithoutSectionInput
   timetableSlots?: Prisma.TimetableSlotUncheckedCreateNestedManyWithoutSectionInput
@@ -537,6 +601,8 @@ export type SectionUpdateWithoutAttendanceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   department?: Prisma.StringFieldUpdateOperationsInput | string
+  program?: Prisma.StringFieldUpdateOperationsInput | string
+  batchPart?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   enrollments?: Prisma.EnrollmentUpdateManyWithoutSectionNestedInput
   timetableSlots?: Prisma.TimetableSlotUpdateManyWithoutSectionNestedInput
@@ -546,6 +612,8 @@ export type SectionUncheckedUpdateWithoutAttendanceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   department?: Prisma.StringFieldUpdateOperationsInput | string
+  program?: Prisma.StringFieldUpdateOperationsInput | string
+  batchPart?: Prisma.StringFieldUpdateOperationsInput | string
   semester?: Prisma.IntFieldUpdateOperationsInput | number
   enrollments?: Prisma.EnrollmentUncheckedUpdateManyWithoutSectionNestedInput
   timetableSlots?: Prisma.TimetableSlotUncheckedUpdateManyWithoutSectionNestedInput
@@ -604,6 +672,8 @@ export type SectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   name?: boolean
   department?: boolean
+  program?: boolean
+  batchPart?: boolean
   semester?: boolean
   enrollments?: boolean | Prisma.Section$enrollmentsArgs<ExtArgs>
   timetableSlots?: boolean | Prisma.Section$timetableSlotsArgs<ExtArgs>
@@ -615,6 +685,8 @@ export type SectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   name?: boolean
   department?: boolean
+  program?: boolean
+  batchPart?: boolean
   semester?: boolean
 }, ExtArgs["result"]["section"]>
 
@@ -622,6 +694,8 @@ export type SectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   name?: boolean
   department?: boolean
+  program?: boolean
+  batchPart?: boolean
   semester?: boolean
 }, ExtArgs["result"]["section"]>
 
@@ -629,10 +703,12 @@ export type SectionSelectScalar = {
   id?: boolean
   name?: boolean
   department?: boolean
+  program?: boolean
+  batchPart?: boolean
   semester?: boolean
 }
 
-export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "department" | "semester", ExtArgs["result"]["section"]>
+export type SectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "department" | "program" | "batchPart" | "semester", ExtArgs["result"]["section"]>
 export type SectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   enrollments?: boolean | Prisma.Section$enrollmentsArgs<ExtArgs>
   timetableSlots?: boolean | Prisma.Section$timetableSlotsArgs<ExtArgs>
@@ -653,6 +729,8 @@ export type $SectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: string
     name: string
     department: string
+    program: string
+    batchPart: string
     semester: number
   }, ExtArgs["result"]["section"]>
   composites: {}
@@ -1083,6 +1161,8 @@ export interface SectionFieldRefs {
   readonly id: Prisma.FieldRef<"Section", 'String'>
   readonly name: Prisma.FieldRef<"Section", 'String'>
   readonly department: Prisma.FieldRef<"Section", 'String'>
+  readonly program: Prisma.FieldRef<"Section", 'String'>
+  readonly batchPart: Prisma.FieldRef<"Section", 'String'>
   readonly semester: Prisma.FieldRef<"Section", 'Int'>
 }
     

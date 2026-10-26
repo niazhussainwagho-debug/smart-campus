@@ -169,12 +169,15 @@ model Section {
   id             String          @id @default(cuid())
   name           String
   department     String
+  program        String          @default("")
+  batchPart      String          @default("")
   semester       Int
   enrollments    Enrollment[]
   timetableSlots TimetableSlot[]
   attendance     Attendance[]
 
   @@index([department, semester])
+  @@index([program, batchPart])
 }
 
 model Enrollment {
@@ -202,6 +205,7 @@ model TimetableSlot {
   roomId    String
   teacherId String
   dayOfWeek DayOfWeek
+  slotNumber Int      @default(1)
   startTime DateTime  @db.Time(0)
   endTime   DateTime  @db.Time(0)
   course    Course    @relation(fields: [courseId], references: [id])
@@ -214,6 +218,7 @@ model TimetableSlot {
   @@index([roomId, dayOfWeek, startTime])
   @@index([teacherId, dayOfWeek, startTime])
   @@index([sectionId, dayOfWeek, startTime])
+  @@index([sectionId, dayOfWeek, slotNumber])
   @@index([dayOfWeek])
 }
 

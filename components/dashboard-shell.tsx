@@ -357,7 +357,10 @@ export function DashboardShell({
         <nav className={styles.navigation}>
           <p className={styles.navLabel}>YOUR WORKSPACE</p>
           {navItems.map((item) => {
-            const isActive = pathname === item.href || (item.href !== dashHref && pathname.startsWith(item.href));
+            const isActive =
+              pathname === item.href ||
+              (item.href !== dashHref && pathname.startsWith(item.href)) ||
+              (pathname === "/timetable" && item.href === "/student/timetable");
             return (
               <Link
                 aria-current={isActive ? "page" : undefined}

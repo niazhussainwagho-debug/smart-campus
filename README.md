@@ -52,10 +52,19 @@ sections, rooms, and timetable slots, and can edit or delete timetable slots.
 Each server action checks the admin role and checks room, teacher, and section
 time conflicts before saving.
 
-Students can see classes for sections they are enrolled in at
-`/student/timetable`; teachers can see their own classes at
-`/teacher/timetable`. The seed script adds the `SC101` demo course, enrolls the
-demo student in the demo section, and adds three non-overlapping weekly slots.
+Students can view weekly schedules by program and part at `/timetable` or
+`/student/timetable`. Their first available enrolled program and part are
+selected automatically; the filters can be changed to browse other schedules.
+Teachers can see their own classes at `/teacher/timetable`. The seed script
+adds the `SC101` demo course, enrolls the demo student in the demo section, and
+adds three non-overlapping weekly slots.
+
+Program and batch metadata live on `Section`; each `TimetableSlot` stores its
+period number and references its related course, room, teacher, and section.
+Apply the `program_batch_timetable` migration with `npx prisma migrate deploy`
+and regenerate the Prisma client with `npm run db:generate` before deploying.
+Admin timetable management requires a program and part when creating a section
+and a period number from 1 to 7 when scheduling a class.
 
 Run the clash tests with:
 

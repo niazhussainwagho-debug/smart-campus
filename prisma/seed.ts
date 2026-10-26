@@ -185,19 +185,36 @@ async function main() {
   let importedSlotCount = 0;
 
   for (const program of morningPrograms2026) {
+    const batchPart = {
+      "P-I": "Part-I",
+      "P-II": "Part-II",
+      "P-III": "Part-III",
+      "P-IV": "Part-IV",
+    }[program.section];
     const sectionDetails = {
       name: program.section,
       department: program.department,
+      program: program.department,
+      batchPart,
       semester: 2,
     };
     let section = await prisma.section.findFirst({
-      where: sectionDetails,
+      where: {
+        name: sectionDetails.name,
+        department: sectionDetails.department,
+        semester: sectionDetails.semester,
+      },
       select: { id: true },
     });
     if (!section) {
       section = await prisma.section.create({
         data: sectionDetails,
         select: { id: true },
+      });
+    } else {
+      await prisma.section.update({
+        where: { id: section.id },
+        data: { program: sectionDetails.program, batchPart },
       });
     }
     sectionByProgram.set(`${program.department}-${program.section}`, section.id);
@@ -218,6 +235,7 @@ async function main() {
       teacherId: string;
       teacherIds: string[];
       dayOfWeek: "MON" | "TUE" | "WED" | "THU" | "FRI";
+      slotNumber: number;
       startTime: Date;
       endTime: Date;
     }[] = [];
@@ -301,6 +319,7 @@ async function main() {
           teacherId: teacherIds[0],
           teacherIds,
           dayOfWeek,
+          slotNumber: periodIndex + 1,
           startTime: new Date(`1970-01-01T${start}:00.000Z`),
           endTime: new Date(`1970-01-01T${end}:00.000Z`),
         });
@@ -318,6 +337,7 @@ async function main() {
               roomId: slot.roomId,
               teacherId: slot.teacherId,
               dayOfWeek: slot.dayOfWeek,
+              slotNumber: slot.slotNumber,
               startTime: slot.startTime,
               endTime: slot.endTime,
               teachers: {
