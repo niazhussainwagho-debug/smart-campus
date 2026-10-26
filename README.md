@@ -2,19 +2,27 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Prisma database
 
-The app uses Prisma ORM with PostgreSQL on Neon. Set `DATABASE_URL` in the local
-`.env` file. For Neon, use the pooled URL at runtime; if migrations need a
-direct connection, add the direct URL separately as `DIRECT_URL`. Do not commit
-either value.
+The app uses Prisma ORM with PostgreSQL on Neon. Set `DATABASE_URL` as a normal
+dotenv assignment in the local `.env` file (for example,
+`DATABASE_URL="postgresql://..."`), not as a PowerShell `$env:` command. Use the
+pooled URL at runtime and add a direct, non-pooled `DIRECT_URL` for migrations
+and seeding. Do not commit either value.
 
 Useful commands:
 
 ```bash
 npm run db:generate
 npm run db:migrate -- --name init
+npm run db:migrate:deploy
 npm run db:seed
 npm run db:studio
 ```
+
+The Vercel build runs `prisma generate` before `next build`. Apply committed
+production migrations separately with `npm run db:migrate:deploy` using
+`DIRECT_URL`; do not run migrations or the seed automatically as part of a
+build. Configure both database URLs in Vercel and keep credentials out of
+source control and chat.
 
 Before seeding, set `SEED_ADMIN_PASSWORD`, `SEED_TEACHER_PASSWORD`, and
 `SEED_STUDENT_PASSWORD` in `.env`. Seed passwords are stored as bcrypt hashes.

@@ -55,6 +55,10 @@ export const authConfig = {
       const pathname = request.nextUrl.pathname;
       const user = auth?.user;
 
+      if (pathname === "/login") {
+        return true;
+      }
+
       if (pathname === "/verification") {
         if (!user) return false;
         if (user.status === UserStatus.PENDING_VERIFICATION) return true;
@@ -68,10 +72,6 @@ export const authConfig = {
 
       if (user?.status === UserStatus.PENDING_VERIFICATION) {
         return Response.redirect(new URL("/verification", request.nextUrl));
-      }
-
-      if (pathname === "/login" && user) {
-        return Response.redirect(new URL(getDashboardPath(user.role), request.nextUrl));
       }
 
       const protectedRoute = protectedPaths.find(

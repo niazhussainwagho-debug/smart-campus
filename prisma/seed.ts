@@ -9,10 +9,10 @@ import {
   timetableRooms2026,
 } from "./timetable-2026";
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString = process.env.DIRECT_URL ?? process.env.DATABASE_URL;
 
 if (!connectionString) {
-  throw new Error("DATABASE_URL is not set.");
+  throw new Error("DIRECT_URL or DATABASE_URL must be set before running the seed.");
 }
 
 function requiredSeedPassword(name: string): string {

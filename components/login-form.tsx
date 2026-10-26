@@ -31,7 +31,11 @@ export function LoginForm() {
           setError("Account pending admin approval");
           return;
         }
-        setError("Incorrect email or password. Please try again.");
+        setError(
+          result?.error && result.error !== "CredentialsSignin"
+            ? "The login service is temporarily unavailable. Please try again later."
+            : "Incorrect email or password. Please try again.",
+        );
         return;
       }
 
