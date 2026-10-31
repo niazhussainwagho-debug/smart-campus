@@ -28,9 +28,9 @@ function readStoredTheme(): Theme {
       storedTheme === "light" ||
       storedTheme === "system"
       ? storedTheme
-      : "system";
+      : "light";
   } catch {
-    return "system";
+    return "light";
   }
 }
 
@@ -43,8 +43,8 @@ function applyTheme(theme: Theme, systemTheme: "dark" | "light") {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("system");
-  const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<Theme>("light");
+  const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">("light");
 
   useEffect(() => {
     const initialSync = window.setTimeout(() => {

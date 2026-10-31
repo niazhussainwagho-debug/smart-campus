@@ -315,11 +315,17 @@
 :global(html.light) .breakdownPanel,
 :global(html.light) .activityPanel,
 :global(html.light) .departmentPanel {
-  border-color: #cbd5e1;
+  border-color: #e2e8f0;
   background: #ffffff;
   color: #0f172a;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, .06);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, .07);
 }
+
+/* Colored left-border accents on stat cards — like demo image */
+:global(html.light) .statCard:has(.teal) { border-left: 4px solid #3b82f6; }
+:global(html.light) .statCard:has(.blue) { border-left: 4px solid #22c55e; }
+:global(html.light) .statCard:has(.orange) { border-left: 4px solid #f97316; }
+:global(html.light) .statCard:has(.rose) { border-left: 4px solid #ef4444; }
 
 :global(html.light) .panelHeader h2,
 :global(html.light) .statCopy > strong,

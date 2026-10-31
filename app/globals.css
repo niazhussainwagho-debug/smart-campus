@@ -26,13 +26,13 @@ html.dark {
 
 html.light {
   color-scheme: light;
-  --app-background: #f1f5f9;
+  --app-background: #f0f4f8;
   --app-foreground: #0f172a;
   --app-card: #ffffff;
   --app-card-foreground: #0f172a;
-  --app-muted: #e2e8f0;
+  --app-muted: #e8edf3;
   --app-muted-foreground: #334155;
-  --app-border: #cbd5e1;
+  --app-border: #dde3ea;
   --app-input: #ffffff;
 }
 
