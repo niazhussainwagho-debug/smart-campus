@@ -6,8 +6,8 @@ import { getDashboardPath } from "@/lib/roles";
 import { prisma } from "@/lib/prisma";
 
 export const metadata = {
-  title: "Create Account · CAMPUS.OS",
-  description: "Create a student, teacher, or Admin account for verification.",
+  title: "Create Account · Smart Campus",
+  description: "Create a student, teacher, or Admin account for Smart Campus.",
 };
 
 export default async function SignupPage() {
@@ -26,39 +26,39 @@ export default async function SignupPage() {
   });
 
   return (
-    <main className="relative flex min-h-screen max-w-full items-center justify-center overflow-x-clip bg-[#0B0F19] px-4 py-8 text-slate-100">
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="bg-dot-grid absolute inset-0 opacity-40" />
-        <div
-          className="absolute -top-32 left-1/4 h-[min(32rem,85vw)] w-[min(32rem,85vw)] rounded-full blur-[150px]"
-          style={{ background: "rgba(6, 182, 212, 0.14)" }}
-        />
+    <main className="flex min-h-screen w-full items-center justify-center bg-[#f8fafc] px-4 py-12 text-slate-800 antialiased selection:bg-blue-500/20 selection:text-blue-600 sm:px-6">
+      <div className="w-full max-w-xl">
+        <div className="rounded-2xl border border-slate-200 bg-white p-7 shadow-xl shadow-slate-900/5 sm:p-9">
+          {/* Logo Header */}
+          <div className="mb-6 flex flex-col items-center text-center">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#2563eb] text-2xl text-white shadow-md shadow-blue-500/20">
+              🎓
+            </div>
+            <h1 className="mt-3.5 text-2xl font-black tracking-tight text-slate-900">
+              Create an Account
+            </h1>
+            <p className="mt-1 text-xs text-slate-500 max-w-sm">
+              Register as Student or Teacher for Smart Campus portal access.
+            </p>
+          </div>
+
+          <SignupForm targets={sections} />
+
+          <p className="mt-6 text-center text-xs text-slate-500">
+            Already registered?{" "}
+            <Link
+              className="font-bold text-[#2563eb] hover:text-blue-700 hover:underline"
+              href="/login"
+            >
+              Sign in to Portal
+            </Link>
+          </p>
+        </div>
+
+        <p className="mt-6 text-center text-xs text-slate-400">
+          © 2026 Smart Campus Management System · All rights reserved.
+        </p>
       </div>
-      <section className="relative z-10 w-full max-w-xl overflow-hidden rounded-2xl border border-slate-800 bg-[#111827]/95 p-5 shadow-2xl backdrop-blur-xl sm:rounded-3xl sm:p-8">
-        <div className="absolute left-0 right-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-        <Link
-          className="text-sm font-black tracking-wider text-white"
-          href="/login"
-        >
-          CAMPUS<span className="text-cyan-400">.OS</span>
-        </Link>
-        <h1 className="mt-6 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
-          Create your account
-        </h1>
-        <p className="mt-2 text-sm text-slate-400">
-          Submit your official documents during registration. An administrator must verify your account before dashboard access.
-        </p>
-        <SignupForm targets={sections} />
-        <p className="mt-6 text-center text-sm text-slate-400">
-          Already registered?{" "}
-          <Link
-            className="font-semibold text-cyan-400 hover:text-cyan-300"
-            href="/login"
-          >
-            Sign in
-          </Link>
-        </p>
-      </section>
     </main>
   );
 }

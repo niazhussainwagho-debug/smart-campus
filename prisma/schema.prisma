@@ -84,6 +84,7 @@ model User {
   department           String?
   semester             Int?
   rollNo               String?            @unique
+  cnic                 String?
   fatherName           String?
   surname              String?
   category             String?

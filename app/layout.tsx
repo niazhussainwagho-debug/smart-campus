@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
 import { ThemeProvider } from "@/components/theme-provider";
-import { themeBootstrapScript } from "@/lib/theme-bootstrap";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,10 +31,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <head>
-        <Script
-          dangerouslySetInnerHTML={{ __html: themeBootstrapScript }}
-          id="theme-bootstrap"
-          strategy="beforeInteractive"
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('smart-campus-theme');var d=window.matchMedia('(prefers-color-scheme: dark)').matches;if(t==='dark'||(!t&&d)||(t==='system'&&d)){document.documentElement.classList.add('dark');document.documentElement.classList.remove('light');document.documentElement.style.colorScheme='dark';}else{document.documentElement.classList.add('light');document.documentElement.classList.remove('dark');document.documentElement.style.colorScheme='light';}}catch(e){}})()`,
+          }}
         />
       </head>
       <body className="min-h-full flex flex-col">

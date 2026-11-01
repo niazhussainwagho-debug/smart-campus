@@ -1,0 +1,967 @@
+/* ── Results & Outcomes Presentation Page ── */
+
+.pageContainer {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: #f8fafc;
+  color: #0f172a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  padding: 32px 20px 80px 20px;
+  box-sizing: border-box;
+}
+
+/* ── Top Header Section (matching Design 5 Report Header) ── */
+.headerSection {
+  max-width: 1320px;
+  margin: 0 auto 36px auto;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 24px;
+}
+
+.reportKicker {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reportKickerDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2563eb;
+  display: inline-block;
+}
+
+.reportTitle {
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin: 0 0 12px 0;
+}
+
+.reportSubtitle {
+  font-size: clamp(13px, 1.8vw, 16px);
+  color: #475569;
+  max-width: 800px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Top Controls Bar ── */
+.controlsBar {
+  max-width: 1320px;
+  margin: 0 auto 28px auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: #ffffff;
+  padding: 12px 18px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.deviceTabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.deviceTabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.deviceTabBtn:hover {
+  color: #0f172a;
+}
+
+.deviceTabBtnActive {
+  background: #ffffff;
+  color: #2563eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.quickActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.actionBtn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.actionBtnPrimary {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+}
+
+.actionBtnPrimary:hover {
+  background: #1d4ed8;
+  color: #ffffff;
+  border-color: #1d4ed8;
+}
+
+/* ── Mobile Screen Switcher (visible on mobile / small devices) ── */
+.screenSelectorMobile {
+  display: none;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto 20px auto;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.screenSelectorList {
+  display: flex;
+  gap: 8px;
+  min-width: max-content;
+}
+
+.screenSelectorItem {
+  padding: 8px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.screenSelectorItemActive {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+}
+
+/* ── 4 MacBook Screens Grid (Design 5) ── */
+.screensGrid {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 36px 28px;
+  box-sizing: border-box;
+}
+
+.singleScreenView {
+  grid-template-columns: minmax(0, 1fr) !important;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+/* ── MacBook Frame Container ── */
+.screenCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  transition: transform 0.2s ease;
+}
+
+/* Authentic MacBook Pro Frame styling */
+.macbookShell {
+  width: 100%;
+  background: #0f172a;
+  border-radius: 18px 18px 0 0;
+  padding: 10px 10px 0 10px;
+  box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.28), 0 0 0 1px rgba(15, 23, 42, 0.08);
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Camera Notch / Bezel */
+.macbookCameraBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 14px;
+  position: relative;
+}
+
+.cameraLens {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #1e293b;
+  border: 1px solid #334155;
+}
+
+/* MacBook Screen Window */
+.macbookScreen {
+  background: #ffffff;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Browser address header */
+.browserChrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 11px;
+  color: #64748b;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.windowDots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.dotRed {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff5f56;
+}
+
+.dotYellow {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ffbd2e;
+}
+
+.dotGreen {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #27c93f;
+}
+
+.browserAddress {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 2px 14px;
+  font-size: 11px;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* MacBook Metallic Base & Notch Bottom */
+.macbookBase {
+  width: 108%;
+  height: 14px;
+  background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 100%);
+  border-radius: 0 0 14px 14px;
+  position: relative;
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.2);
+  margin-top: -1px;
+}
+
+.macbookBaseNotch {
+  width: 70px;
+  height: 5px;
+  background: #64748b;
+  border-radius: 0 0 6px 6px;
+  margin: 0 auto;
+}
+
+/* Title caption below each screen */
+.screenLabel {
+  margin-top: 18px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+.screenDescription {
+  font-size: 12px;
+  color: #64748b;
+  text-align: center;
+  margin-top: 3px;
+  max-width: 400px;
+}
+
+/* ── Screen Content Viewport (Inside MacBook) ── */
+.screenBody {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ========================================================
+   SCREEN 1: LOGIN PAGE UI
+   ======================================================== */
+.loginScreen {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 320px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 24px 20px;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 0 0 1px #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginLogoRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.loginLogoIcon {
+  width: 36px;
+  height: 36px;
+  background: #2563eb;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.loginLogoText {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.loginLogoText small {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.loginForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.loginFieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.loginFieldGroup label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.loginInputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.loginInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+  outline: none;
+}
+
+.loginInput:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.loginEyeIcon {
+  position: absolute;
+  right: 10px;
+  font-size: 12px;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.loginSubmitBtn {
+  margin-top: 6px;
+  width: 100%;
+  padding: 9px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.loginSubmitBtn:hover {
+  background: #1d4ed8;
+}
+
+.loginForgotLink {
+  margin-top: 10px;
+  font-size: 11px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ========================================================
+   SCREEN 2: STUDENT DASHBOARD UI
+   ======================================================== */
+.dashboardScreen {
+  display: flex;
+  height: 100%;
+  background: #f8fafc;
+}
+
+.dashSidebar {
+  width: 90px;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 6px;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.dashSidebarBrand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 4px;
+}
+
+.dashSidebarBrandIcon {
+  width: 24px;
+  height: 24px;
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+}
+
+.dashSidebarBrandName {
+  font-size: 8px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-top: 3px;
+  text-align: center;
+}
+
+.dashNavItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 4px;
+  border-radius: 6px;
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 600;
+  text-decoration: none;
+  gap: 2px;
+}
+
+.dashNavItemActive {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.dashMainArea {
+  flex: 1;
+  padding: 10px 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dashTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashTitle {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.dashAvatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+/* 4 Mini Stat Cards */
+.miniStatGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.miniStatCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.miniStatTitle {
+  font-size: 8px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.miniStatVal {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+/* Today's Timetable List with Chevrons */
+.todayListSection {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.todayListHeader {
+  font-size: 10px;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.todayListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 6px;
+  border-radius: 6px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  font-size: 10px;
+}
+
+.todayListInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.todayCourseName {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.todayCourseMeta {
+  font-size: 9px;
+  color: #64748b;
+}
+
+.todayListChevron {
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ========================================================
+   SCREEN 3: TIMETABLE VIEW UI
+   ======================================================== */
+.timetableScreen {
+  padding: 10px;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f8fafc;
+}
+
+.timetableHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ttTitle {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.ttBadge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  background: #eff6ff;
+  color: #2563eb;
+  border-radius: 4px;
+  border: 1px solid #bfdbfe;
+}
+
+.ttGridTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  font-size: 9px;
+  overflow: hidden;
+}
+
+.ttGridTable th {
+  background: #f1f5f9;
+  padding: 4px 6px;
+  text-align: left;
+  font-weight: 700;
+  color: #475569;
+  border-bottom: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+  font-size: 9px;
+}
+
+.ttGridTable td {
+  padding: 4px 6px;
+  border-bottom: 1px solid #f1f5f9;
+  border-right: 1px solid #f1f5f9;
+  vertical-align: top;
+}
+
+.ttSlotTime {
+  font-weight: 700;
+  color: #64748b;
+  white-space: nowrap;
+  font-size: 8px;
+  width: 50px;
+  background: #f8fafc;
+}
+
+.ttCardChip {
+  padding: 3px 5px;
+  border-radius: 4px;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.chipBlue {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-left: 3px solid #3b82f6;
+}
+
+.chipGreen {
+  background: #f0fdf4;
+  color: #15803d;
+  border-left: 3px solid #22c55e;
+}
+
+.chipOrange {
+  background: #fff7ed;
+  color: #c2410c;
+  border-left: 3px solid #f97316;
+}
+
+.chipPurple {
+  background: #faf5ff;
+  color: #7e22ce;
+  border-left: 3px solid #a855f7;
+}
+
+/* ========================================================
+   SCREEN 4: APPOINTMENT BOOKING UI
+   ======================================================== */
+.appointmentScreen {
+  padding: 10px 12px;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f8fafc;
+}
+
+.aptTitle {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.teachersTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+.teachersTable th {
+  background: #f1f5f9;
+  padding: 6px 8px;
+  text-align: left;
+  font-size: 9px;
+  font-weight: 700;
+  color: #475569;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.teachersTable td {
+  padding: 6px 8px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 9px;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.teacherProfileCell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.teacherAvatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.statusAvailableBadge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 9999px;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.bookAptBtn {
+  padding: 4px 8px;
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: 8px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.bookAptBtn:hover {
+  background: #1d4ed8;
+}
+
+/* ========================================================
+   RESPONSIVENESS (All Devices)
+   ======================================================== */
+@media (max-width: 1024px) {
+  .screensGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .macbookScreen {
+    height: 360px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 20px 12px 60px 12px;
+  }
+
+  .screenSelectorMobile {
+    display: block;
+  }
+
+  .reportTitle {
+    font-size: 24px;
+  }
+
+  .macbookScreen {
+    height: 340px;
+  }
+
+  .macbookBase {
+    height: 10px;
+  }
+
+  .controlsBar {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .macbookShell {
+    border-radius: 12px 12px 0 0;
+    padding: 6px 6px 0 6px;
+  }
+
+  .macbookScreen {
+    height: 320px;
+    border-radius: 6px 6px 0 0;
+  }
+
+  .browserAddress {
+    display: none;
+  }
+
+  .screenLabel {
+    font-size: 16px;
+  }
+
+  .miniStatGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Print / Presentation Mode */
+@media print {
+  .controlsBar,
+  .screenSelectorMobile {
+    display: none !important;
+  }
+
+  .pageContainer {
+    background: #ffffff;
+    padding: 0;
+  }
+
+  .screensGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 20px !important;
+  }
+
+  .macbookShell {
+    box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+}

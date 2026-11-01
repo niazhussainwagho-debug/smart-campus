@@ -13,7 +13,7 @@ type SignupTarget = {
 };
 
 const fieldClass =
-  "mt-1.5 min-h-11 w-full rounded-xl border border-slate-700/80 bg-slate-900/80 px-3.5 py-2.5 text-base text-white outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-500/15 sm:text-sm";
+  "mt-1.5 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#2563eb] focus:ring-4 focus:ring-blue-500/10";
 
 export function SignupForm({ targets }: { targets: SignupTarget[] }) {
   const [role, setRole] = useState<"STUDENT" | "TEACHER" | "ADMIN">("STUDENT");
@@ -41,16 +41,16 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
     <>
       <div
         aria-label="Account type"
-        className="mt-6 grid grid-cols-3 gap-2 rounded-xl border border-slate-800 bg-slate-900/70 p-1"
+        className="mt-4 grid grid-cols-3 gap-1.5 rounded-xl border border-slate-200 bg-slate-50 p-1"
         role="tablist"
       >
         {(["STUDENT", "TEACHER", "ADMIN"] as const).map((item) => (
           <button
             aria-selected={role === item}
-            className={`min-h-10 rounded-lg px-3 py-2 text-sm font-semibold transition ${
+            className={`min-h-10 rounded-lg px-3 py-2 text-xs font-bold transition ${
               role === item
-                ? "border border-cyan-500/30 bg-cyan-500/15 text-cyan-300"
-                : "text-slate-400 hover:text-white"
+                ? "bg-white text-[#2563eb] shadow-sm border border-slate-200"
+                : "text-slate-600 hover:text-slate-900"
             }`}
             key={item}
             onClick={() => {
@@ -61,37 +61,39 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
             type="button"
           >
             {item === "STUDENT"
-              ? "Student"
+              ? "🎓 Student"
               : item === "TEACHER"
-                ? "Teacher"
-                : "Admin"}
+                ? "👨‍🏫 Teacher"
+                : "🛡️ Admin"}
           </button>
         ))}
       </div>
 
       <form className="mt-5 grid gap-4 sm:grid-cols-2" onSubmit={submit}>
-        <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
-          Full name
+        <label className="min-w-0 text-xs font-semibold text-slate-700">
+          Full Name
           <input
             autoComplete="name"
             className={fieldClass}
             maxLength={120}
             name="name"
+            placeholder="Muhammad Ali"
             required
           />
         </label>
-        <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
-          University email
+        <label className="min-w-0 text-xs font-semibold text-slate-700">
+          University Email
           <input
             autoComplete="email"
             className={fieldClass}
             maxLength={254}
             name="email"
+            placeholder="ali@smartcampus.test"
             required
             type="email"
           />
         </label>
-        <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400 sm:col-span-2">
+        <label className="min-w-0 text-xs font-semibold text-slate-700 sm:col-span-2">
           Password
           <input
             autoComplete="new-password"
@@ -99,14 +101,15 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
             maxLength={72}
             minLength={12}
             name="password"
+            placeholder="••••••••••••"
             required
             type="password"
           />
-          <span className="mt-1 block text-[11px] font-normal normal-case tracking-normal text-slate-500">
-            Use 12–72 characters.
+          <span className="mt-1 block text-[11px] font-normal text-slate-500">
+            Must be at least 12 characters.
           </span>
         </label>
-        <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <label className="min-w-0 text-xs font-semibold text-slate-700 sm:col-span-2">
           Department
           <select
             className={fieldClass}
@@ -117,7 +120,7 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
             required
             value={department}
           >
-            <option value="">Select department</option>
+            <option value="">Select your department...</option>
             {departments.map((item) => (
               <option key={item} value={item}>
                 {item}
@@ -126,24 +129,21 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
           </select>
         </label>
         <div className="space-y-3 sm:col-span-2">
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-            Required verification documents
+          <p className="text-xs font-bold text-slate-800">
+            Required Verification Documents
           </p>
           <p className="text-xs leading-relaxed text-slate-500">
-            Upload a PDF, JPEG, or PNG file (maximum 2 MB each). Students and
-            teachers must provide at least one listed document; Admin
-            applicants must provide all three. Dashboard access follows
-            administrator verification.
+            Upload PDF, JPEG, or PNG (max 2 MB each). Admin verifies your account before portal access.
           </p>
           {verificationDocumentsByRole[role].map((document) => (
             <label
-              className="block min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400"
+              className="block min-w-0 text-xs font-semibold text-slate-700"
               key={document.field}
             >
               {document.label}
               <input
                 accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
-                className={fieldClass}
+                className="mt-1.5 block w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-[#2563eb] hover:file:bg-blue-100 cursor-pointer"
                 name={document.field}
                 required={verificationDocumentGroupsByRole[role].some(
                   (group) =>
@@ -157,10 +157,10 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
         {result && (
           <p
             aria-live="polite"
-            className={`rounded-xl border p-3 text-sm sm:col-span-2 ${
+            className={`rounded-xl border p-3.5 text-xs font-medium sm:col-span-2 ${
               result.ok
-                ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
-                : "border-rose-500/30 bg-rose-500/10 text-rose-300"
+                ? "border-green-200 bg-green-50 text-green-800"
+                : "border-rose-200 bg-rose-50 text-rose-800"
             }`}
             role={result.ok ? "status" : "alert"}
           >
@@ -168,21 +168,21 @@ export function SignupForm({ targets }: { targets: SignupTarget[] }) {
           </p>
         )}
         <button
-          className="min-h-12 rounded-xl bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-500 px-5 py-3 text-sm font-bold text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:brightness-110 disabled:cursor-wait disabled:opacity-70 sm:col-span-2"
+          className="min-h-11 rounded-xl bg-[#2563eb] px-5 py-3 text-sm font-bold text-white shadow-md shadow-blue-500/20 transition hover:bg-[#1d4ed8] disabled:cursor-wait disabled:opacity-70 sm:col-span-2"
           disabled={isPending || departments.length === 0}
           type="submit"
         >
           {isPending
-            ? "Submitting…"
+            ? "Submitting Application…"
             : role === "STUDENT"
-              ? "Create student account"
+              ? "Create Student Account"
               : role === "TEACHER"
-                ? "Submit teacher request"
-                : "Submit Admin request"}
+                ? "Submit Teacher Registration"
+                : "Submit Admin Application"}
         </button>
       </form>
       {departments.length === 0 && (
-        <p className="mt-3 text-sm text-amber-300">
+        <p className="mt-3 text-xs text-amber-700">
           Registration is unavailable until campus departments are configured.
         </p>
       )}

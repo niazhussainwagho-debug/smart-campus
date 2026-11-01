@@ -348,8 +348,8 @@ export function DashboardShell({
       >
         <div className={styles.brandRow}>
           <Link className={styles.brand} href={dashHref} onClick={() => setMobileMenuOpen(false)}>
-            <span className={styles.brandMark}>C</span>
-            <span><strong>CAMPUS<span>.OS</span></strong><small>{roleMeta.portalName.toUpperCase()}</small></span>
+            <span className={styles.brandMark}>🎓</span>
+            <span><strong>Smart <span>Campus</span></strong><small>{roleMeta.portalName.toUpperCase()}</small></span>
           </Link>
           <button aria-label="Close navigation menu" className={styles.closeMenu} onClick={() => setMobileMenuOpen(false)} type="button">×</button>
         </div>
@@ -368,6 +368,7 @@ export function DashboardShell({
                 href={item.href}
                 key={item.href}
                 onClick={() => setMobileMenuOpen(false)}
+                prefetch={true}
               >
                 {item.icon(isActive)}
                 <span>{item.label}</span>
@@ -384,6 +385,7 @@ export function DashboardShell({
               className={styles.sidebarProfileLink}
               href="/profile"
               onClick={() => setMobileMenuOpen(false)}
+              prefetch={true}
             >
               <span className={styles.avatar}>
                 {image ? (

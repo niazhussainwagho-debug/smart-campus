@@ -95,7 +95,7 @@ The repeatable seed adds Tuesday and Thursday 13:00–15:00 free slots for the
 demo teacher only when they do not already exist or overlap an existing free
 slot. Run `npm run db:seed` to apply the demo data.
 
-The same seed also adds the 2026 morning timetables from the supplied PDF for
+The same seed syncs the 2026 morning timetables from the supplied PDF for
 BSIT, BSSW, and BSDS sections P-I through P-IV. Each occupied 45-minute period
 is stored separately, with its room and instructor assignments. When the PDF
 does not list an instructor or room for a project period, clearly named
@@ -105,8 +105,10 @@ set a usable password before those accounts can sign in. The demo student is
 enrolled in BSIT P-I so this schedule is visible at `/student/timetable`.
 
 Apply the additive co-teacher relation migration before seeding an existing
-database with `npx prisma migrate deploy`. The seed does not delete timetable
-data and skips an already occupied section/day/start-time period.
+database with `npx prisma migrate deploy`. To sync only the official timetables
+without running the demo seed, use `npm run db:timetable:sync`. Both sync paths
+replace timetable slots for the 12 official sections; attendance linked to
+those slots is deleted as part of the replacement.
 
 ## Getting Started
 

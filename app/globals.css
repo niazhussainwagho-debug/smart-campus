@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --color-background: var(--app-background);
   --color-foreground: var(--app-foreground);
@@ -12,6 +14,18 @@
 }
 
 :root,
+html.light {
+  color-scheme: light;
+  --app-background: #f8fafc;
+  --app-foreground: #0f172a;
+  --app-card: #ffffff;
+  --app-card-foreground: #0f172a;
+  --app-muted: #f1f5f9;
+  --app-muted-foreground: #64748b;
+  --app-border: #e2e8f0;
+  --app-input: #ffffff;
+}
+
 html.dark {
   color-scheme: dark;
   --app-background: #08141f;
@@ -22,18 +36,6 @@ html.dark {
   --app-muted-foreground: #a7bac3;
   --app-border: rgba(163, 201, 215, .2);
   --app-input: #0b1d2a;
-}
-
-html.light {
-  color-scheme: light;
-  --app-background: #f0f4f8;
-  --app-foreground: #0f172a;
-  --app-card: #ffffff;
-  --app-card-foreground: #0f172a;
-  --app-muted: #e8edf3;
-  --app-muted-foreground: #334155;
-  --app-border: #dde3ea;
-  --app-input: #ffffff;
 }
 
 body {
@@ -394,6 +396,149 @@ html.light .campusIdCardActions > button:first-child:hover {
   background: #d1fae5;
 }
 
+.campusIdCardPrint {
+  width: 100%;
+  aspect-ratio: 85.6 / 54;
+  border-radius: 12px;
+}
+
+.campusIdCardHidden {
+  display: none !important;
+}
+
+.idCardFrontHeader {
+  height: 22%;
+  padding: 1.5% 2.2%;
+  border-bottom: 3px solid #f39800;
+  background: #0785c3;
+}
+
+.idCardLogo {
+  width: 9%;
+  height: 90%;
+}
+
+.idCardUniversity {
+  font-size: clamp(12px, 2.3vw, 21px);
+  font-weight: 900;
+}
+
+.idCardCampus,
+.idCardType {
+  font-size: clamp(7px, 1.05vw, 11px);
+  font-weight: 800;
+}
+
+.idCardFrontBody {
+  position: relative;
+  height: 58%;
+  padding: 2% 2.2%;
+}
+
+.idCardPhoto {
+  width: 24%;
+  height: 100%;
+  font-size: clamp(20px, 4vw, 36px);
+}
+
+.idCardFrontDetails {
+  grid-template-rows: auto 1fr 1fr auto;
+  gap: 3% 4%;
+  align-content: start;
+  padding-top: 1%;
+}
+
+.idCardNumber {
+  position: absolute;
+  top: 3%;
+  right: 2.2%;
+  font-size: clamp(7px, 1vw, 11px);
+}
+
+.idCardLabel {
+  font-size: clamp(7px, 0.9vw, 10px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.idCardStudentName {
+  font-size: clamp(11px, 1.8vw, 18px);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.idCardValue {
+  font-size: clamp(8px, 1.1vw, 12px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.idCardFrontFooter {
+  height: 20%;
+  padding: 1.5% 2.2%;
+  border-top: 3px solid #f39800;
+}
+
+.idCardAcademicYear {
+  font-size: clamp(10px, 1.5vw, 16px);
+  font-weight: 900;
+}
+
+.idCardCategory {
+  font-size: clamp(7px, 0.95vw, 10px);
+  font-weight: 800;
+}
+
+.idCardBackHeader {
+  height: 23%;
+  padding: 1.5% 3%;
+  border-bottom: 3px solid #f39800;
+}
+
+.idCardBackTitle {
+  font-size: clamp(12px, 2.1vw, 19px);
+  font-weight: 900;
+}
+
+.idCardQr {
+  width: clamp(38px, 10%, 68px);
+  height: 86%;
+}
+
+.idCardQr svg {
+  width: 100%;
+  height: 100%;
+}
+
+.idCardBackBody {
+  height: 58%;
+  padding: 2.5% 6%;
+}
+
+.idCardBackDetails {
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  gap: 1% 4%;
+  align-content: center;
+}
+
+.idCardBackValue {
+  font-size: clamp(9px, 1.4vw, 14px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.idCardBackFooter {
+  height: 19%;
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+}
+
+.idCardSerialCell {
+  height: 100%;
+  max-height: 72%;
+  font-size: clamp(8px, 1.3vw, 15px);
+}
+
 @media print {
   @page {
     margin: 12mm;
@@ -409,21 +554,40 @@ html.light .campusIdCardActions > button:first-child:hover {
     visibility: hidden !important;
   }
 
-  .campusIdCardPrint,
-  .campusIdCardPrint * {
+  .campusIdCardsPreview,
+  .campusIdCardsPreview * {
     visibility: visible !important;
   }
 
+  .campusIdCardsPreview {
+    position: static !important;
+    display: block !important;
+    width: 85.6mm !important;
+    margin: 0 auto !important;
+    transform: none !important;
+  }
+
+  .campusIdCardHidden {
+    display: flex !important;
+  }
+
   .campusIdCardPrint {
-    position: fixed !important;
-    top: 12mm !important;
-    left: 50% !important;
-    width: min(170mm, calc(100vw - 24mm)) !important;
-    max-width: 170mm !important;
-    transform: translateX(-50%) !important;
+    position: relative !important;
+    width: 85.6mm !important;
+    min-width: 85.6mm !important;
+    max-width: 85.6mm !important;
+    height: 54mm !important;
+    aspect-ratio: 85.6 / 54 !important;
+    border-radius: 3mm !important;
     box-shadow: none !important;
+    margin: 0 auto !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+
+  .campusIdCardFront {
+    break-after: page !important;
+    page-break-after: always !important;
   }
 
   .campusIdCardActions {

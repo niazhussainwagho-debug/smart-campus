@@ -45,6 +45,7 @@ export type UserMinAggregateOutputType = {
   department: string | null
   semester: number | null
   rollNo: string | null
+  cnic: string | null
   fatherName: string | null
   surname: string | null
   category: string | null
@@ -71,6 +72,7 @@ export type UserMaxAggregateOutputType = {
   department: string | null
   semester: number | null
   rollNo: string | null
+  cnic: string | null
   fatherName: string | null
   surname: string | null
   category: string | null
@@ -98,6 +100,7 @@ export type UserCountAggregateOutputType = {
   department: number
   semester: number
   rollNo: number
+  cnic: number
   fatherName: number
   surname: number
   category: number
@@ -134,6 +137,7 @@ export type UserMinAggregateInputType = {
   department?: true
   semester?: true
   rollNo?: true
+  cnic?: true
   fatherName?: true
   surname?: true
   category?: true
@@ -160,6 +164,7 @@ export type UserMaxAggregateInputType = {
   department?: true
   semester?: true
   rollNo?: true
+  cnic?: true
   fatherName?: true
   surname?: true
   category?: true
@@ -187,6 +192,7 @@ export type UserCountAggregateInputType = {
   department?: true
   semester?: true
   rollNo?: true
+  cnic?: true
   fatherName?: true
   surname?: true
   category?: true
@@ -301,6 +307,7 @@ export type UserGroupByOutputType = {
   department: string | null
   semester: number | null
   rollNo: string | null
+  cnic: string | null
   fatherName: string | null
   surname: string | null
   category: string | null
@@ -351,6 +358,7 @@ export type UserWhereInput = {
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
   rollNo?: Prisma.StringNullableFilter<"User"> | string | null
+  cnic?: Prisma.StringNullableFilter<"User"> | string | null
   fatherName?: Prisma.StringNullableFilter<"User"> | string | null
   surname?: Prisma.StringNullableFilter<"User"> | string | null
   category?: Prisma.StringNullableFilter<"User"> | string | null
@@ -392,6 +400,7 @@ export type UserOrderByWithRelationInput = {
   department?: Prisma.SortOrderInput | Prisma.SortOrder
   semester?: Prisma.SortOrderInput | Prisma.SortOrder
   rollNo?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnic?: Prisma.SortOrderInput | Prisma.SortOrder
   fatherName?: Prisma.SortOrderInput | Prisma.SortOrder
   surname?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -436,6 +445,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   verificationDocuments?: Prisma.StringNullableListFilter<"User">
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
+  cnic?: Prisma.StringNullableFilter<"User"> | string | null
   fatherName?: Prisma.StringNullableFilter<"User"> | string | null
   surname?: Prisma.StringNullableFilter<"User"> | string | null
   category?: Prisma.StringNullableFilter<"User"> | string | null
@@ -477,6 +487,7 @@ export type UserOrderByWithAggregationInput = {
   department?: Prisma.SortOrderInput | Prisma.SortOrder
   semester?: Prisma.SortOrderInput | Prisma.SortOrder
   rollNo?: Prisma.SortOrderInput | Prisma.SortOrder
+  cnic?: Prisma.SortOrderInput | Prisma.SortOrder
   fatherName?: Prisma.SortOrderInput | Prisma.SortOrder
   surname?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -512,6 +523,7 @@ export type UserScalarWhereWithAggregatesInput = {
   department?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   semester?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
   rollNo?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  cnic?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   fatherName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   surname?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   category?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -539,6 +551,7 @@ export type UserCreateInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -580,6 +593,7 @@ export type UserUncheckedCreateInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -621,6 +635,7 @@ export type UserUpdateInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -662,6 +677,7 @@ export type UserUncheckedUpdateInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -703,6 +719,7 @@ export type UserCreateManyInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -730,6 +747,7 @@ export type UserUpdateManyMutationInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -757,6 +775,7 @@ export type UserUncheckedUpdateManyInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -792,6 +811,7 @@ export type UserCountOrderByAggregateInput = {
   department?: Prisma.SortOrder
   semester?: Prisma.SortOrder
   rollNo?: Prisma.SortOrder
+  cnic?: Prisma.SortOrder
   fatherName?: Prisma.SortOrder
   surname?: Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -822,6 +842,7 @@ export type UserMaxOrderByAggregateInput = {
   department?: Prisma.SortOrder
   semester?: Prisma.SortOrder
   rollNo?: Prisma.SortOrder
+  cnic?: Prisma.SortOrder
   fatherName?: Prisma.SortOrder
   surname?: Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -848,6 +869,7 @@ export type UserMinOrderByAggregateInput = {
   department?: Prisma.SortOrder
   semester?: Prisma.SortOrder
   rollNo?: Prisma.SortOrder
+  cnic?: Prisma.SortOrder
   fatherName?: Prisma.SortOrder
   surname?: Prisma.SortOrder
   category?: Prisma.SortOrder
@@ -1159,6 +1181,7 @@ export type UserCreateWithoutVerificationDocumentFilesInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -1199,6 +1222,7 @@ export type UserUncheckedCreateWithoutVerificationDocumentFilesInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -1255,6 +1279,7 @@ export type UserUpdateWithoutVerificationDocumentFilesInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1295,6 +1320,7 @@ export type UserUncheckedUpdateWithoutVerificationDocumentFilesInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1335,6 +1361,7 @@ export type UserCreateWithoutEmailVerificationCodeInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -1375,6 +1402,7 @@ export type UserUncheckedCreateWithoutEmailVerificationCodeInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -1431,6 +1459,7 @@ export type UserUpdateWithoutEmailVerificationCodeInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1471,6 +1500,7 @@ export type UserUncheckedUpdateWithoutEmailVerificationCodeInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1511,6 +1541,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -1551,6 +1582,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -1607,6 +1639,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1647,6 +1680,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1687,6 +1721,7 @@ export type UserCreateWithoutCoursesInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -1727,6 +1762,7 @@ export type UserUncheckedCreateWithoutCoursesInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -1783,6 +1819,7 @@ export type UserUpdateWithoutCoursesInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1823,6 +1860,7 @@ export type UserUncheckedUpdateWithoutCoursesInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1863,6 +1901,7 @@ export type UserCreateWithoutEnrollmentsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -1903,6 +1942,7 @@ export type UserUncheckedCreateWithoutEnrollmentsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -1959,6 +1999,7 @@ export type UserUpdateWithoutEnrollmentsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1999,6 +2040,7 @@ export type UserUncheckedUpdateWithoutEnrollmentsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2039,6 +2081,7 @@ export type UserCreateWithoutTimetableSlotsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -2079,6 +2122,7 @@ export type UserUncheckedCreateWithoutTimetableSlotsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -2124,6 +2168,7 @@ export type UserCreateWithoutCoTeachingSlotsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -2164,6 +2209,7 @@ export type UserUncheckedCreateWithoutCoTeachingSlotsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -2220,6 +2266,7 @@ export type UserUpdateWithoutTimetableSlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2260,6 +2307,7 @@ export type UserUncheckedUpdateWithoutTimetableSlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2319,6 +2367,7 @@ export type UserScalarWhereInput = {
   department?: Prisma.StringNullableFilter<"User"> | string | null
   semester?: Prisma.IntNullableFilter<"User"> | number | null
   rollNo?: Prisma.StringNullableFilter<"User"> | string | null
+  cnic?: Prisma.StringNullableFilter<"User"> | string | null
   fatherName?: Prisma.StringNullableFilter<"User"> | string | null
   surname?: Prisma.StringNullableFilter<"User"> | string | null
   category?: Prisma.StringNullableFilter<"User"> | string | null
@@ -2346,6 +2395,7 @@ export type UserCreateWithoutAvailabilitySlotsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -2386,6 +2436,7 @@ export type UserUncheckedCreateWithoutAvailabilitySlotsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -2442,6 +2493,7 @@ export type UserUpdateWithoutAvailabilitySlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2482,6 +2534,7 @@ export type UserUncheckedUpdateWithoutAvailabilitySlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2522,6 +2575,7 @@ export type UserCreateWithoutStudentAppointmentsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -2562,6 +2616,7 @@ export type UserUncheckedCreateWithoutStudentAppointmentsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -2607,6 +2662,7 @@ export type UserCreateWithoutTeacherAppointmentsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -2647,6 +2703,7 @@ export type UserUncheckedCreateWithoutTeacherAppointmentsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -2703,6 +2760,7 @@ export type UserUpdateWithoutStudentAppointmentsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2743,6 +2801,7 @@ export type UserUncheckedUpdateWithoutStudentAppointmentsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2794,6 +2853,7 @@ export type UserUpdateWithoutTeacherAppointmentsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2834,6 +2894,7 @@ export type UserUncheckedUpdateWithoutTeacherAppointmentsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2874,6 +2935,7 @@ export type UserCreateWithoutAnnouncementsCreatedInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -2914,6 +2976,7 @@ export type UserUncheckedCreateWithoutAnnouncementsCreatedInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -2970,6 +3033,7 @@ export type UserUpdateWithoutAnnouncementsCreatedInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3010,6 +3074,7 @@ export type UserUncheckedUpdateWithoutAnnouncementsCreatedInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3050,6 +3115,7 @@ export type UserCreateWithoutNotificationsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -3090,6 +3156,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -3146,6 +3213,7 @@ export type UserUpdateWithoutNotificationsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3186,6 +3254,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3226,6 +3295,7 @@ export type UserCreateWithoutStudentAttendanceInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -3266,6 +3336,7 @@ export type UserUncheckedCreateWithoutStudentAttendanceInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -3311,6 +3382,7 @@ export type UserCreateWithoutAttendanceMarkedInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -3351,6 +3423,7 @@ export type UserUncheckedCreateWithoutAttendanceMarkedInput = {
   department?: string | null
   semester?: number | null
   rollNo?: string | null
+  cnic?: string | null
   fatherName?: string | null
   surname?: string | null
   category?: string | null
@@ -3407,6 +3480,7 @@ export type UserUpdateWithoutStudentAttendanceInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3447,6 +3521,7 @@ export type UserUncheckedUpdateWithoutStudentAttendanceInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3498,6 +3573,7 @@ export type UserUpdateWithoutAttendanceMarkedInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3538,6 +3614,7 @@ export type UserUncheckedUpdateWithoutAttendanceMarkedInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3578,6 +3655,7 @@ export type UserUpdateWithoutCoTeachingSlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3618,6 +3696,7 @@ export type UserUncheckedUpdateWithoutCoTeachingSlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3658,6 +3737,7 @@ export type UserUncheckedUpdateManyWithoutCoTeachingSlotsInput = {
   department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   semester?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   rollNo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cnic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fatherName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   surname?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3824,6 +3904,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   department?: boolean
   semester?: boolean
   rollNo?: boolean
+  cnic?: boolean
   fatherName?: boolean
   surname?: boolean
   category?: boolean
@@ -3866,6 +3947,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   department?: boolean
   semester?: boolean
   rollNo?: boolean
+  cnic?: boolean
   fatherName?: boolean
   surname?: boolean
   category?: boolean
@@ -3893,6 +3975,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   department?: boolean
   semester?: boolean
   rollNo?: boolean
+  cnic?: boolean
   fatherName?: boolean
   surname?: boolean
   category?: boolean
@@ -3920,6 +4003,7 @@ export type UserSelectScalar = {
   department?: boolean
   semester?: boolean
   rollNo?: boolean
+  cnic?: boolean
   fatherName?: boolean
   surname?: boolean
   category?: boolean
@@ -3935,7 +4019,7 @@ export type UserSelectScalar = {
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "status" | "adminStatus" | "verificationDocuments" | "department" | "semester" | "rollNo" | "fatherName" | "surname" | "category" | "academicYear" | "validUpto" | "phone" | "bloodGroup" | "emergencyContact" | "linkedinUrl" | "githubUrl" | "emailVerifiedAt" | "image" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "status" | "adminStatus" | "verificationDocuments" | "department" | "semester" | "rollNo" | "cnic" | "fatherName" | "surname" | "category" | "academicYear" | "validUpto" | "phone" | "bloodGroup" | "emergencyContact" | "linkedinUrl" | "githubUrl" | "emailVerifiedAt" | "image" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   emailVerificationCode?: boolean | Prisma.User$emailVerificationCodeArgs<ExtArgs>
   courses?: boolean | Prisma.User$coursesArgs<ExtArgs>
@@ -3986,6 +4070,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     department: string | null
     semester: number | null
     rollNo: string | null
+    cnic: string | null
     fatherName: string | null
     surname: string | null
     category: string | null
@@ -4447,6 +4532,7 @@ export interface UserFieldRefs {
   readonly department: Prisma.FieldRef<"User", 'String'>
   readonly semester: Prisma.FieldRef<"User", 'Int'>
   readonly rollNo: Prisma.FieldRef<"User", 'String'>
+  readonly cnic: Prisma.FieldRef<"User", 'String'>
   readonly fatherName: Prisma.FieldRef<"User", 'String'>
   readonly surname: Prisma.FieldRef<"User", 'String'>
   readonly category: Prisma.FieldRef<"User", 'String'>

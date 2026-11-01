@@ -1592,6 +1592,7 @@ export const UserScalarFieldEnum = {
   department: 'department',
   semester: 'semester',
   rollNo: 'rollNo',
+  cnic: 'cnic',
   fatherName: 'fatherName',
   surname: 'surname',
   category: 'category',

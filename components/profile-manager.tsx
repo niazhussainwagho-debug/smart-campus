@@ -8,6 +8,7 @@ import {
   type FormEvent,
 } from "react";
 import { toPng } from "html-to-image";
+import { QRCodeSVG } from "qrcode.react";
 import type { UserRole } from "@/generated/prisma/enums";
 import { useDashboardUserImage } from "@/components/dashboard-shell";
 import {
@@ -23,6 +24,7 @@ type ProfileData = {
   department: string;
   semester: number | null;
   rollNo: string;
+  cnic: string;
   fatherName: string;
   surname: string;
   category: string;
@@ -44,14 +46,6 @@ type ProfileTarget = {
 const inputClass =
   "mt-1.5 min-h-11 w-full rounded-xl border border-slate-700/80 bg-slate-900/80 px-3.5 py-2.5 text-base text-white outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-500/15 sm:text-sm";
 
-function createBarcodeBars(value: string): number[] {
-  const chars = Array.from(value || "CAMPUS");
-  return Array.from({ length: 36 }, (_, index) => {
-    const charCode = chars[index % chars.length].charCodeAt(0);
-    return 1 + ((charCode + index * 7) % 3);
-  });
-}
-
 export function ProfileManager({
   profile,
   targets,
@@ -63,15 +57,20 @@ export function ProfileManager({
   const [notice, setNotice] = useState<ProfileActionResult | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(profile.image);
   const [removeAvatar, setRemoveAvatar] = useState(false);
-  const [isExportingId, setIsExportingId] = useState(false);
+  const [exportingIdSide, setExportingIdSide] = useState<
+    "front" | "back" | null
+  >(null);
+  const [shownIdSide, setShownIdSide] = useState<"front" | "back">("front");
   const [idCardError, setIdCardError] = useState<string | null>(null);
   const avatarInput = useRef<HTMLInputElement>(null);
-  const idCardRef = useRef<HTMLElement>(null);
+  const frontCardRef = useRef<HTMLElement>(null);
+  const backCardRef = useRef<HTMLElement>(null);
   const { setImage } = useDashboardUserImage();
   const [name, setName] = useState(profile.name);
   const [surname, setSurname] = useState(profile.surname);
   const [fatherName, setFatherName] = useState(profile.fatherName);
   const [rollNo, setRollNo] = useState(profile.rollNo);
+  const [cnic, setCnic] = useState(profile.cnic ?? "");
   const [category, setCategory] = useState(profile.category);
   const [academicYear, setAcademicYear] = useState(profile.academicYear);
   const [validUpto, setValidUpto] = useState(profile.validUpto);
@@ -88,7 +87,15 @@ export function ProfileManager({
         .map((target) => target.semester),
     ),
   ].sort((first, second) => first - second);
-  const barcodeBars = createBarcodeBars(`${profile.id}${rollNo}`);
+  const cardNumber = (rollNo || profile.id)
+    .replace(/[^a-z0-9]/gi, "")
+    .slice(-14)
+    .padStart(14, "0")
+    .toUpperCase();
+  const formattedCnic =
+    cnic.length === 13
+      ? `${cnic.slice(0, 5)}-${cnic.slice(5, 12)}-${cnic.slice(12)}`
+      : cnic || "Not provided";
   const studentName =
     surname && !name.trim().toLowerCase().endsWith(surname.toLowerCase())
       ? `${name} ${surname}`
@@ -131,13 +138,14 @@ export function ProfileManager({
   }
 
   async function downloadIdCard() {
-    const card = idCardRef.current;
+    const side = shownIdSide;
+    const card = side === "front" ? frontCardRef.current : backCardRef.current;
     if (!card) {
       setIdCardError("The campus ID card is not available to download.");
       return;
     }
 
-    setIsExportingId(true);
+    setExportingIdSide(side);
     setIdCardError(null);
     try {
       await Promise.all(
@@ -150,7 +158,7 @@ export function ProfileManager({
         backgroundColor: getComputedStyle(card).backgroundColor,
       });
       const anchor = document.createElement("a");
-      anchor.download = "campus-id-card.png";
+      anchor.download = `campus-id-card-${side}.png`;
       anchor.href = dataUrl;
       anchor.click();
     } catch (error) {
@@ -159,150 +167,257 @@ export function ProfileManager({
         "Unable to render the ID card image. Please try again or use Print ID.",
       );
     } finally {
-      setIsExportingId(false);
+      setExportingIdSide(null);
     }
   }
 
   return (
     <section className="min-w-0 rounded-2xl border border-slate-800 bg-[#111827]/90 p-4 shadow-xl sm:p-6">
       <form className="grid min-w-0 gap-5 sm:grid-cols-2" onSubmit={submit}>
-        <aside
-          ref={idCardRef}
-          aria-label="University of Sindh student identity card preview"
-          className="campusIdCardPrint relative isolate overflow-hidden rounded-xl border border-slate-300 bg-white p-4 text-slate-900 shadow-lg sm:col-span-2 sm:p-5"
-        >
-          <div className="flex min-w-0 items-center gap-3 border-b-2 border-amber-500 pb-3">
-            {/* The logo is a local asset so it also renders in PNG and print exports. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              alt="University of Sindh emblem"
-              className="h-14 w-14 shrink-0 object-contain sm:h-16 sm:w-16"
-              src="/images/university-sindh-logo.png"
-            />
-            <div className="min-w-0 flex-1">
-              <h2 className="text-sm font-black leading-tight tracking-wide text-[#12365a] sm:text-lg">
-                UNIVERSITY OF SINDH
-              </h2>
-              <p className="mt-1 text-[8px] font-semibold leading-tight text-slate-700 sm:text-[10px]">
-                JAMSHORO, SINDH, PAKISTAN • ALLAMA I.I. KAZI CAMPUS
-              </p>
-            </div>
-            <p className="max-w-20 text-right text-[9px] font-extrabold uppercase leading-tight tracking-wide text-[#12365a] sm:max-w-32 sm:text-xs">
-              Student Identity Card
-            </p>
-          </div>
-          <div className="mt-4 flex min-w-0 items-start gap-4">
-            {avatarPreview ? (
-              // Uploaded images are validated as raster images before persistence.
-              // eslint-disable-next-line @next/next/no-img-element
+        <div className="campusIdCardsPreview grid min-w-0 justify-items-center gap-5 sm:col-span-2">
+          <article
+            ref={frontCardRef}
+            aria-label="Front of University of Sindh student identity card"
+            aria-hidden={shownIdSide !== "front"}
+            className={`campusIdCardPrint campusIdCardFront relative isolate flex w-full max-w-[680px] flex-col overflow-hidden rounded-xl border border-slate-300 bg-white text-slate-900 shadow-lg${shownIdSide === "front" ? "" : " campusIdCardHidden"}`}
+          >
+            <header className="idCardFrontHeader flex shrink-0 items-center gap-[2%]">
+              {/* The logo is a local asset so it also renders in PNG and print exports. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                alt={`Photo of ${studentName || "student"}`}
-                className="h-24 w-20 shrink-0 rounded border border-slate-300 object-cover shadow-sm sm:h-28 sm:w-24"
-                src={avatarPreview}
+                alt="University of Sindh emblem"
+                className="idCardLogo shrink-0 object-contain"
+                src="/images/university-sindh-logo.png"
               />
-            ) : (
-              <span className="grid h-24 w-20 shrink-0 place-items-center rounded border border-slate-300 bg-slate-100 text-xl font-bold text-[#12365a] sm:h-28 sm:w-24">
-                {name
-                  .split(/\s+/)
-                  .map((part) => part[0])
-                  .join("")
-                  .slice(0, 2)
-                  .toUpperCase() || "U"}
-              </span>
-            )}
-            <div className="grid min-w-0 flex-1 grid-cols-2 gap-x-3 gap-y-2 text-[10px] sm:gap-x-5 sm:text-xs">
-              <div className="col-span-2 min-w-0 border-b border-slate-200 pb-1">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-slate-500">
-                  Student Name
-                </p>
-                <p className="truncate text-sm font-extrabold uppercase text-[#12365a] sm:text-base">
-                  {studentName || "Full Name"}
+              <div className="min-w-0 flex-1">
+                <h2 className="idCardUniversity font-black leading-tight tracking-wide">
+                  UNIVERSITY OF SINDH
+                </h2>
+                <p className="idCardCampus mt-1 font-semibold leading-tight">
+                  JAMSHORO, SINDH, PAKISTAN • ALLAMA I.I. KAZI CAMPUS
                 </p>
               </div>
+              <p className="idCardType max-w-[17%] text-right font-extrabold uppercase leading-tight tracking-wide">
+                Student Identity Card
+              </p>
+            </header>
+            <div className="idCardFrontBody flex min-h-0 flex-1 gap-[2.2%]">
+              {avatarPreview ? (
+                // Uploaded images are validated as raster images before persistence.
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  alt={`Photo of ${studentName || "student"}`}
+                  className="idCardPhoto shrink-0 rounded border border-slate-300 object-cover shadow-sm"
+                  src={avatarPreview}
+                />
+              ) : (
+                <span className="idCardPhoto grid shrink-0 place-items-center rounded border border-slate-300 bg-slate-100 font-bold text-[#12365a]">
+                  {name
+                    .split(/\s+/)
+                    .map((part) => part[0])
+                    .join("")
+                    .slice(0, 2)
+                    .toUpperCase() || "U"}
+                </span>
+              )}
+              <div className="idCardFrontDetails grid min-w-0 flex-1 grid-cols-2">
+                <div className="col-span-2 min-w-0 border-b border-slate-200 pr-[20%]">
+                  <p className="idCardLabel font-bold uppercase tracking-wider text-slate-500">
+                    Student Name
+                  </p>
+                  <p className="idCardStudentName truncate font-extrabold uppercase text-[#12365a]">
+                    {studentName || "Full Name"}
+                  </p>
+                </div>
+                <div className="min-w-0">
+                  <p className="idCardLabel font-bold uppercase tracking-wider text-slate-500">
+                    Father&apos;s Name
+                  </p>
+                  <p className="idCardValue truncate font-semibold">
+                    {fatherName || "Not provided"}
+                  </p>
+                </div>
+                <div className="min-w-0">
+                  <p className="idCardLabel font-bold uppercase tracking-wider text-slate-500">
+                    Surname
+                  </p>
+                  <p className="idCardValue truncate font-semibold">
+                    {surname || "Not provided"}
+                  </p>
+                </div>
+                <div className="min-w-0">
+                  <p className="idCardLabel font-bold uppercase tracking-wider text-slate-500">
+                    Roll No
+                  </p>
+                  <p className="idCardValue truncate font-semibold">
+                    {rollNo || "Not provided"}
+                  </p>
+                  <p className="idCardLabel mt-[1%] font-bold uppercase tracking-wider text-slate-500">
+                    Valid Upto: {validUpto || "Not provided"}
+                  </p>
+                </div>
+                <div className="min-w-0">
+                  <p className="idCardLabel font-bold uppercase tracking-wider text-slate-500">
+                    Blood Group
+                  </p>
+                  <p className="idCardValue truncate font-semibold">
+                    {bloodGroup || "Not provided"}
+                  </p>
+                </div>
+                <div className="col-span-2 min-w-0">
+                  <p className="idCardLabel font-bold uppercase tracking-wider text-slate-500">
+                    Department
+                  </p>
+                  <p className="idCardValue truncate font-semibold">
+                    {department || "Not provided"}
+                  </p>
+                </div>
+              </div>
+              <p className="idCardNumber shrink-0 text-right font-bold text-[#12365a]">
+                ID # {profile.id.slice(-6).toUpperCase()}
+              </p>
+            </div>
+            <footer className="idCardFrontFooter flex shrink-0 items-center justify-between gap-3 bg-[#087fbd] font-extrabold uppercase text-white">
               <div className="min-w-0">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-slate-500">
-                  Father&apos;s Name
+                <p className="idCardLabel font-bold tracking-wider text-amber-300">
+                  Academic Year
                 </p>
-                <p className="truncate font-semibold text-slate-900">
-                  {fatherName || "Not provided"}
-                </p>
-              </div>
-              <div className="min-w-0">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-slate-500">
-                  Surname
-                </p>
-                <p className="truncate font-semibold text-slate-900">
-                  {surname || "Not provided"}
+                <p className="idCardAcademicYear truncate tracking-wide">
+                  {academicYear || "Not provided"}
                 </p>
               </div>
-              <div className="min-w-0">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-slate-500">
-                  Roll No
-                </p>
-                <p className="truncate font-semibold text-slate-900">
-                  {rollNo || "Not provided"}
-                </p>
-                <p className="mt-1 text-[8px] font-bold uppercase tracking-wider text-slate-500">
-                  Valid Upto : {validUpto || "Not provided"}
-                </p>
+              <p className="idCardCategory shrink-0 border-l border-white/40 pl-3 text-right">
+                {category || "Not provided"}
+              </p>
+            </footer>
+          </article>
+          <article
+            ref={backCardRef}
+            aria-label="Back of University of Sindh student identity card"
+            aria-hidden={shownIdSide !== "back"}
+            className={`campusIdCardPrint campusIdCardBack relative isolate flex w-full max-w-[680px] flex-col overflow-hidden rounded-xl border border-slate-300 bg-white text-slate-900 shadow-lg${shownIdSide === "back" ? "" : " campusIdCardHidden"}`}
+          >
+            <header className="idCardBackHeader relative flex shrink-0 items-center justify-center bg-[#087fbd] text-center text-white">
+              <h2 className="idCardBackTitle max-w-[75%] font-black uppercase leading-tight tracking-wide">
+                Department of {department || "University"}
+              </h2>
+              <div className="idCardQr absolute right-[2%] top-[8%] rounded bg-white p-[1%]">
+                <QRCodeSVG
+                  aria-label="Student roll number QR code"
+                  bgColor="#ffffff"
+                  fgColor="#102431"
+                  level="M"
+                  size={80}
+                  value={rollNo || profile.id}
+                />
               </div>
-              <div className="min-w-0">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-slate-500">
-                  Blood Group
-                </p>
-                <p className="truncate font-semibold text-slate-900">
-                  {bloodGroup || "Not provided"}
-                </p>
+            </header>
+            <div className="idCardBackBody relative grid min-h-0 flex-1 grid-cols-2">
+              <div className="idCardWatermark pointer-events-none absolute inset-0 grid place-items-center opacity-[0.09]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  alt=""
+                  className="h-[78%] w-auto object-contain"
+                  src="/images/university-sindh-logo.png"
+                />
               </div>
-              <div className="col-span-2 min-w-0">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-slate-500">
-                  Department
-                </p>
-                <p className="truncate font-semibold text-slate-900">
-                  {department || "Not provided"}
-                </p>
+              <div className="idCardBackDetails relative z-10 col-span-2 grid grid-cols-2">
+                <div className="min-w-0">
+                  <p className="idCardLabel font-bold tracking-wider text-sky-800">
+                    Father&apos;s Name
+                  </p>
+                  <p className="idCardBackValue truncate font-bold uppercase italic">
+                    {fatherName || "Not provided"}
+                  </p>
+                </div>
+                <div className="min-w-0 pr-[20%]">
+                  <p className="idCardLabel font-bold tracking-wider text-sky-800">
+                    Category
+                  </p>
+                  <p className="idCardBackValue truncate font-bold uppercase">
+                    {category || "Not provided"}
+                  </p>
+                </div>
+                <div className="min-w-0">
+                  <p className="idCardLabel font-bold tracking-wider text-sky-800">
+                    Surname
+                  </p>
+                  <p className="idCardBackValue truncate font-bold uppercase italic">
+                    {surname || "Not provided"}
+                  </p>
+                </div>
+                <div className="min-w-0">
+                  <p className="idCardLabel font-bold tracking-wider text-sky-800">
+                    CNIC
+                  </p>
+                  <p className="idCardBackValue truncate font-bold">
+                    {formattedCnic}
+                  </p>
+                </div>
+                <div className="min-w-0">
+                  <p className="idCardLabel font-bold tracking-wider text-sky-800">
+                    Emergency Contact
+                  </p>
+                  <p className="idCardBackValue truncate font-bold italic">
+                    {profile.emergencyContact || "Not provided"}
+                  </p>
+                </div>
+                <div className="min-w-0">
+                  <p className="idCardLabel font-bold tracking-wider text-sky-800">
+                    Blood Group
+                  </p>
+                  <p className="idCardBackValue truncate font-bold uppercase italic">
+                    {bloodGroup || "Not provided"}
+                  </p>
+                </div>
+                <div className="col-span-2 min-w-0">
+                  <p className="idCardLabel font-bold tracking-wider text-sky-800">
+                    Campus Address
+                  </p>
+                  <p className="idCardBackValue truncate font-bold uppercase italic">
+                    Allama I.I. Kazi Campus, Jamshoro, Sindh, Pakistan
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="mt-3 flex items-center justify-between gap-3 rounded-b-md bg-[#12365a] px-3 py-2 text-white">
-            <div className="min-w-0">
-              <p className="text-[8px] font-bold uppercase tracking-[0.16em] text-amber-300">
-                Academic Year
-              </p>
-              <p className="truncate text-xs font-extrabold uppercase tracking-wide sm:text-sm">
-                {academicYear || "Not provided"}
-              </p>
-            </div>
-            <div className="shrink-0 border-l border-white/30 pl-3 text-right">
-              <p className="text-[8px] font-bold uppercase tracking-wider text-white/70">
-                Category: {category || "Not provided"}
-              </p>
-              <svg
-                aria-label="Simulated campus identification barcode"
-                className="mt-1 h-6 w-24 rounded bg-white p-1"
-                role="img"
-                viewBox={`0 0 ${barcodeBars.reduce((sum, width) => sum + width + 1, 0)} 24`}
-              >
-                {barcodeBars.map((width, index) => (
-                  <rect
-                    fill="#102431"
-                    height={index % 5 === 0 ? 24 : 20}
-                    key={index}
-                    width={width}
-                    x={barcodeBars
-                      .slice(0, index)
-                      .reduce((sum, previousWidth) => sum + previousWidth + 1, 0)}
-                    y={index % 5 === 0 ? 0 : 2}
-                  />
-                ))}
-              </svg>
-            </div>
-          </div>
-        </aside>
+            <footer className="idCardBackFooter flex shrink-0 items-center justify-center gap-[1%] border-t-[3px] border-[#f39800] bg-[#087fbd] px-[2%]">
+              {Array.from(cardNumber, (character, index) => (
+                <span
+                  className="idCardSerialCell grid min-w-0 flex-1 place-items-center bg-white font-extrabold text-rose-600"
+                  key={`${character}-${index}`}
+                >
+                  {character}
+                </span>
+              ))}
+            </footer>
+          </article>
+        </div>
         <div className="campusIdCardActions flex flex-wrap items-center gap-3 sm:col-span-2">
+          <div
+            aria-label="Choose ID card side"
+            className="flex items-center gap-1 rounded-xl border border-slate-700 p-1"
+            role="group"
+          >
+            <button
+              aria-pressed={shownIdSide === "front"}
+              className="min-h-9 rounded-lg px-3 text-sm font-semibold text-slate-200 aria-pressed:bg-cyan-500/15 aria-pressed:text-cyan-300"
+              onClick={() => setShownIdSide("front")}
+              type="button"
+            >
+              Front
+            </button>
+            <button
+              aria-pressed={shownIdSide === "back"}
+              className="min-h-9 rounded-lg px-3 text-sm font-semibold text-slate-200 aria-pressed:bg-cyan-500/15 aria-pressed:text-cyan-300"
+              onClick={() => setShownIdSide("back")}
+              type="button"
+            >
+              Back
+            </button>
+          </div>
           <button
             className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm font-semibold text-cyan-300 transition hover:border-cyan-400/50 hover:bg-cyan-500/15 disabled:cursor-wait disabled:opacity-60"
-            disabled={isExportingId}
+            disabled={exportingIdSide !== null}
             onClick={downloadIdCard}
             type="button"
           >
@@ -317,7 +432,7 @@ export function ProfileManager({
               <path d="M12 3v12m0 0 4-4m-4 4-4-4" />
               <path d="M5 17v3h14v-3" />
             </svg>
-            {isExportingId ? "Preparing image…" : "Download ID Card"}
+            {exportingIdSide ? "Preparing image…" : `Download ${shownIdSide}`}
           </button>
           <button
             className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl border border-border bg-muted px-4 py-2 text-sm font-semibold text-foreground transition hover:bg-background"
@@ -434,6 +549,19 @@ export function ProfileManager({
                   onChange={(event) => setRollNo(event.target.value)}
                   placeholder="2K24/SWE/124"
                   value={rollNo}
+                />
+              </label>
+              <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                CNIC
+                <input
+                  autoComplete="off"
+                  className={inputClass}
+                  inputMode="numeric"
+                  maxLength={15}
+                  name="cnic"
+                  onChange={(event) => setCnic(event.target.value)}
+                  placeholder="42101-1234567-1"
+                  value={cnic}
                 />
               </label>
               <label className="min-w-0 text-xs font-semibold uppercase tracking-wider text-slate-400">

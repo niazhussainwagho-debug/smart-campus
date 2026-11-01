@@ -39,4 +39,26 @@ describe("2026 morning timetable data", () => {
       }
     }
   });
+
+  it("matches the updated BSIT P-II and BSSW P-III timetable blocks", () => {
+    const bsitPartTwo = morningPrograms2026.find(
+      (program) => program.department === "BSIT" && program.section === "P-II",
+    );
+    const bsswPartThree = morningPrograms2026.find(
+      (program) => program.department === "BSSW" && program.section === "P-III",
+    );
+
+    expect(bsitPartTwo?.days.THU).toBe("G K H H I I .");
+    expect(bsitPartTwo?.classes.K).toMatchObject({
+      code: "IT24-424",
+      room: "Room No 22",
+    });
+    expect(bsswPartThree?.days).toMatchObject({
+      MON: "A A B B . . .",
+      TUE: ". C C . D D .",
+      WED: "E E F G G . .",
+      THU: "H H I I J J .",
+      FRI: ". . . . . . .",
+    });
+  });
 });

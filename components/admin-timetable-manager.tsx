@@ -92,14 +92,14 @@ function Notice({ notice }: { notice: ActionNotice | null }) {
       aria-live="polite"
       className={`mt-3 rounded-xl border px-4 py-3 text-sm ${
         result.ok
-          ? "border-emerald-500/30 bg-emerald-950/40 text-emerald-300"
-          : "border-rose-500/30 bg-rose-950/40 text-rose-300"
+          ? "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-500/30 dark:bg-emerald-950/40 dark:text-emerald-300"
+          : "border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-500/30 dark:bg-rose-950/40 dark:text-rose-300"
       }`}
       role={result.ok ? "status" : "alert"}
     >
       <p className="font-semibold">{result.message}</p>
       {result.clashes?.length ? (
-        <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-rose-200">
+        <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-rose-700 dark:text-rose-200">
           {result.clashes.map((clash, index) => (
             <li key={`${clash.type}-${clash.slotId ?? index}`}>
               {clashMessages[clash.type]}
@@ -112,16 +112,16 @@ function Notice({ notice }: { notice: ActionNotice | null }) {
 }
 
 const inputClass =
-  "mt-1 min-w-0 w-full rounded-xl border border-[#2e4258] bg-[#0d1727] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-[#4ed0d8] focus:bg-[#0d1727]";
-const labelClass = "mt-3 block min-w-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400";
+  "mt-1 min-w-0 w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 dark:border-[#2e4258] dark:bg-[#0d1727] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-[#4ed0d8]";
+const labelClass = "mt-3 block min-w-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-600 dark:text-slate-400";
 const buttonClass =
-  "rounded-xl bg-gradient-to-r from-[#49d5d8] via-[#6af0cc] to-[#47d9c7] px-4 py-2.5 text-sm font-bold text-[#06141d] shadow-lg shadow-cyan-500/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50";
+  "rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-cyan-400 px-4 py-2.5 text-sm font-bold text-slate-950 shadow-lg shadow-cyan-500/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50";
 const timetableInputClass =
-  "mt-1 min-w-0 w-full rounded-lg border border-[#2e4258] bg-[#0d1727] px-2.5 py-2 text-xs text-white placeholder:text-slate-500 outline-none transition focus:border-[#4ed0d8]";
+  "mt-1 min-w-0 w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-cyan-500 dark:border-[#2e4258] dark:bg-[#0d1727] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-[#4ed0d8]";
 const timetableLabelClass =
-  "block min-w-0 text-[10px] font-semibold text-slate-400";
+  "block min-w-0 text-[10px] font-semibold text-slate-600 dark:text-slate-400";
 const timetableButtonClass =
-  "rounded-lg bg-gradient-to-r from-[#49d5d8] via-[#6af0cc] to-[#47d9c7] px-3 py-2 text-xs font-bold text-[#06141d] shadow-md shadow-cyan-500/15 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50";
+  "rounded-lg bg-gradient-to-r from-cyan-500 via-teal-400 to-cyan-400 px-3 py-2 text-xs font-bold text-slate-950 shadow-md shadow-cyan-500/15 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50";
 
 export function AdminTimetableManager({
   canCreateCourses,
@@ -254,34 +254,34 @@ export function AdminTimetableManager({
 
   return (
     <div className="min-w-0 space-y-3">
-      <details className="group min-w-0 overflow-hidden rounded-xl border border-[#243244] bg-[#101b2a]/95 shadow-[0_12px_32px_rgba(15,23,42,0.25)]">
+      <details className="group min-w-0 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-[#243244] dark:bg-[#101b2a]/95 dark:shadow-[0_12px_32px_rgba(15,23,42,0.25)]">
         <summary className="flex min-w-0 cursor-pointer list-none flex-wrap items-center justify-between gap-3 px-4 py-3 [&::-webkit-details-marker]:hidden">
           <span className="min-w-0 flex-1">
-            <span className="block text-sm font-bold text-white">
+            <span className="block text-sm font-bold text-slate-900 dark:text-white">
               Courses, Sections &amp; Rooms
             </span>
-            <span className="mt-1 block text-xs text-slate-400">
+            <span className="mt-1 block text-xs text-slate-500 dark:text-slate-400">
               Add or review the records used by the timetable.
             </span>
           </span>
-          <span className="shrink-0 rounded-lg border border-[#2b3c4b] bg-[#0d1727] px-3 py-1.5 text-xs font-semibold text-[#77ddd8] group-open:hidden">
+          <span className="shrink-0 rounded-lg border border-teal-200 bg-teal-50 px-3 py-1.5 text-xs font-semibold text-teal-700 group-open:hidden dark:border-[#2b3c4b] dark:bg-[#0d1727] dark:text-[#77ddd8]">
             Manage +
           </span>
-          <span className="hidden shrink-0 rounded-lg border border-[#2b3c4b] bg-[#0d1727] px-3 py-1.5 text-xs font-semibold text-slate-300 group-open:inline">
+          <span className="hidden shrink-0 rounded-lg border border-slate-200 bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700 group-open:inline dark:border-[#2b3c4b] dark:bg-[#0d1727] dark:text-slate-300">
             Close −
           </span>
         </summary>
 
-        <div className="border-t border-[#233246] p-4 sm:p-5">
+        <div className="border-t border-slate-200 p-4 sm:p-5 dark:border-[#233246]">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {canCreateCourses ? (
             <form
-              className="min-w-0 rounded-[22px] border border-[#2b3c4b] bg-[#101b2a] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] sm:p-5"
+              className="min-w-0 rounded-[22px] border border-slate-200 bg-slate-50/70 p-4 shadow-sm sm:p-5 dark:border-[#2b3c4b] dark:bg-[#101b2a] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
               onSubmit={(event) =>
                 submitAction(event, createCourseAction, setCourseNotice, true)
               }
             >
-              <h3 className="break-words text-xl font-bold text-white sm:text-2xl">
+              <h3 className="break-words text-xl font-bold text-slate-900 sm:text-2xl dark:text-white">
                 Add Course
               </h3>
               <label className={labelClass}>
@@ -328,12 +328,12 @@ export function AdminTimetableManager({
           ) : null}
 
           <form
-            className="min-w-0 rounded-[22px] border border-[#2b3c4b] bg-[#101b2a] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] sm:p-5"
+            className="min-w-0 rounded-[22px] border border-slate-200 bg-slate-50/70 p-4 shadow-sm sm:p-5 dark:border-[#2b3c4b] dark:bg-[#101b2a] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
             onSubmit={(event) =>
               submitAction(event, createSectionAction, setSectionNotice, true)
             }
           >
-            <h3 className="break-words text-xl font-bold text-white sm:text-2xl">Add Section</h3>
+            <h3 className="break-words text-xl font-bold text-slate-900 sm:text-2xl dark:text-white">Add Section</h3>
             <label className={labelClass}>
               Section name
               <input className={inputClass} name="name" placeholder="e.g. BSCS-3A" required />
@@ -379,12 +379,12 @@ export function AdminTimetableManager({
           </form>
 
           <form
-            className="min-w-0 rounded-[22px] border border-[#2b3c4b] bg-[#101b2a] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] sm:p-5"
+            className="min-w-0 rounded-[22px] border border-slate-200 bg-slate-50/70 p-4 shadow-sm sm:p-5 dark:border-[#2b3c4b] dark:bg-[#101b2a] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]"
             onSubmit={(event) =>
               submitAction(event, createRoomAction, setRoomNotice, true)
             }
           >
-            <h3 className="break-words text-xl font-bold text-white sm:text-2xl">Add Room</h3>
+            <h3 className="break-words text-xl font-bold text-slate-900 sm:text-2xl dark:text-white">Add Room</h3>
             <label className={labelClass}>
               Room name
               <input className={inputClass} name="name" placeholder="e.g. Lab 3 / Hall A" required />
@@ -407,15 +407,15 @@ export function AdminTimetableManager({
           </form>
         </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-4 border-t border-[#233246] pt-5 sm:grid-cols-2 xl:grid-cols-3">
-          <div className="rounded-xl border border-[#233246] bg-[#0d1727]/80 p-4">
-            <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-[#3acbd4]">Existing Courses</h3>
+        <div className="mt-6 grid grid-cols-1 gap-4 border-t border-slate-200 pt-5 sm:grid-cols-2 xl:grid-cols-3 dark:border-[#233246]">
+          <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 dark:border-[#233246] dark:bg-[#0d1727]/80">
+            <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-600 dark:text-[#3acbd4]">Existing Courses</h3>
             {courses.length ? (
-              <ul className="mt-3 max-h-48 space-y-1.5 overflow-y-auto text-xs text-slate-300">
+              <ul className="mt-3 max-h-48 space-y-1.5 overflow-y-auto text-xs text-slate-600 dark:text-slate-300">
                 {courses.map((course) => (
-                  <li className="flex items-center justify-between rounded-lg bg-[#0c1422] p-2" key={course.id}>
-                    <span className="font-bold text-white">{course.code}</span>
-                    <span className="text-slate-400">{course.name} ({course.teacherName})</span>
+                  <li className="flex items-center justify-between rounded-lg border border-slate-200/60 bg-white p-2 dark:border-transparent dark:bg-[#0c1422]" key={course.id}>
+                    <span className="font-bold text-slate-900 dark:text-white">{course.code}</span>
+                    <span className="text-slate-500 dark:text-slate-400">{course.name} ({course.teacherName})</span>
                   </li>
                 ))}
               </ul>
@@ -423,14 +423,14 @@ export function AdminTimetableManager({
               <p className="mt-2 text-xs text-slate-500">No courses yet.</p>
             )}
           </div>
-          <div className="rounded-xl border border-[#233246] bg-[#0d1727]/80 p-4">
-            <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-[#4ee7b8]">Existing Sections</h3>
+          <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 dark:border-[#233246] dark:bg-[#0d1727]/80">
+            <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-teal-600 dark:text-[#4ee7b8]">Existing Sections</h3>
             {sections.length ? (
-              <ul className="mt-3 max-h-48 space-y-1.5 overflow-y-auto text-xs text-slate-300">
+              <ul className="mt-3 max-h-48 space-y-1.5 overflow-y-auto text-xs text-slate-600 dark:text-slate-300">
                 {sections.map((section) => (
-                  <li className="flex items-center justify-between rounded-lg bg-[#0c1422] p-2" key={section.id}>
-                    <span className="font-bold text-white">{section.name}</span>
-                    <span className="text-slate-400">{section.program} · {section.batchPart} · {section.department} (Sem {section.semester})</span>
+                  <li className="flex items-center justify-between rounded-lg border border-slate-200/60 bg-white p-2 dark:border-transparent dark:bg-[#0c1422]" key={section.id}>
+                    <span className="font-bold text-slate-900 dark:text-white">{section.name}</span>
+                    <span className="text-slate-500 dark:text-slate-400">{section.program} · {section.batchPart} · {section.department} (Sem {section.semester})</span>
                   </li>
                 ))}
               </ul>
@@ -438,14 +438,14 @@ export function AdminTimetableManager({
               <p className="mt-2 text-xs text-slate-500">No sections yet.</p>
             )}
           </div>
-          <div className="rounded-xl border border-[#233246] bg-[#0d1727]/80 p-4">
-            <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-[#66d3ff]">Existing Rooms</h3>
+          <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 dark:border-[#233246] dark:bg-[#0d1727]/80">
+            <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-sky-600 dark:text-[#66d3ff]">Existing Rooms</h3>
             {rooms.length ? (
-              <ul className="mt-3 max-h-48 space-y-1.5 overflow-y-auto text-xs text-slate-300">
+              <ul className="mt-3 max-h-48 space-y-1.5 overflow-y-auto text-xs text-slate-600 dark:text-slate-300">
                 {rooms.map((room) => (
-                  <li className="flex items-center justify-between rounded-lg bg-[#0c1422] p-2" key={room.id}>
-                    <span className="font-bold text-white">{room.name}</span>
-                    <span className="text-slate-400">Cap: {room.capacity} seats</span>
+                  <li className="flex items-center justify-between rounded-lg border border-slate-200/60 bg-white p-2 dark:border-transparent dark:bg-[#0c1422]" key={room.id}>
+                    <span className="font-bold text-slate-900 dark:text-white">{room.name}</span>
+                    <span className="text-slate-500 dark:text-slate-400">Cap: {room.capacity} seats</span>
                   </li>
                 ))}
               </ul>
@@ -458,35 +458,35 @@ export function AdminTimetableManager({
       </details>
 
       <section className="grid grid-cols-1 gap-2 min-[420px]:grid-cols-2 sm:grid-cols-3" aria-label="Timetable summary">
-        <article className="flex min-w-0 items-center gap-2 rounded-lg border border-[#243244] bg-[#101b2a]/90 px-3 py-2">
-          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md border border-[#42c5c755] bg-[#37c5c71d] text-xs text-[#40d2d1]">
+        <article className="flex min-w-0 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm dark:border-[#243244] dark:bg-[#101b2a]/90">
+          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md border border-cyan-500/20 bg-cyan-50 text-xs text-cyan-600 dark:border-[#42c5c755] dark:bg-[#37c5c71d] dark:text-[#40d2d1]">
             ▦
           </span>
           <span className="min-w-0">
-            <span className="block truncate text-[9px] text-slate-400">Scheduled classes</span>
-            <strong className="block text-sm leading-tight text-white">{slots.length}</strong>
+            <span className="block truncate text-[9px] text-slate-500 dark:text-slate-400">Scheduled classes</span>
+            <strong className="block text-sm leading-tight text-slate-900 dark:text-white">{slots.length}</strong>
           </span>
         </article>
-        <article className="flex min-w-0 items-center gap-2 rounded-lg border border-[#243244] bg-[#101b2a]/90 px-3 py-2">
-          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md border border-[#65a9ed55] bg-[#65a9ed1d] text-xs text-[#75b7f1]">
+        <article className="flex min-w-0 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm dark:border-[#243244] dark:bg-[#101b2a]/90">
+          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md border border-blue-500/20 bg-blue-50 text-xs text-blue-600 dark:border-[#65a9ed55] dark:bg-[#65a9ed1d] dark:text-[#75b7f1]">
             ◷
           </span>
           <span className="min-w-0">
-            <span className="block truncate text-[9px] text-slate-400">
+            <span className="block truncate text-[9px] text-slate-500 dark:text-slate-400">
               {days.find((day) => day.value === todayValue)?.label ?? "Today"}
             </span>
-            <strong className="block text-sm leading-tight text-white">
+            <strong className="block text-sm leading-tight text-slate-900 dark:text-white">
               {slots.filter((slot) => slot.dayOfWeek === todayValue).length}
             </strong>
           </span>
         </article>
-        <article className="flex min-w-0 items-center gap-2 rounded-lg border border-[#243244] bg-[#101b2a]/90 px-3 py-2">
-          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md border border-[#aa75dc55] bg-[#aa75dc1d] text-xs text-[#c19aef]">
+        <article className="flex min-w-0 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm dark:border-[#243244] dark:bg-[#101b2a]/90">
+          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md border border-purple-500/20 bg-purple-50 text-xs text-purple-600 dark:border-[#aa75dc55] dark:bg-[#aa75dc1d] dark:text-[#c19aef]">
             ⌂
           </span>
           <span className="min-w-0">
-            <span className="block truncate text-[9px] text-slate-400">Rooms in use</span>
-            <strong className="block text-sm leading-tight text-white">
+            <span className="block truncate text-[9px] text-slate-500 dark:text-slate-400">Rooms in use</span>
+            <strong className="block text-sm leading-tight text-slate-900 dark:text-white">
               {new Set(slots.map((slot) => slot.roomName)).size}
             </strong>
           </span>
@@ -494,19 +494,19 @@ export function AdminTimetableManager({
       </section>
 
       <section
-        className="overflow-hidden rounded-xl border border-[#243244] bg-[#101b2a]/95 p-4 shadow-[0_12px_32px_rgba(15,23,42,0.25)] sm:p-5"
+        className="overflow-hidden rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5 dark:border-[#243244] dark:bg-[#101b2a]/95 dark:shadow-[0_12px_32px_rgba(15,23,42,0.25)]"
         id="schedule-form"
       >
         <div className="flex flex-wrap items-start justify-between gap-2">
           <div>
-        <h2 className="text-base font-bold text-white">
+        <h2 className="text-base font-bold text-slate-900 dark:text-white">
           {editingSlot ? "Edit Scheduled Class" : "Schedule a New Class"}
         </h2>
-        <p className="mt-1 text-xs text-slate-400">
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           Room, teacher, and section time conflicts are automatically checked on save.
         </p>
           </div>
-          <span className="rounded-md border border-[#4bc9c42e] px-2 py-1 text-[9px] font-bold tracking-wide text-[#75d8d3]">
+          <span className="rounded-md border border-cyan-500/30 bg-cyan-50 px-2 py-1 text-[9px] font-bold tracking-wide text-cyan-700 dark:border-[#4bc9c42e] dark:bg-transparent dark:text-[#75d8d3]">
             {editingSlot ? "EDITING" : "NEW CLASS"}
           </span>
         </div>
@@ -515,7 +515,7 @@ export function AdminTimetableManager({
         !sections.length ||
         !rooms.length ||
         !teachers.length ? (
-          <p className="mt-3 rounded-lg border border-amber-500/30 bg-amber-950/40 p-3 text-xs text-amber-300">
+          <p className="mt-3 rounded-lg border border-amber-300 bg-amber-50 p-3 text-xs text-amber-800 dark:border-amber-500/30 dark:bg-amber-950/40 dark:text-amber-300">
             At least one course, section, room, and teacher must be added first.
           </p>
         ) : null}
@@ -657,7 +657,7 @@ export function AdminTimetableManager({
             </button>
             {editingSlot ? (
               <button
-                className="rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:bg-slate-700 hover:text-white"
+                className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white"
                 onClick={() => setEditingSlot(null)}
                 type="button"
               >
@@ -669,16 +669,16 @@ export function AdminTimetableManager({
         <Notice notice={slotNotice} />
       </section>
 
-      <section className="min-w-0 overflow-hidden rounded-xl border border-[#233246] bg-[#111c2d]/95 p-4 shadow-[0_12px_32px_rgba(15,23,42,0.25)] sm:p-5">
+      <section className="min-w-0 overflow-hidden rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5 dark:border-[#233246] dark:bg-[#111c2d]/95 dark:shadow-[0_12px_32px_rgba(15,23,42,0.25)]">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="flex flex-wrap items-center gap-2 text-base font-bold text-white">
+            <h2 className="flex flex-wrap items-center gap-2 text-base font-bold text-slate-900 dark:text-white">
               Scheduled Classes
-              <span className="rounded-full border border-[#1fdbb1]/30 bg-[#1fdbb1]/10 px-2 py-0.5 text-[10px] font-bold text-[#4de5bd]">
+              <span className="rounded-full border border-teal-500/30 bg-teal-500/10 px-2 py-0.5 text-[10px] font-bold text-teal-700 dark:border-[#1fdbb1]/30 dark:bg-[#1fdbb1]/10 dark:text-[#4de5bd]">
                 {slots.length}
               </span>
             </h2>
-            <p className="mt-1 text-xs text-slate-400">
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
               Search and filter the full class schedule.
             </p>
           </div>
@@ -690,14 +690,14 @@ export function AdminTimetableManager({
               value={adminSlotSearch}
               onChange={(e) => setAdminSlotSearch(e.target.value)}
               aria-label="Search classes"
-              className="w-full rounded-lg border border-[#2b3c4b] bg-[#0d1727] py-2 pl-8 pr-9 text-xs text-white placeholder:text-slate-500 outline-none focus:border-[#4ed0d8]"
+              className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-8 pr-9 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-cyan-500 dark:border-[#2b3c4b] dark:bg-[#0d1727] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-[#4ed0d8]"
             />
-            <span className="absolute left-2.5 top-2.5 text-slate-500 text-xs">🔍</span>
+            <span className="absolute left-2.5 top-2.5 text-xs text-slate-400 dark:text-slate-500">🔍</span>
             {adminSlotSearch && (
               <button
                 type="button"
                 onClick={() => setAdminSlotSearch("")}
-                className="absolute right-2.5 top-2.5 text-xs text-slate-400 hover:text-white"
+                className="absolute right-2.5 top-2.5 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-white"
               >
                 ✕
               </button>
@@ -705,15 +705,15 @@ export function AdminTimetableManager({
           </div>
         </div>
 
-        <div className="mt-3 flex items-center gap-1.5 overflow-x-auto border-b border-[#223246] pb-2">
+        <div className="mt-3 flex items-center gap-1.5 overflow-x-auto border-b border-slate-200 pb-2 dark:border-[#223246]">
           <button
             type="button"
             aria-pressed={adminSelectedDay === "ALL"}
             onClick={() => setAdminSelectedDay("ALL")}
             className={`shrink-0 rounded-md px-2.5 py-1.5 text-[11px] font-semibold transition ${
               adminSelectedDay === "ALL"
-                ? "border border-[#31d9b7]/30 bg-[#18d0b0]/15 text-[#64f0cc]"
-                : "text-slate-400 hover:text-white"
+                ? "border border-cyan-500/30 bg-cyan-500/15 text-cyan-800 dark:border-[#31d9b7]/30 dark:bg-[#18d0b0]/15 dark:text-[#64f0cc]"
+                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
             }`}
           >
             All days
@@ -726,8 +726,8 @@ export function AdminTimetableManager({
               onClick={() => setAdminSelectedDay(day.value)}
               className={`shrink-0 rounded-md px-2.5 py-1.5 text-[11px] font-semibold transition ${
                 adminSelectedDay === day.value
-                  ? "border border-[#31d9b7]/30 bg-[#18d0b0]/15 text-[#64f0cc]"
-                  : "text-slate-400 hover:text-white"
+                  ? "border border-cyan-500/30 bg-cyan-500/15 text-cyan-800 dark:border-[#31d9b7]/30 dark:bg-[#18d0b0]/15 dark:text-[#64f0cc]"
+                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
               }`}
             >
               {day.label.slice(0, 3)}
@@ -737,7 +737,7 @@ export function AdminTimetableManager({
             <span className="sr-only">Filter by department</span>
             <select
               aria-label="Filter by department"
-              className="max-w-40 rounded-md border border-[#2b3c4b] bg-[#0d1727] px-2 py-1.5 text-[11px] text-slate-300 outline-none focus:border-[#4ed0d8]"
+              className="max-w-40 rounded-md border border-slate-300 bg-white px-2 py-1.5 text-[11px] text-slate-700 outline-none transition focus:border-cyan-500 dark:border-[#2b3c4b] dark:bg-[#0d1727] dark:text-slate-300 dark:focus:border-[#4ed0d8]"
               onChange={(event) => setAdminSelectedDept(event.target.value)}
               value={adminSelectedDept}
             >
@@ -759,24 +759,24 @@ export function AdminTimetableManager({
             {filteredAdminSlots.map((slot, index) => {
               const status = getSlotStatus(slot);
               const accentClasses = [
-                "bg-[#61e1ac] text-[#082f23]",
-                "bg-[#69d9ff] text-[#062639]",
-                "bg-[#7c9eff] text-[#0a163a]",
-                "bg-[#c286ff] text-[#1d1238]",
-                "bg-[#f3b473] text-[#2a1c0a]",
+                "bg-emerald-500 text-white",
+                "bg-sky-500 text-white",
+                "bg-indigo-500 text-white",
+                "bg-purple-500 text-white",
+                "bg-amber-500 text-white",
               ];
 
               return (
                 <article
                   key={slot.id}
-                  className="grid grid-cols-[3px_58px_minmax(0,1fr)_auto] items-center gap-x-2 gap-y-1.5 border-b border-[#233246]/70 py-3 last:border-b-0 sm:grid-cols-[3px_68px_minmax(0,1fr)_minmax(100px,.65fr)_auto_auto] sm:gap-x-3"
+                  className="grid grid-cols-[3px_58px_minmax(0,1fr)_auto] items-center gap-x-2 gap-y-1.5 border-b border-slate-200/80 py-3 last:border-b-0 sm:grid-cols-[3px_68px_minmax(0,1fr)_minmax(100px,.65fr)_auto_auto] sm:gap-x-3 dark:border-[#233246]/70"
                 >
                   <span
                     aria-hidden="true"
                     className={`h-8 w-[3px] rounded-full ${accentClasses[index % accentClasses.length].split(" ")[0]}`}
                   />
                   <div className="grid gap-1">
-                    <strong className="text-[11px] font-bold tabular-nums text-slate-100">
+                    <strong className="text-[11px] font-bold tabular-nums text-slate-800 dark:text-slate-100">
                       {slot.startTime}
                     </strong>
                     <span className="text-[10px] tabular-nums text-slate-500">
@@ -785,35 +785,35 @@ export function AdminTimetableManager({
                   </div>
 
                   <div className="min-w-0">
-                    <h3 className="truncate text-xs font-semibold text-white">
+                    <h3 className="truncate text-xs font-semibold text-slate-900 dark:text-white">
                       {slot.courseLabel.split(" · ")[1] || slot.courseLabel}
                     </h3>
-                    <p className="mt-1 truncate text-[10px] text-slate-400">
-                      {slot.courseLabel.split(" · ")[0]} <span className="text-[#4fc8c5]">·</span>{" "}
+                    <p className="mt-1 truncate text-[10px] text-slate-500 dark:text-slate-400">
+                      {slot.courseLabel.split(" · ")[0]} <span className="text-teal-600 dark:text-[#4fc8c5]">·</span>{" "}
                       {slot.sectionLabel}
                     </p>
                     <p className="mt-1 truncate text-[10px] text-slate-500 sm:hidden">
-                      {slot.roomName} <span className="text-[#4fc8c5]">·</span> {slot.teacherName}
+                      {slot.roomName} <span className="text-teal-600 dark:text-[#4fc8c5]">·</span> {slot.teacherName}
                     </p>
                   </div>
 
                   <div className="hidden min-w-0 sm:grid sm:gap-1">
-                    <span className="truncate text-[10px] text-slate-300">{slot.roomName}</span>
+                    <span className="truncate text-[10px] font-medium text-slate-700 dark:text-slate-300">{slot.roomName}</span>
                     <span className="truncate text-[10px] text-slate-500">{slot.teacherName}</span>
                   </div>
 
                   <span className={`inline-flex items-center gap-1.5 justify-self-end rounded-full border px-2 py-1 text-[9px] font-semibold capitalize ${
                     status === "ongoing"
-                      ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
-                      : "border-slate-400/15 bg-slate-400/5 text-slate-400"
+                      ? "border-emerald-500/20 bg-emerald-50 text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-400/10 dark:text-emerald-300"
+                      : "border-slate-300 bg-slate-100 text-slate-600 dark:border-slate-400/15 dark:bg-slate-400/5 dark:text-slate-400"
                   }`}>
-                    <span className={`h-1.5 w-1.5 rounded-full ${status === "ongoing" ? "bg-emerald-300" : "bg-slate-500"}`} />
+                    <span className={`h-1.5 w-1.5 rounded-full ${status === "ongoing" ? "bg-emerald-500 dark:bg-emerald-300" : "bg-slate-400 dark:bg-slate-500"}`} />
                     {status}
                   </span>
 
                   <div className="col-span-2 col-start-3 flex items-center gap-1 sm:col-span-1 sm:col-start-auto sm:justify-end">
                     <button
-                      className="rounded-md border border-slate-700/80 bg-slate-800/80 px-2 py-1 text-[10px] font-semibold text-slate-200 transition hover:border-cyan-500/50 hover:bg-cyan-950/30 hover:text-cyan-300"
+                      className="rounded-md border border-slate-300 bg-white px-2 py-1 text-[10px] font-semibold text-slate-700 transition hover:border-cyan-500/50 hover:bg-cyan-50 hover:text-cyan-700 dark:border-slate-700/80 dark:bg-slate-800/80 dark:text-slate-200 dark:hover:bg-cyan-950/30 dark:hover:text-cyan-300"
                       onClick={() => {
                         setEditingSlot(slot);
                         setSlotNotice(null);
@@ -826,7 +826,7 @@ export function AdminTimetableManager({
                       Edit
                     </button>
                     <button
-                      className="rounded-md border border-rose-500/30 bg-rose-950/30 px-2 py-1 text-[10px] font-semibold text-rose-300 transition hover:bg-rose-900/50 disabled:opacity-60"
+                      className="rounded-md border border-rose-200 bg-rose-50 px-2 py-1 text-[10px] font-semibold text-rose-700 transition hover:bg-rose-100 dark:border-rose-500/30 dark:bg-rose-950/30 dark:text-rose-300 dark:hover:bg-rose-900/50 disabled:opacity-60"
                       disabled={isPending}
                       onClick={() => deleteSlot(slot.id)}
                       type="button"
@@ -839,7 +839,7 @@ export function AdminTimetableManager({
             })}
           </div>
         ) : (
-          <div className="mt-3 rounded-lg border border-dashed border-slate-800 bg-slate-900/30 p-6 text-center text-xs text-slate-500">
+          <div className="mt-3 rounded-lg border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-xs text-slate-500 dark:border-slate-800 dark:bg-slate-900/30">
             No classes match your active filters.
           </div>
         )}

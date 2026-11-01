@@ -54,9 +54,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: light)");
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
     function updateResolvedTheme() {
-      const systemTheme = media.matches ? "light" : "dark";
+      const systemTheme = media.matches ? "dark" : "light";
       const nextResolvedTheme =
         theme === "system" ? systemTheme : theme;
       setResolvedTheme(nextResolvedTheme);
@@ -72,24 +72,16 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, [theme]);
 
   const cycleTheme = useCallback(() => {
-    const nextTheme: Theme =
-      theme === "system"
-        ? "light"
-        : theme === "light"
-          ? "dark"
-          : "system";
-    const systemTheme = window.matchMedia("(prefers-color-scheme: light)").matches
-      ? "light"
-      : "dark";
+    const nextTheme: Theme = resolvedTheme === "dark" ? "light" : "dark";
     try {
       window.localStorage.setItem(themeStorageKey, nextTheme);
     } catch {
       // Keep the selected theme active for this session if storage is unavailable.
     }
     setTheme(nextTheme);
-    setResolvedTheme(nextTheme === "system" ? systemTheme : nextTheme);
-    applyTheme(nextTheme, systemTheme);
-  }, [theme]);
+    setResolvedTheme(nextTheme);
+    applyTheme(nextTheme, nextTheme);
+  }, [resolvedTheme]);
 
   const value = useMemo(
     () => ({ theme, resolvedTheme, cycleTheme }),

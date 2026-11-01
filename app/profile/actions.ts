@@ -87,6 +87,7 @@ export async function updateProfileAction(
   const department = field(formData, "department");
   const semesterText = field(formData, "semester");
   const rollNo = field(formData, "rollNo");
+  const cnic = field(formData, "cnic");
   const fatherName = field(formData, "fatherName");
   const surname = field(formData, "surname");
   const category = field(formData, "category");
@@ -111,6 +112,7 @@ export async function updateProfileAction(
   if (
     user.role === UserRole.STUDENT &&
     (rollNo.length > 64 ||
+      cnic.length > 15 ||
       fatherName.length > 120 ||
       surname.length > 120 ||
       category.length > 40 ||
@@ -120,6 +122,16 @@ export async function updateProfileAction(
     return {
       ok: false,
       message: "Official student details exceed the allowed length.",
+    };
+  }
+  if (
+    user.role === UserRole.STUDENT &&
+    cnic &&
+    !/^\d{5}-?\d{7}-?\d$/.test(cnic)
+  ) {
+    return {
+      ok: false,
+      message: "Enter a valid 13-digit CNIC (for example, 42101-1234567-1).",
     };
   }
   if (user.role === UserRole.STUDENT && rollNo) {
@@ -208,6 +220,7 @@ export async function updateProfileAction(
         ...(user.role === UserRole.STUDENT
           ? {
               rollNo: rollNo || null,
+              cnic: cnic ? cnic.replace(/\D/g, "") : null,
               fatherName: fatherName || null,
               surname: surname || null,
               category: category || null,
